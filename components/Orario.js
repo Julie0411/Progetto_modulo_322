@@ -1,8 +1,8 @@
 import React from "react";
 import Calendar from "./Calendar";
 
-export default function Orario({darkThemeEnabled}){
+export default function Orario({darkThemeEnabled, addVerifiche}){
     return (
-        <Calendar darkThemeEnabled={darkThemeEnabled}/>
+        <Calendar darkThemeEnabled={darkThemeEnabled} addVerifiche={addVerifiche}/>
     );
 }

@@ -8,10 +8,9 @@ import Note from "./Note";
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({ darkThemeEnabled }) {
+export default function TabNavigator({ darkThemeEnabled, addVerifiche }) {
     const activeColor = darkThemeEnabled ? 'white' : 'black';
     const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
-
     return (
         <Tab.Navigator
             screenOptions={({ route, navigation }) => ({
@@ -45,7 +44,7 @@ export default function TabNavigator({ darkThemeEnabled }) {
             })}
         >
             <Tab.Screen name="Orario" >
-                {() => (<Orario darkThemeEnabled={darkThemeEnabled}  />)}
+                {() => (<Orario darkThemeEnabled={darkThemeEnabled} addVerifiche={addVerifiche} />)}
             </Tab.Screen>
             <Tab.Screen name="Note" >
                 {() => (<Note darkThemeEnabled={darkThemeEnabled} />)}

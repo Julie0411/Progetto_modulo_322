@@ -18,6 +18,7 @@ export default function Note(props){
         }
     })
 
+
     return (
         <View style={styles.background}>
             <Text style={styles.text}>Note!</Text>

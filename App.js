@@ -10,12 +10,19 @@ const headerStyle = { height: 100 };
 export default function App() {
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
     const toggleTheme = () => setDarkThemeEnabled(!darkThemeEnabled);
+    const [verifiche,setVerifiche] = useState([{title:"Kra m322", data:{"datatime":"2024-11-04T14:45:00"}}]);
+
+    function addVerifiche(item){
+        setVerifiche(currentVerifiche => [
+            ...verifiche,{title: item.title,data:item.data}
+        ])
+    }
 
     return (
         <NavigationContainer theme={darkThemeEnabled ? DarkTheme : DefaultTheme}>
             <Stack.Navigator screenOptions={{ headerStyle }}>
                 <Stack.Screen name="TabNavigator" options={{ headerShown: false, headerTitle:"Indietro" }}>
-                    {() => (<TabNavigator darkThemeEnabled={darkThemeEnabled} toggleTheme={toggleTheme} />)}
+                    {() => (<TabNavigator verifiche={verifiche} addVerifiche={addVerifiche} darkThemeEnabled={darkThemeEnabled} toggleTheme={toggleTheme} />)}
                 </Stack.Screen>
                 <Stack.Screen name="Settings" options={{ headerTitle:"Impostazioni"}}>
                     {() => (<Settings toggleTheme={toggleTheme} darkThemeEnabled={darkThemeEnabled} />)}
