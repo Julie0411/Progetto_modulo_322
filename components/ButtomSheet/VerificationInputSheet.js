@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 
 const VerificationInputSheet = ({ darkThemeEnabled, selectedEvent, setSelectedEvent, onSave }) => {
     const [inputText, setInputText] = useState(selectedEvent?.text || "");
     const handleSave = () => {
-        onSave(inputText);
+        onSave(inputText+" ");
         setSelectedEvent(null);
     };
     const handleCancel = () => {
@@ -16,8 +16,9 @@ const VerificationInputSheet = ({ darkThemeEnabled, selectedEvent, setSelectedEv
             backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
             flex: 1,
             padding: 20,
+            flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
         },
         textInput: {
             color: darkThemeEnabled ? 'white' : 'black',
@@ -25,12 +26,16 @@ const VerificationInputSheet = ({ darkThemeEnabled, selectedEvent, setSelectedEv
             borderBottomWidth: 1,
             width: '100%',
             fontSize: 18,
-            marginBottom: 20,
+            marginBottom: 30,
+            paddingHorizontal: 12,
+            paddingVertical: 8,
+            borderRadius: 8,
+            backgroundColor: darkThemeEnabled ? '#333' : '#f5f5f5',
         },
         buttonContainer: {
             flexDirection: 'row',
             justifyContent: 'space-between',
-            width: '100%',
+            width: '90%',
         },
         button: {
             paddingVertical: 10,
@@ -49,8 +54,10 @@ const VerificationInputSheet = ({ darkThemeEnabled, selectedEvent, setSelectedEv
 
     return (
         <BottomSheetView style={styles.contentContainer}>
-            <Text style={{ color: darkThemeEnabled ? 'white' : 'black', fontSize: 18, marginBottom: 10 }}>Inserisci appunti per la verifica</Text>
-            <TextInput
+            <Text style={{ color: darkThemeEnabled ? 'white' : 'black', fontSize: 18, marginBottom: 10 }}>
+                Inserisci appunti per la verifica
+            </Text>
+            <BottomSheetTextInput
                 style={styles.textInput}
                 value={inputText}
                 onChangeText={setInputText}

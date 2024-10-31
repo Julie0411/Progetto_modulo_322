@@ -14,22 +14,24 @@ export default function Orario(props) {
             backgroundColor: props.darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
-
         },
         handleIndicatorStyle: {
             backgroundColor: props.darkThemeEnabled ? 'white' : 'black',
             marginTop: 5
         }
-
     });
+
     const { darkThemeEnabled, addVerification } = props;
     const [selectedEvent, setSelectedEvent] = useState(null);
     const bottomSheetModalRef = useRef(null);
-    const snapPoints = useMemo(() => ["10%","50%"], []);
+
+    const snapPoints = useMemo(() => ["30%"], []);
+
     const handleEventPress = (event) => {
         setSelectedEvent(event);
         bottomSheetModalRef.current?.present();
     };
+
     const handleSaveText = (text) => {
         if (selectedEvent) {
             addVerification({ ...selectedEvent, text });
@@ -38,7 +40,7 @@ export default function Orario(props) {
     };
 
     return (
-        <GestureHandlerRootView>
+        <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <Calendar
@@ -50,7 +52,7 @@ export default function Orario(props) {
                         ref={bottomSheetModalRef}
                         snapPoints={snapPoints}
                         enablePanDownToClose={true}
-                        index={1}
+                        keyboardBehavior="interactive"
                         handleStyle={styles.handleStyle}
                         handleIndicatorStyle={styles.handleIndicatorStyle}
                     >
@@ -66,4 +68,3 @@ export default function Orario(props) {
         </GestureHandlerRootView>
     );
 }
-

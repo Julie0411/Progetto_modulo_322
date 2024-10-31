@@ -29,7 +29,7 @@ export default function Verifications(props) {
     });
     const [item, setItem] = useState(null);
     const bottomSheetModalRef = useRef(null);
-    const snapPoints = useMemo(() => ['20%','50%','94%'], []);
+    const snapPoints = useMemo(() => ['20%','70%','100%'], []);
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
     }, []);
@@ -64,6 +64,7 @@ export default function Verifications(props) {
                     handleIndicatorStyle={styles.handleIndicatorStyle}
                     enablePanDownToClose={true}
                     index={0}
+                    keyboardBehavior="interactive"
                 >
                     <SheetBody darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
                 </BottomSheetModal>

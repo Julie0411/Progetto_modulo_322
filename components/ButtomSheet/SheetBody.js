@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, Text, TextInput, View} from "react-native";
 import {FontAwesome} from "@expo/vector-icons";
-import {BottomSheetView} from "@gorhom/bottom-sheet";
+import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import React, {useState} from "react";
 
 const SheetBody = (props) => {
@@ -12,7 +12,7 @@ const SheetBody = (props) => {
             justifyContent: 'flex-start',
             padding: 20,
             alignItems: 'baseline',
-            gap: 20
+            gap: 20,
         },
         text: {
             color: props.darkThemeEnabled ? 'white' : 'black',
@@ -30,6 +30,7 @@ const SheetBody = (props) => {
             fontSize: 18,
             bottom:4,
             maxWidth: "80%",
+            minWidth: "10%",
         },
         editIcon: {
             marginLeft: 5
@@ -42,7 +43,6 @@ const SheetBody = (props) => {
         button:{
             borderWidth: 1,
             borderColor: props.darkThemeEnabled ? 'white' : 'black',
-            marginTop: 10,
             borderRadius: 10,
             padding: 5,
             paddingRight: 20,
@@ -89,13 +89,14 @@ const SheetBody = (props) => {
                 <View style={styles.textBody}>
                     <Text style={styles.text}>Appunti: </Text>
                     {isEditing ? (
-                        <TextInput
+                        <BottomSheetTextInput
                             style={styles.textInput}
                             value={editedText}
                             onChangeText={setEditedText}
                             onSubmitEditing={saveChanges}
-                            autoFocus
                             multiline={true}
+                            placeholder={"Inserisci qua"}
+                            placeholderTextColor={props.darkThemeEnabled ? 'white' : 'black'}
                         />
                     ) : (
                         <Text style={styles.text}>{props.item.text}</Text>

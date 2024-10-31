@@ -11,16 +11,17 @@ const headerStyle = { height: 110 };
 export default function App() {
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
     const toggleTheme = () => setDarkThemeEnabled(!darkThemeEnabled);
-    const [verifications,setVerifications] = useState([{id:100,title:"title",text:"tetexttexttexttexttexttexttexttexttexttexttextxt",data:{"dateTime": "2024-11-05T13:05:00"}}]);
+    const [verifications,setVerifications] = useState([]);
 
     function addVerification(item) {
+        console.log(item);
         setVerifications(currentVerifications => [
             ...currentVerifications,
             {
-                id: Math.random().toString(),
+                id: item.id,
                 title: item.title,
                 data: { ...item.start },
-                text: item.text || ""
+                text: item.text || "",
             }
         ]);
     }
