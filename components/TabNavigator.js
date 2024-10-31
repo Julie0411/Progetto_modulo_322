@@ -2,15 +2,15 @@ import React from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Verifiche from "./Verifiche";
+import Verifications from "./Verifications";
 import Orario from "./Orario";
 import Note from "./Note";
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({ darkThemeEnabled, addVerifiche }) {
-    const activeColor = darkThemeEnabled ? 'white' : 'black';
-    const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
+export default function TabNavigator(props) {
+    const activeColor = props.darkThemeEnabled ? 'white' : 'black';
+    const inactiveColor = props.darkThemeEnabled ? '#818181' : 'gray';
     return (
         <Tab.Navigator
             screenOptions={({ route, navigation }) => ({
@@ -40,17 +40,17 @@ export default function TabNavigator({ darkThemeEnabled, addVerifiche }) {
                         </View>
                     </Pressable>
                 ),
-                headerStyle: { backgroundColor: darkThemeEnabled ? '#121212' : 'white' },
+                headerStyle: { backgroundColor: props.darkThemeEnabled ? 'black' : 'white' },
             })}
         >
-            <Tab.Screen name="Orario" >
-                {() => (<Orario darkThemeEnabled={darkThemeEnabled} addVerifiche={addVerifiche} />)}
+            <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
+                {() => (<Orario darkThemeEnabled={props.darkThemeEnabled} addVerification={props.addVerification} />)}
             </Tab.Screen>
-            <Tab.Screen name="Note" >
-                {() => (<Note darkThemeEnabled={darkThemeEnabled} />)}
+            <Tab.Screen name="Note" options={{headerStatusBarHeight:65}}>
+                {() => (<Note darkThemeEnabled={props.darkThemeEnabled} />)}
             </Tab.Screen>
-            <Tab.Screen name="Verifiche" >
-                {() => (<Verifiche darkThemeEnabled={darkThemeEnabled} />)}
+            <Tab.Screen name="Verifiche" options={{headerStatusBarHeight:65}}>
+                {() => (<Verifications darkThemeEnabled={props.darkThemeEnabled} verifications={props.verifications} deleteVerification={props.deleteVerification} />)}
             </Tab.Screen>
         </Tab.Navigator>
     );

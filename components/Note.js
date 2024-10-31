@@ -3,11 +3,9 @@ import React from "react";
 
 export default function Note(props){
     const darkThemeEnabled = props.darkThemeEnabled;
-    console.log(darkThemeEnabled);
-
     const styles = StyleSheet.create({
         background: {
-            backgroundColor: darkThemeEnabled ? '#121212' : 'white',
+            backgroundColor: darkThemeEnabled ? 'black' : 'white',
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
@@ -17,7 +15,6 @@ export default function Note(props){
             fontSize: 20
         }
     })
-
 
     return (
         <View style={styles.background}>

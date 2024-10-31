@@ -2,8 +2,8 @@ import React, {useCallback} from 'react';
 import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
 import {View, Text} from 'react-native';
 import {PackedEvent} from "@howljs/calendar-kit";
-const Calendar = ({ darkThemeEnabled }) => {
-
+const Calendar = (props) => {
+    const {onEventPress } = props;
     const renderEvent = useCallback(
         (event: PackedEvent) => (
             <View
@@ -19,11 +19,10 @@ const Calendar = ({ darkThemeEnabled }) => {
         ),
         []
     );
-
     const darkTheme = {
         colors: {
             primary: '#3498db',
-            background: '#121212',
+            background: 'black',
             onBackground: '#e0e0e0',
             text: '#e0e0e0',
         },
@@ -34,7 +33,6 @@ const Calendar = ({ darkThemeEnabled }) => {
             borderRadius: 5,
         }
     };
-
     const lightTheme = {
         colors: {
             primary: '#3498db',
@@ -51,10 +49,8 @@ const Calendar = ({ darkThemeEnabled }) => {
             justifyContent: 'center',
         }
     };
-
     const color1 = '#82ba2e'
     const color2 = '#6089d6'
-
     const events = [
         // Monday
         { id: '0', title: 'Kra m320\n201', start: { dateTime: '2024-11-04T08:20:00' }, end: { dateTime: '2024-11-04T09:50:00' }, color: color1 },
@@ -95,14 +91,14 @@ const Calendar = ({ darkThemeEnabled }) => {
     return (
         <CalendarContainer
             allowPinchToZoom={true}
-            theme={darkThemeEnabled ? darkTheme : lightTheme}
+            theme={props.darkThemeEnabled ? darkTheme : lightTheme}
             numberOfDays={5}
             hideWeekDays={[6, 7]}
             minDate="2024-09-02"
             maxDate="2025-06-16"
             events={events}
             scrollByDay={false}
-            onPressEvent={(event) => { console.log('Event pressed:', event); }}
+            onPressEvent={onEventPress}
             timeInterval={45}
             start={500}
             end={1000}
