@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import TabNavigator from "./components/TabNavigator";
-import Settings from "./components/Settings";
+import TabNavigator from "./src/navigation/TabNavigator";
+import Settings from "./src/screens/Settings";
 import {StatusBar} from "react-native";
 
 const Stack = createStackNavigator();
@@ -10,11 +10,13 @@ const headerStyle = { height: 110 };
 
 export default function App() {
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
-    const toggleTheme = () => setDarkThemeEnabled(!darkThemeEnabled);
-    const [verifications,setVerifications] = useState([]);
+    const [verifications, setVerifications] = useState([]);
 
-    function addVerification(item) {
-        console.log(item);
+    const toggleTheme = useCallback(() => {
+        setDarkThemeEnabled(prev => !prev);
+    }, []);
+
+    const addVerification = useCallback((item) => {
         setVerifications(currentVerifications => [
             ...currentVerifications,
             {
@@ -24,28 +26,46 @@ export default function App() {
                 text: item.text || "",
             }
         ]);
-    }
+    }, []);
 
-    function deleteVerification(id) {
-        setVerifications(currentVerifications => {
-            return currentVerifications.filter((verification) => verification.id !== id);
-        });
-    }
+    const deleteVerification = useCallback((id) => {
+        setVerifications(prev => prev.filter(verification => verification.id !== id));
+    }, []);
+
+    const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
 
     return (
         <>
-            <StatusBar barStyle={darkThemeEnabled? 'light-content':'dark-content'}/>
-            <NavigationContainer theme={darkThemeEnabled ? DarkTheme : DefaultTheme}>
+            <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'} />
+            <NavigationContainer theme={theme}>
                 <Stack.Navigator screenOptions={{ headerStyle }}>
-                    <Stack.Screen name="TabNavigator" options={{ headerShown: false, headerTitle:"Indietro" }}>
-                        {() => (<TabNavigator verifications={verifications} addVerification={addVerification} deleteVerification={deleteVerification} darkThemeEnabled={darkThemeEnabled} toggleTheme={toggleTheme} />)}
+                    <Stack.Screen
+                        name="TabNavigator"
+                        options={{ headerShown: false, headerTitle: "Indietro" }}
+                    >
+                        {() => (
+                            <TabNavigator
+                                verifications={verifications}
+                                addVerification={addVerification}
+                                deleteVerification={deleteVerification}
+                                darkThemeEnabled={darkThemeEnabled}
+                                toggleTheme={toggleTheme}
+                            />
+                        )}
                     </Stack.Screen>
-                    <Stack.Screen name="Settings" options={{ headerTitle:"Impostazioni"}}>
-                        {() => (<Settings toggleTheme={toggleTheme} darkThemeEnabled={darkThemeEnabled} />)}
+                    <Stack.Screen
+                        name="Settings"
+                        options={{ headerTitle: "Impostazioni" }}
+                    >
+                        {() => (
+                            <Settings
+                                toggleTheme={toggleTheme}
+                                darkThemeEnabled={darkThemeEnabled}
+                            />
+                        )}
                     </Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
         </>
-
     );
 }
