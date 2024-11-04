@@ -21,7 +21,7 @@ const createStyles = (colors) => StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flex: 1,
-        padding: 10,
+        padding: 20,
     },
     text: {
         color: colors.text,

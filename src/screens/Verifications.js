@@ -61,8 +61,6 @@ export default function Verifications(props) {
 
     const keyExtractor = useCallback((item) => item.id.toString(), []);
 
-    console.log('Verifications data:', verifications);
-
     return (
         <GestureHandlerRootView style={styles.root}>
             <BottomSheetModalProvider>
