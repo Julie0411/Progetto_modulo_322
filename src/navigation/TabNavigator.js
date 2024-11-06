@@ -3,8 +3,8 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Verifications from "../screens/Verifications";
-import Orario from "../screens/Orario";
-import Note from "../screens/Note";
+import Orario from "../screens/Timetable";
+import Note from "../screens/Grades";
 
 const Tab = createBottomTabNavigator();
 

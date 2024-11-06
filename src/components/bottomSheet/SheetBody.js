@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
-
+import {formatDate} from "../../utils/formatters/dateFormatter";
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     contentContainer: {
         backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
@@ -50,17 +50,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         fontSize: 16,
     },
 });
-
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const formattedDate = new Intl.DateTimeFormat('it-IT', {
-        day: 'numeric',
-        month: 'long'
-    }).format(date);
-    return formattedDate.slice(0,2) +
-        formattedDate.charAt(2).toUpperCase() +
-        formattedDate.slice(3);
-};
 
 const SheetBody = ({ darkThemeEnabled, item, setItem }) => {
     const [isEditing, setIsEditing] = useState(false);

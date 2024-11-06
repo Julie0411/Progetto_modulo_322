@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
 
 const Settings = ({ darkThemeEnabled, toggleTheme }) => {
-    const [maturitaIsEnabled, setMaturitaIsEnabled] = React.useState(false);
-    const toggleMaturita = () => setMaturitaIsEnabled(!maturitaIsEnabled);
+    const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
+    const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
     const styles = useStyles(createStyles, darkThemeEnabled);
 
@@ -17,7 +17,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme }) => {
             >
                 <View style={[styles.element, { marginTop: 10 }]}>
                     <Text style={styles.text}>Maturità</Text>
-                    <Switch onValueChange={toggleMaturita} value={maturitaIsEnabled} />
+                    <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
                 </View>
                 <View style={styles.element}>
                     <Text style={styles.text}>Dark Theme</Text>

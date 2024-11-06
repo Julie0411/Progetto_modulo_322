@@ -5,7 +5,7 @@ import VerificationInputSheet from "../components/bottomSheet/VerificationInputS
 import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-export default function Orario(props) {
+export default function Timetable(props) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,

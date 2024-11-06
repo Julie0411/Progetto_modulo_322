@@ -1,7 +1,7 @@
 import {Text, View, StyleSheet} from "react-native";
 import React from "react";
 
-export default function Note(props){
+export default function Grades(props){
     const darkThemeEnabled = props.darkThemeEnabled;
     const styles = StyleSheet.create({
         background: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { useStyles } from "../utils/hooks/useStyles";
-import dateFormatter from "../utils/formatters/dateFormatter";
+import {formatDate} from "../utils/formatters/dateFormatter";
 
 const createStyles = (colors) => StyleSheet.create({
     container: {
@@ -45,7 +45,7 @@ const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
             >
                 <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
                 <Text style={styles.text} numberOfLines={1}>
-                    {dateFormatter.formatDate(item.data.dateTime)}
+                    {formatDate(item.data.dateTime)}
                 </Text>
             </Pressable>
         </View>
