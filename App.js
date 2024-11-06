@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from "./src/navigation/TabNavigator";
 import Settings from "./src/screens/Settings";
 import {StatusBar} from "react-native";
+import Initial from "./src/screens/Initial";
 
 const Stack = createStackNavigator();
 const headerStyle = { height: 110 };
@@ -11,11 +12,9 @@ const headerStyle = { height: 110 };
 export default function App() {
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
     const [verifications, setVerifications] = useState([]);
-
     const toggleTheme = useCallback(() => {
         setDarkThemeEnabled(prev => !prev);
     }, []);
-
     const addVerification = useCallback((item) => {
         setVerifications(currentVerifications => [
             ...currentVerifications,
@@ -27,12 +26,11 @@ export default function App() {
             }
         ]);
     }, []);
-
     const deleteVerification = useCallback((id) => {
         setVerifications(prev => prev.filter(verification => verification.id !== id));
     }, []);
-
     const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
+    let firstOpen = true;
 
     return (
         <>
@@ -60,6 +58,16 @@ export default function App() {
                         {() => (
                             <Settings
                                 toggleTheme={toggleTheme}
+                                darkThemeEnabled={darkThemeEnabled}
+                            />
+                        )}
+                    </Stack.Screen>
+                    <Stack.Screen
+                        name="Initial"
+                        options={{ headerShown: false }}
+                    >
+                        {() => (
+                            <Initial
                                 darkThemeEnabled={darkThemeEnabled}
                             />
                         )}

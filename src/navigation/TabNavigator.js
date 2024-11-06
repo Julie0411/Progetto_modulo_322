@@ -34,7 +34,7 @@ export default function TabNavigator(props) {
                     </Pressable>
                 ),
                 headerLeft: () => (
-                    <Pressable>
+                    <Pressable onPress={() => navigation.navigate('Initial')}>
                         <View style={styles.shareButton}>
                             <Ionicons name={'share-outline'} size={28} color={activeColor} />
                         </View>
