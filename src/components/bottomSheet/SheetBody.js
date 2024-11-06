@@ -3,53 +3,6 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 import {formatDate} from "../../utils/formatters/dateFormatter";
-const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    contentContainer: {
-        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        padding: 20,
-        alignItems: 'baseline',
-        gap: 20,
-    },
-    text: {
-        color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 18,
-        maxWidth: "90%",
-    },
-    textBody: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        maxWidth: "80%",
-    },
-    textInput: {
-        color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 18,
-        bottom: 4,
-        maxWidth: "80%",
-        minWidth: "10%",
-    },
-    editIcon: {
-        marginLeft: 5
-    },
-    buttons: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: '100%',
-    },
-    button: {
-        borderWidth: 1,
-        borderColor: darkThemeEnabled ? 'white' : 'black',
-        borderRadius: 10,
-        padding: 5,
-        paddingHorizontal: 20,
-    },
-    buttonText: {
-        color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 16,
-    },
-});
 
 const SheetBody = ({ darkThemeEnabled, item, setItem }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -118,3 +71,51 @@ const SheetBody = ({ darkThemeEnabled, item, setItem }) => {
 };
 
 export default React.memo(SheetBody);
+
+const createStyles = (darkThemeEnabled) => StyleSheet.create({
+    contentContainer: {
+        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        padding: 20,
+        alignItems: 'baseline',
+        gap: 20,
+    },
+    text: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        fontSize: 18,
+        maxWidth: "90%",
+    },
+    textBody: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        maxWidth: "80%",
+    },
+    textInput: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        fontSize: 18,
+        bottom: 4,
+        maxWidth: "80%",
+        minWidth: "10%",
+    },
+    editIcon: {
+        marginLeft: 5
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+    },
+    button: {
+        borderWidth: 1,
+        borderColor: darkThemeEnabled ? 'white' : 'black',
+        borderRadius: 10,
+        padding: 5,
+        paddingHorizontal: 20,
+    },
+    buttonText: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        fontSize: 16,
+    },
+});

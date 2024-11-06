@@ -1,55 +1,47 @@
+// Import necessary React hooks and components
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import {View, StyleSheet, FlatList} from "react-native";
+// Import custom components
 import Verification from "../components/Verification";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
 import SheetBody from "../components/bottomSheet/SheetBody";
+// Import bottom sheet components for modal functionality
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+// Import gesture handler for touch interactions
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    root: {
-        flex: 1,
-    },
-    background: {
-        backgroundColor: darkThemeEnabled ? 'black' : 'white',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    handleStyle: {
-        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
-    },
-    handleIndicatorStyle: {
-        backgroundColor: darkThemeEnabled ? 'white' : 'black',
-        marginTop: 5
-    }
-});
-
 export default function Verifications(props) {
-    const { darkThemeEnabled, verifications, deleteVerification } = props; // Destructure props
-
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]); // Memoize styles
-
+    // Destructure props for easy access
+    const { darkThemeEnabled, verifications, deleteVerification } = props;
+    // Create memoized styles based on theme
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+    // State for currently selected item
     const [item, setItem] = useState(null);
+    // Reference for bottom sheet modal
     const bottomSheetModalRef = useRef(null);
+    // Memoized snap points for bottom sheet
     const snapPoints = useMemo(() => ['20%','70%','100%'], []);
+    // Memoized key extractor for FlatList
+    const keyExtractor = useCallback((item) => item.id.toString(), []);
 
+    // Handler to show bottom sheet modal
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
     }, []);
 
+    // Handler for item press - sets selected item and shows modal
     const handlePress = useCallback((selectedItem) => {
         setItem(selectedItem);
         handlePresentModalPress();
     }, [handlePresentModalPress]);
 
+    // Handler for long press - deletes the verification
     const handleLongPress = useCallback((selectedItem) => {
         deleteVerification(selectedItem.id);
     }, [deleteVerification]);
 
+    // Memoized render function for FlatList items
     const renderItem = useCallback(({ item }) => (
         <Verification
             item={item}
@@ -59,12 +51,13 @@ export default function Verifications(props) {
         />
     ), [darkThemeEnabled, handlePress, handleLongPress]);
 
-    const keyExtractor = useCallback((item) => item.id.toString(), []);
-
     return (
+        // Root view with gesture handling
         <GestureHandlerRootView style={styles.root}>
             <BottomSheetModalProvider>
+                {/* Main content container */}
                 <View style={styles.background}>
+                    {/* List of verifications with performance optimizations */}
                     <FlatList
                         data={verifications}
                         renderItem={renderItem}
@@ -76,6 +69,7 @@ export default function Verifications(props) {
                         windowSize={5}
                     />
                 </View>
+                {/* Bottom sheet modal for detailed view */}
                 <BottomSheetModal
                     ref={bottomSheetModalRef}
                     snapPoints={snapPoints}
@@ -94,4 +88,28 @@ export default function Verifications(props) {
     );
 }
 
-
+// Style creation function that adapts to theme
+const createStyles = (darkThemeEnabled) => StyleSheet.create({
+    // Root container style
+    root: {
+        flex: 1,
+    },
+    // Main background container style
+    background: {
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    // Bottom sheet handle style
+    handleStyle: {
+        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    // Bottom sheet handle indicator style
+    handleIndicatorStyle: {
+        backgroundColor: darkThemeEnabled ? 'white' : 'black',
+        marginTop: 5
+    }
+});

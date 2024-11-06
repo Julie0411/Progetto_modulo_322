@@ -3,6 +3,27 @@ import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native';
 import { useStyles } from "../utils/hooks/useStyles";
 import {formatDate} from "../utils/formatters/dateFormatter";
 
+const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
+    const styles = useStyles(createStyles, darkThemeEnabled);
+
+    return (
+        <View style={styles.container}>
+            <Pressable
+                onLongPress={longPress}
+                onPress={press}
+                style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
+            >
+                <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.text} numberOfLines={1}>
+                    {formatDate(item.data.dateTime)}
+                </Text>
+            </Pressable>
+        </View>
+    );
+};
+
+export default Verification;
+
 const createStyles = (colors) => StyleSheet.create({
     container: {
         flexDirection: 'row',
@@ -32,24 +53,3 @@ const createStyles = (colors) => StyleSheet.create({
         backgroundColor: colors.surface,
     }
 });
-
-const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
-    const styles = useStyles(createStyles, darkThemeEnabled);
-
-    return (
-        <View style={styles.container}>
-            <Pressable
-                onLongPress={longPress}
-                onPress={press}
-                style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
-            >
-                <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
-                <Text style={styles.text} numberOfLines={1}>
-                    {formatDate(item.data.dateTime)}
-                </Text>
-            </Pressable>
-        </View>
-    );
-};
-
-export default Verification;

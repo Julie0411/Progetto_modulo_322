@@ -8,29 +8,6 @@ import { toRad } from 'react-native-redash';
 
 const AnimatedRectButton = Animated.createAnimatedComponent(RectButton);
 
-const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    container: {
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: 24,
-        marginBottom: 12,
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        backgroundColor: darkThemeEnabled ? 'black' : 'white',
-        marginTop: 10,
-        elevation: 8,
-    },
-    arrow: {
-        fontSize: 20,
-        height: 20,
-        textAlignVertical: 'center',
-        fontWeight: '900',
-        color: darkThemeEnabled ? 'white' : 'black',
-    },
-});
-
 const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     const { bottom: bottomSafeArea } = useSafeAreaInsets();
@@ -77,3 +54,26 @@ const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
 };
 
 export default React.memo(CustomFooter);
+
+const createStyles = (darkThemeEnabled) => StyleSheet.create({
+    container: {
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 24,
+        marginBottom: 12,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
+        marginTop: 10,
+        elevation: 8,
+    },
+    arrow: {
+        fontSize: 20,
+        height: 20,
+        textAlignVertical: 'center',
+        fontWeight: '900',
+        color: darkThemeEnabled ? 'white' : 'black',
+    },
+});

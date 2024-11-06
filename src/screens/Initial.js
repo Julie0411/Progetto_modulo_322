@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, View, Text } from 'react-native';
+import {Pressable, StyleSheet, View, Text, Switch} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import { useStyles } from "../utils/hooks/useStyles";
+import {INITIAL_CONFIG} from "../constants/const";
 
 const data = [
     { label: 'I2a', value: '1' },
@@ -14,9 +15,15 @@ export default function Initial(props) {
     const darkThemeEnabled = props.darkThemeEnabled;
     const styles = useStyles(createStyles, darkThemeEnabled);
     const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-    const navigation = useNavigation(); // Access the navigation object
+    const [, setIsFocus] = useState(false);
+    const navigation = useNavigation();
+    const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
+    const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
+    const onPress = () => {
+        navigation.navigate('TabNavigator');
+
+    };
     return (
         <View style={styles.background}>
             <View style={styles.container}>
@@ -36,10 +43,6 @@ export default function Initial(props) {
                     search
                     activeColor={darkThemeEnabled ? 'black' : 'white'}
                     maxHeight={300}
-                    labelField="label"
-                    valueField="value"
-                    placeholder={'Select item'}
-                    searchPlaceholder="Search..."
                     value={value}
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
@@ -47,8 +50,13 @@ export default function Initial(props) {
                         setValue(item.value);
                         setIsFocus(false);
                     }}
+                    {...INITIAL_CONFIG}
                 />
-                <Pressable  disabled={value === null} onPress={() => navigation.navigate('TabNavigator')}>
+                <View style={styles.toggle}>
+                    <Text style={styles.toggleText}>Maturità</Text>
+                    <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
+                </View>
+                <Pressable  disabled={value === null} onPress={onPress}>
                     <View style={styles.buttonContainer}>
                         <Text style={styles.button}>Сontinuare</Text>
                     </View>
@@ -129,6 +137,20 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     itemTextStyle: {
         color: darkThemeEnabled ? 'white' : 'black',
+    },
+    toggle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 20,
+        borderRadius: 8,
+        borderWidth: 0.5,
+        borderColor: 'gray',
+        padding: 10,
+    },
+    toggleText: {
+        fontSize: 16,
+        color: darkThemeEnabled ? 'white' : 'black',
+        paddingRight: 10,
     },
     buttonContainer: {
         backgroundColor: 'white',

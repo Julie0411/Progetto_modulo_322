@@ -65,13 +65,13 @@ const createStyles = (colors) => StyleSheet.create({
         maxWidth: '100%',
         padding: 20,
         marginTop: 10,
-        backgroundColor: colors.surface,
+        backgroundColor: colors.settingsSurface,
         height: 60,
         borderRadius: 5,
         marginHorizontal: 10,
     },
     text: {
-        color: colors.text,
+        color: colors.settingsText,
     },
     footer: {
         height: 60,
