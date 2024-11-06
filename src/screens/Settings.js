@@ -2,30 +2,6 @@ import React from "react";
 import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
 
-const createStyles = (colors) => StyleSheet.create({
-    settingsContainer: {
-        backgroundColor: colors.background,
-        flexDirection: 'column',
-        alignItems: "stretch",
-        height: '100%',
-    },
-    element: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        maxWidth: '100%',
-        padding: 20,
-        marginTop: 10,
-        backgroundColor: colors.surface,
-        height: 60,
-        borderRadius: 5,
-        marginHorizontal: 10,
-    },
-    text: {
-        color: colors.text,
-    }
-});
-
 const Settings = ({ darkThemeEnabled, toggleTheme }) => {
     const [maturitaIsEnabled, setMaturitaIsEnabled] = React.useState(false);
     const toggleMaturita = () => setMaturitaIsEnabled(!maturitaIsEnabled);
@@ -67,6 +43,41 @@ const Settings = ({ darkThemeEnabled, toggleTheme }) => {
             </ScrollView>
         </View>
     );
-}
+};
 
 export default Settings;
+
+const createStyles = (colors) => StyleSheet.create({
+    settingsContainer: {
+        backgroundColor: colors.background,
+        flexDirection: 'column',
+        height: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        padding: 8,
+        width: '100%',
+    },
+    element: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        maxWidth: '100%',
+        padding: 20,
+        marginTop: 10,
+        backgroundColor: colors.surface,
+        height: 60,
+        borderRadius: 5,
+        marginHorizontal: 10,
+    },
+    text: {
+        color: colors.text,
+    },
+    footer: {
+        height: 60,
+        borderRadius: 8,
+        padding: 10,
+        marginTop: 20,
+        alignItems: 'center',
+    }
+});

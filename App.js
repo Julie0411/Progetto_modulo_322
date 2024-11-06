@@ -38,6 +38,16 @@ export default function App() {
             <NavigationContainer theme={theme}>
                 <Stack.Navigator screenOptions={{ headerStyle }}>
                     <Stack.Screen
+                        name="Initial"
+                        options={{ headerShown: false }}
+                    >
+                        {() => (
+                            <Initial
+                                darkThemeEnabled={darkThemeEnabled}
+                            />
+                        )}
+                    </Stack.Screen>
+                    <Stack.Screen
                         name="TabNavigator"
                         options={{ headerShown: false, headerTitle: "Indietro" }}
                     >
@@ -58,16 +68,6 @@ export default function App() {
                         {() => (
                             <Settings
                                 toggleTheme={toggleTheme}
-                                darkThemeEnabled={darkThemeEnabled}
-                            />
-                        )}
-                    </Stack.Screen>
-                    <Stack.Screen
-                        name="Initial"
-                        options={{ headerShown: false }}
-                    >
-                        {() => (
-                            <Initial
                                 darkThemeEnabled={darkThemeEnabled}
                             />
                         )}

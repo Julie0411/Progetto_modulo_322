@@ -12,5 +12,13 @@ export const lightColors = {
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
-    }
+    },
+    primary: '#3498db',
+    background: '#f3f2f8',
+    surface: '#ffffff',
+    text: 'black',
+    textSecondary: '#8c8c8c',
+    border: 'white',
+    inputBackground: '#333',
+    placeholder: '#666'
 };

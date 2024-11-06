@@ -1,36 +1,44 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import {useStyles} from "../utils/hooks/useStyles";
+import { useNavigation } from '@react-navigation/native';
+import { useStyles } from "../utils/hooks/useStyles";
 
 const data = [
-    { label: 'Nessuno', value: '1' },
-    { label: 'I2a', value: '2' },
+    { label: 'I2a', value: '1' },
+    { label: 'I2b', value: '2' },
+    { label: 'I2c', value: '3' },
 ];
 
-export default function Initial(props){
+export default function Initial(props) {
     const darkThemeEnabled = props.darkThemeEnabled;
     const styles = useStyles(createStyles, darkThemeEnabled);
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-
+    const navigation = useNavigation(); // Access the navigation object
 
     return (
         <View style={styles.background}>
             <View style={styles.container}>
+                <View style={styles.title}>
+                    <Text style={styles.text}>Scegli la sua classe</Text>
+                </View>
                 <Dropdown
                     style={styles.dropdown}
                     placeholderStyle={styles.placeholderStyle}
                     selectedTextStyle={styles.selectedTextStyle}
                     inputSearchStyle={styles.inputSearchStyle}
                     iconStyle={styles.iconStyle}
+                    containerStyle={styles.containerStyle}
+                    itemContainerStyle={styles.itemContainerStyle}
+                    itemTextStyle={styles.itemTextStyle}
                     data={data}
                     search
+                    activeColor={darkThemeEnabled ? 'black' : 'white'}
                     maxHeight={300}
                     labelField="label"
                     valueField="value"
-                    placeholder={!isFocus ? 'Select item' : '...'}
+                    placeholder={'Select item'}
                     searchPlaceholder="Search..."
                     value={value}
                     onFocus={() => setIsFocus(true)}
@@ -39,15 +47,12 @@ export default function Initial(props){
                         setValue(item.value);
                         setIsFocus(false);
                     }}
-                    renderLeftIcon={() => (
-                        <AntDesign
-                            style={styles.icon}
-                            color={isFocus ? 'blue' : 'black'}
-                            name="Safety"
-                            size={20}
-                        />
-                    )}
                 />
+                <Pressable  disabled={value === null} onPress={() => navigation.navigate('TabNavigator')}>
+                    <View style={styles.buttonContainer}>
+                        <Text style={styles.button}>Сontinuare</Text>
+                    </View>
+                </Pressable>
             </View>
         </View>
     );
@@ -60,12 +65,20 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    title: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 1,
+        marginBottom: 20
+    },
     text: {
         color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 20
+        fontSize: 20,
     },
     container: {
-        backgroundColor: darkThemeEnabled ? 'black' : 'white',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 16,
         width: '100%',
     },
@@ -76,6 +89,8 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         borderWidth: 0.5,
         borderRadius: 8,
         paddingHorizontal: 8,
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
+
     },
     icon: {
         marginRight: 5,
@@ -83,15 +98,16 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     label: {
         position: 'absolute',
-        backgroundColor: darkThemeEnabled ? 'white' : 'black',
         left: 22,
         top: 8,
-        zIndex: 999,
         paddingHorizontal: 8,
         fontSize: 14,
+        borderWidth: 0.5,
     },
     placeholderStyle: {
         fontSize: 16,
+        color: darkThemeEnabled ? 'white' : 'black',
+
     },
     selectedTextStyle: {
         fontSize: 16,
@@ -99,15 +115,30 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     iconStyle: {
         width: 20,
-
     },
     inputSearchStyle: {
-        height: 40,
+        height: 30,
         fontSize: 16,
         color: darkThemeEnabled ? 'white' : 'black',
+    },
+    containerStyle: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
+        borderWidth: 0.4,
+        borderRadius: 8,
+        padding: 2,
+    },
+    itemTextStyle: {
+        color: darkThemeEnabled ? 'white' : 'black',
+    },
+    buttonContainer: {
+        backgroundColor: 'white',
+        borderRadius: 8,
+        padding: 10,
+        marginTop: 20,
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: 'white',
+        borderRadius: 10
     },
 })
-
-
-
