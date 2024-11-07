@@ -1,24 +1,33 @@
+// Import necessary React and React Native components
 import React from "react";
 import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
 
+// Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({ darkThemeEnabled, toggleTheme }) => {
+    // State for maturity toggle switch
     const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
+    // Get dynamic styles based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
 
     return (
+        // Main container for settings screen
         <View style={styles.settingsContainer}>
+            {/* Scrollable content area */}
             <ScrollView
                 horizontal={false}
                 contentContainerStyle={{ flexGrow: 1 }}
                 alwaysBounceHorizontal={false}
             >
+                {/* Maturity setting toggle */}
                 <View style={[styles.element, { marginTop: 10 }]}>
                     <Text style={styles.text}>Maturità</Text>
                     <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
                 </View>
+
+                {/* Dark theme toggle with custom colors */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Dark Theme</Text>
                     <Switch
@@ -28,15 +37,23 @@ const Settings = ({ darkThemeEnabled, toggleTheme }) => {
                         value={darkThemeEnabled}
                     />
                 </View>
+
+                {/* Information section */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Informazione</Text>
                 </View>
+
+                {/* FAQ section */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Hai altre domande?</Text>
                 </View>
+
+                {/* Donation section */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Buy Andrea a coffee</Text>
                 </View>
+
+                {/* Version footer */}
                 <View style={styles.footer}>
                     <Text style={styles.text}>v: a0.1</Text>
                 </View>
@@ -47,7 +64,9 @@ const Settings = ({ darkThemeEnabled, toggleTheme }) => {
 
 export default Settings;
 
+// StyleSheet creation function that receives colors based on theme
 const createStyles = (colors) => StyleSheet.create({
+    // Main container styles
     settingsContainer: {
         backgroundColor: colors.background,
         flexDirection: 'column',
@@ -58,6 +77,7 @@ const createStyles = (colors) => StyleSheet.create({
         padding: 8,
         width: '100%',
     },
+    // Individual setting element styles
     element: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -70,9 +90,11 @@ const createStyles = (colors) => StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 10,
     },
+    // Text styling for all settings
     text: {
         color: colors.settingsText,
     },
+    // Footer section styles
     footer: {
         height: 60,
         borderRadius: 8,

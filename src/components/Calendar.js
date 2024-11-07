@@ -1,3 +1,4 @@
+// Import necessary dependencies from React and calendar-kit library
 import React, {useCallback, useMemo} from 'react';
 import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
 import {View, Text, StyleSheet} from 'react-native';
@@ -8,37 +9,51 @@ import {EVENTS} from "../constants/events";
 import {useStyles} from "../utils/hooks/useStyles";
 import {CALENDAR_CONFIG} from "../constants/const";
 
+// Main Calendar component that accepts darkThemeEnabled and onEventPress as props
 const Calendar = ({ darkThemeEnabled, onEventPress }) => {
+    // Initialize styles using custom hook based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
+
+    // Memoized color theme selection based on darkThemeEnabled prop
     const colors = useMemo(() =>
             darkThemeEnabled ? darkColors : lightColors,
         [darkThemeEnabled]
     );
+
+    // Callback function to render individual calendar events
+    // Takes a PackedEvent type parameter and returns a styled View
     const renderEvent = useCallback((event: PackedEvent) => (
             <View style={styles.eventContainer}>
-                <Text style={styles.eventText}>{event.title}{"\n"}{event.start.dateTime.slice(11,16)} - {event.end.dateTime.slice(11,16)}</Text>
+                <Text style={styles.eventText}>
+                    {/* Display event title and formatted time range */}
+                    {event.title}{"\n"}
+                    {event.start.dateTime.slice(11,16)} - {event.end.dateTime.slice(11,16)}
+                </Text>
             </View>
         ),
         [styles]
     );
+
+    // Return the calendar component structure
     return (
         <CalendarContainer
-            allowPinchToZoom={true}
-            theme={colors}
-            events={EVENTS}
-            scrollByDay={false}
-            onPressEvent={onEventPress}
-            useHaptic={true}
-            {...CALENDAR_CONFIG}
+            allowPinchToZoom={true}  // Enable pinch zoom functionality
+            theme={colors}           // Apply theme colors
+            events={EVENTS}          // Pass events data
+            scrollByDay={false}      // Disable scroll by day
+            onPressEvent={onEventPress} // Handle event press
+            useHaptic={true}         // Enable haptic feedback
+            {...CALENDAR_CONFIG}      // Spread additional calendar configuration
         >
-            <CalendarHeader />
-            <CalendarBody renderEvent={renderEvent} />
+            <CalendarHeader />       // Render calendar header
+            <CalendarBody renderEvent={renderEvent} /> // Render calendar body with custom event renderer
         </CalendarContainer>
     );
 };
 
 export default Calendar;
 
+// StyleSheet creation function that receives colors as parameter
 const createStyles = (colors) => StyleSheet.create({
     eventContainer: {
         width: '100%',

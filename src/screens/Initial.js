@@ -1,3 +1,4 @@
+// Import required dependencies from React and React Native
 import React, { useState } from 'react';
 import {Pressable, StyleSheet, View, Text, Switch} from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
@@ -5,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useStyles } from "../utils/hooks/useStyles";
 import {INITIAL_CONFIG} from "../constants/const";
 
+// Dropdown options data array
 const data = [
     { label: 'I2a', value: '1' },
     { label: 'I2b', value: '2' },
@@ -12,18 +14,31 @@ const data = [
 ];
 
 export default function Initial(props) {
+    // Theme prop for dark/light mode
     const darkThemeEnabled = props.darkThemeEnabled;
+    // Get styles using custom hook
     const styles = useStyles(createStyles, darkThemeEnabled);
+    // State for dropdown value
     const [value, setValue] = useState(null);
+    // State for dropdown focus
     const [, setIsFocus] = useState(false);
+    // Navigation hook
     const navigation = useNavigation();
+    // State for maturity toggle
     const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
+    // Toggle handler for maturity switch
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
+    // Navigation handler
     const onPress = () => {
         navigation.navigate('TabNavigator');
-
     };
+
+    // Component render with:
+    // - Title section
+    // - Dropdown for class selection
+    // - Maturity toggle switch
+    // - Continue button (disabled when no value selected)
     return (
         <View style={styles.background}>
             <View style={styles.container}>
