@@ -58,6 +58,7 @@ export default function TabNavigator(props) {
                 headerStyle: { backgroundColor: props.darkThemeEnabled ? 'black' : 'white' },
             })}
         >
+
             {/* Timetable Screen */}
             <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
                 {() => (<Orario darkThemeEnabled={props.darkThemeEnabled} addVerification={props.addVerification} />)}

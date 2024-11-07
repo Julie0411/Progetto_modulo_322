@@ -45,8 +45,8 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
             useHaptic={true}         // Enable haptic feedback
             {...CALENDAR_CONFIG}      // Spread additional calendar configuration
         >
-            <CalendarHeader />       // Render calendar header
-            <CalendarBody renderEvent={renderEvent} /> // Render calendar body with custom event renderer
+            <CalendarHeader />
+            <CalendarBody renderEvent={renderEvent} />
         </CalendarContainer>
     );
 };
