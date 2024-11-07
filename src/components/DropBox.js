@@ -29,7 +29,7 @@ export const DropBox = ({darkThemeEnabled, selected, selectedClass}) => {
         },
         selectedTextStyle: {
             fontSize: 16,
-            color: 'white',
+            color: darkThemeEnabled ? 'white' : 'black',
         },
         inputSearchStyle: {
             height: 30,

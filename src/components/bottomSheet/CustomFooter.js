@@ -26,7 +26,7 @@ const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
             rotate: `${interpolate(
                 animatedIndex.value,
                 [0, 1],
-                [toRad(0), toRad(-180)]
+                [toRad(0), toRad(-90)]
             )}rad`
         }]
     }));
