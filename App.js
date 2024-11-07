@@ -15,13 +15,14 @@ const headerStyle = { height: 110 };
 export default function App() {
     // State management for theme and verifications
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
+    const [selectedClass, setSelectedClass] = useState(null);
     const [verifications, setVerifications] = useState([]);
-
+    // Set theme based on darkThemeEnabled state
+    const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
     // Theme toggle callback function
     const toggleTheme = useCallback(() => {
         setDarkThemeEnabled(prev => !prev);
     }, []);
-
     // Add verification callback function
     const addVerification = useCallback((item) => {
         setVerifications(currentVerifications => [
@@ -34,14 +35,10 @@ export default function App() {
             }
         ]);
     }, []);
-
     // Delete verification callback function
     const deleteVerification = useCallback((id) => {
         setVerifications(prev => prev.filter(verification => verification.id !== id));
     }, []);
-
-    // Set theme based on darkThemeEnabled state
-    const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
 
     return (
         <>
@@ -60,6 +57,7 @@ export default function App() {
                         {() => (
                             <Initial
                                 darkThemeEnabled={darkThemeEnabled}
+                                selectedClass={setSelectedClass}
                             />
                         )}
                     </Stack.Screen>
@@ -89,6 +87,7 @@ export default function App() {
                             <Settings
                                 toggleTheme={toggleTheme}
                                 darkThemeEnabled={darkThemeEnabled}
+                                selectedClass={selectedClass}
                             />
                         )}
                     </Stack.Screen>

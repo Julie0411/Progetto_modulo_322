@@ -13,6 +13,12 @@ export const CALENDAR_CONFIG = {
 export const INITIAL_CONFIG = {
     labelField: "label",           // Field name for display text in options
     valueField: "value",           // Field name for option values
-    placeholder: 'Premi qua',      // Default placeholder text (Italian: "Click here")
+    placeholder: 'Scegli la sua classe',      // Default placeholder text (Italian: "Click here")
     searchPlaceholder: "Search...", // Placeholder text for search input
 };
+
+export const CLASSES_OPTIONS = [
+    { label: 'I2a', value: '1' },
+    { label: 'I2b', value: '2' },
+    { label: 'I2c', value: '3' },
+];

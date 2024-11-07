@@ -2,16 +2,16 @@
 import React from "react";
 import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
-
+import { DropBox } from "../components/DropBox";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme }) => {
+const Settings = ({ darkThemeEnabled, toggleTheme, selectedClass }) => {
     // State for maturity toggle switch
     const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
-
     // Get dynamic styles based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
-
+    const selected = (item) => {
+    }
     return (
         // Main container for settings screen
         <View style={styles.settingsContainer}>
@@ -21,8 +21,16 @@ const Settings = ({ darkThemeEnabled, toggleTheme }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 alwaysBounceHorizontal={false}
             >
+                <View style={{ marginLeft: 10, marginRight: 10 }}>
+                    <DropBox
+                        darkThemeEnabled={darkThemeEnabled}
+                        selectedClass={selectedClass}
+                        selected={selected}
+                    />
+                </View>
+
                 {/* Maturity setting toggle */}
-                <View style={[styles.element, { marginTop: 10 }]}>
+                <View style={styles.element}>
                     <Text style={styles.text}>Maturità</Text>
                     <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
                 </View>
@@ -87,7 +95,7 @@ const createStyles = (colors) => StyleSheet.create({
         marginTop: 10,
         backgroundColor: colors.settingsSurface,
         height: 60,
-        borderRadius: 5,
+        borderRadius: 8,
         marginHorizontal: 10,
     },
     // Text styling for all settings

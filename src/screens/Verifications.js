@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import {View, StyleSheet, FlatList} from "react-native";
 // Import custom components
 import Verification from "../components/Verification";
-import CustomBackdrop from "../components/CustomBackdrop";
+import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
 import SheetBody from "../components/bottomSheet/SheetBody";
 // Import bottom sheet components for modal functionality

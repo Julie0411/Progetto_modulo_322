@@ -10,7 +10,7 @@ import {formatDate} from "../utils/formatters/dateFormatter";
 // - darkThemeEnabled: boolean for theme switching
 // - press: function handler for press event
 // - longPress: function handler for long press event
-const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
+export const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
     // Get styles based on current theme
     const styles = useStyles(createStyles, darkThemeEnabled);
 
@@ -32,8 +32,6 @@ const Verification = ({ item, darkThemeEnabled, press, longPress }) => {
         </View>
     );
 };
-
-export default Verification;
 
 // Style creation function that receives colors from theme
 const createStyles = (colors) => StyleSheet.create({

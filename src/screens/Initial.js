@@ -1,39 +1,28 @@
 // Import required dependencies from React and React Native
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {Pressable, StyleSheet, View, Text, Switch} from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
 import { useNavigation } from '@react-navigation/native';
 import { useStyles } from "../utils/hooks/useStyles";
-import {INITIAL_CONFIG} from "../constants/const";
+import { DropBox } from "../components/DropBox";
 
-// Dropdown options data array
-const data = [
-    { label: 'I2a', value: '1' },
-    { label: 'I2b', value: '2' },
-    { label: 'I2c', value: '3' },
-];
-
-export default function Initial(props) {
-    // Theme prop for dark/light mode
-    const darkThemeEnabled = props.darkThemeEnabled;
+export default function Initial({darkThemeEnabled, selectedClass}) {
     // Get styles using custom hook
     const styles = useStyles(createStyles, darkThemeEnabled);
-    // State for dropdown value
-    const [value, setValue] = useState(null);
-    // State for dropdown focus
-    const [, setIsFocus] = useState(false);
     // Navigation hook
     const navigation = useNavigation();
     // State for maturity toggle
-    const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
+    const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
     // Toggle handler for maturity switch
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
-
     // Navigation handler
     const onPress = () => {
         navigation.navigate('TabNavigator');
     };
-
+    const [objectSelected, setObjectSelected] = useState(true);
+    const selected = (item) => {
+        setObjectSelected(true);
+        selectedClass(item);
+    };
     // Component render with:
     // - Title section
     // - Dropdown for class selection
@@ -43,35 +32,14 @@ export default function Initial(props) {
         <View style={styles.background}>
             <View style={styles.container}>
                 <View style={styles.title}>
-                    <Text style={styles.text}>Scegli la sua classe</Text>
+                    <Text style={styles.text}>textToDo</Text>
                 </View>
-                <Dropdown
-                    style={styles.dropdown}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    iconStyle={styles.iconStyle}
-                    containerStyle={styles.containerStyle}
-                    itemContainerStyle={styles.itemContainerStyle}
-                    itemTextStyle={styles.itemTextStyle}
-                    data={data}
-                    search
-                    activeColor={darkThemeEnabled ? 'black' : 'white'}
-                    maxHeight={300}
-                    value={value}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={item => {
-                        setValue(item.value);
-                        setIsFocus(false);
-                    }}
-                    {...INITIAL_CONFIG}
-                />
+                <DropBox darkThemeEnabled={darkThemeEnabled} selected={selected}/>
                 <View style={styles.toggle}>
                     <Text style={styles.toggleText}>Maturità</Text>
                     <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
                 </View>
-                <Pressable  disabled={value === null} onPress={onPress}>
+                <Pressable disabled={!objectSelected} onPress={onPress}>
                     <View style={styles.buttonContainer}>
                         <Text style={styles.button}>Сontinuare</Text>
                     </View>
@@ -94,64 +62,12 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         padding: 1,
         marginBottom: 20
     },
-    text: {
-        color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 20,
-    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
         width: '100%',
-    },
-    dropdown: {
-        width: '100%',
-        height: 50,
-        borderColor: 'gray',
-        borderWidth: 0.5,
-        borderRadius: 8,
-        paddingHorizontal: 8,
-        backgroundColor: darkThemeEnabled ? 'black' : 'white',
-
-    },
-    icon: {
-        marginRight: 5,
-        color: darkThemeEnabled ? 'white' : 'black',
-    },
-    label: {
-        position: 'absolute',
-        left: 22,
-        top: 8,
-        paddingHorizontal: 8,
-        fontSize: 14,
-        borderWidth: 0.5,
-    },
-    placeholderStyle: {
-        fontSize: 16,
-        color: darkThemeEnabled ? 'white' : 'black',
-
-    },
-    selectedTextStyle: {
-        fontSize: 16,
-        color: 'white',
-    },
-    iconStyle: {
-        width: 20,
-    },
-    inputSearchStyle: {
-        height: 30,
-        fontSize: 16,
-        color: darkThemeEnabled ? 'white' : 'black',
-    },
-    containerStyle: {
-        backgroundColor: darkThemeEnabled ? 'black' : 'white',
-        borderWidth: 0.4,
-        borderRadius: 8,
-        padding: 2,
-    },
-    itemTextStyle: {
-        color: darkThemeEnabled ? 'white' : 'black',
     },
     toggle: {
         flexDirection: 'row',
@@ -178,4 +94,8 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10
     },
+    text:{
+        fontSize: 16,
+        color: darkThemeEnabled ? 'white' : 'black',
+    }
 })
