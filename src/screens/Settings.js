@@ -1,17 +1,15 @@
 // Import necessary React and React Native components
 import React from "react";
-import { Text, View, StyleSheet, ScrollView, Switch } from "react-native";
+import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
-import { DropBox } from "../components/DropBox";
+import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme, selectedClass }) => {
+const Settings = ({ darkThemeEnabled, toggleTheme,navigation }) => {
     // State for maturity toggle switch
     const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
     // Get dynamic styles based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
-    const selected = (item) => {
-    }
     return (
         // Main container for settings screen
         <View style={styles.settingsContainer}>
@@ -21,14 +19,11 @@ const Settings = ({ darkThemeEnabled, toggleTheme, selectedClass }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 alwaysBounceHorizontal={false}
             >
-                <View style={{ marginLeft: 10, marginRight: 10 }}>
-                    <DropBox
-                        darkThemeEnabled={darkThemeEnabled}
-                        selectedClass={selectedClass}
-                        selected={selected}
-                    />
-                </View>
-
+                {/* Select class */}
+                <Pressable style={styles.element} onPress={() => navigation.navigate('TabNavigator')}>
+                    <Text style={styles.text}>Cambia classe</Text>
+                    <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                </Pressable>
                 {/* Maturity setting toggle */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Maturità</Text>
@@ -47,19 +42,16 @@ const Settings = ({ darkThemeEnabled, toggleTheme, selectedClass }) => {
                 </View>
 
                 {/* Information section */}
-                <View style={styles.element}>
+                <Pressable style={styles.element}>
                     <Text style={styles.text}>Informazione</Text>
-                </View>
+                    <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                </Pressable>
 
                 {/* FAQ section */}
-                <View style={styles.element}>
+                <Pressable style={styles.element}>
                     <Text style={styles.text}>Hai altre domande?</Text>
-                </View>
-
-                {/* Donation section */}
-                <View style={styles.element}>
-                    <Text style={styles.text}>Buy Andrea a coffee</Text>
-                </View>
+                    <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                </Pressable>
 
                 {/* Version footer */}
                 <View style={styles.footer}>

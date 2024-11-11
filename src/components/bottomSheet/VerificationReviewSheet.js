@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
-import {formatDate} from "../../utils/formatters/dateFormatter";
-import {useStyles} from "../../utils/hooks/useStyles";
+import { formatDate } from "../../utils/formatters/dateFormatter";
+import { useStyles } from "../../utils/hooks/useStyles";
 
-// SheetBody component that displays and allows editing of lesson details
-const SheetBody = ({ darkThemeEnabled, item, setItem }) => {
+// VerificationReviewSheet component that displays and allows editing of lesson details
+const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     // State for managing edit mode and edited text content
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState('');
@@ -85,13 +85,13 @@ const SheetBody = ({ darkThemeEnabled, item, setItem }) => {
 };
 
 // Memoize component to prevent unnecessary re-renders
-export default React.memo(SheetBody);
+export default React.memo(VerificationReviewSheet);
 
 // Styles creator function that adapts to dark/light theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     // Container styles
     contentContainer: {
-        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-start',

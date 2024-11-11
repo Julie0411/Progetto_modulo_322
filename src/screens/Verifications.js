@@ -5,7 +5,7 @@ import {View, StyleSheet, FlatList} from "react-native";
 import Verification from "../components/Verification";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
-import SheetBody from "../components/bottomSheet/SheetBody";
+import SheetBody from "../components/bottomSheet/VerificationReviewSheet";
 // Import bottom sheet components for modal functionality
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 // Import gesture handler for touch interactions

@@ -7,6 +7,7 @@ import Settings from "./src/screens/Settings";
 import {StatusBar} from "react-native";
 import Initial from "./src/screens/Initial";
 
+
 // Create stack navigator instance
 const Stack = createStackNavigator();
 // Define header style with specific height
@@ -49,18 +50,18 @@ export default function App() {
             <NavigationContainer theme={theme}>
                 {/* Stack navigator with header style configuration */}
                 <Stack.Navigator screenOptions={{ headerStyle }}>
-                    {/* Initial screen configuration */}
-                    <Stack.Screen
-                        name="Initial"
-                        options={{ headerShown: false }}
-                    >
-                        {() => (
-                            <Initial
-                                darkThemeEnabled={darkThemeEnabled}
-                                selectedClass={setSelectedClass}
-                            />
-                        )}
-                    </Stack.Screen>
+                    {/*/!* Initial screen configuration *!/*/}
+                    {/*<Stack.Screen*/}
+                    {/*    name="Initial"*/}
+                    {/*    options={{ headerShown: false }}*/}
+                    {/*>*/}
+                    {/*    {() => (*/}
+                    {/*        <Initial*/}
+                    {/*            darkThemeEnabled={darkThemeEnabled}*/}
+                    {/*            selectedClass={setSelectedClass}*/}
+                    {/*        />*/}
+                    {/*    )}*/}
+                    {/*</Stack.Screen>*/}
 
                     {/* Tab navigator screen configuration */}
                     <Stack.Screen
@@ -74,6 +75,7 @@ export default function App() {
                                 deleteVerification={deleteVerification}
                                 darkThemeEnabled={darkThemeEnabled}
                                 toggleTheme={toggleTheme}
+                                selectedClass={setSelectedClass}
                             />
                         )}
                     </Stack.Screen>
@@ -83,11 +85,12 @@ export default function App() {
                         name="Settings"
                         options={{ headerTitle: "Impostazioni" }}
                     >
-                        {() => (
+                        {({ navigation }) => (
                             <Settings
                                 toggleTheme={toggleTheme}
                                 darkThemeEnabled={darkThemeEnabled}
                                 selectedClass={selectedClass}
+                                navigation={navigation}
                             />
                         )}
                     </Stack.Screen>

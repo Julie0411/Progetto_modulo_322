@@ -4,16 +4,16 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Verifications from "../screens/Verifications";
-import Orario from "../screens/Timetable";
-import Note from "../screens/Grades";
+import Grades from "../screens/Grades";
+import Timetable from "../screens/Timetable";
 
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator(props) {
+export default function TabNavigator({darkThemeEnabled, selectedClass, verifications, addVerification, deleteVerification}) {
     // Define colors based on theme
-    const activeColor = props.darkThemeEnabled ? 'white' : 'black';
-    const inactiveColor = props.darkThemeEnabled ? '#818181' : 'gray';
+    const activeColor = darkThemeEnabled ? 'white' : 'black';
+    const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
 
     return (
         <Tab.Navigator
@@ -55,23 +55,23 @@ export default function TabNavigator(props) {
                 ),
 
                 // Set header style based on theme
-                headerStyle: { backgroundColor: props.darkThemeEnabled ? 'black' : 'white' },
+                headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
             })}
         >
 
             {/* Timetable Screen */}
             <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
-                {() => (<Orario darkThemeEnabled={props.darkThemeEnabled} addVerification={props.addVerification} />)}
+                {() => (<Timetable darkThemeEnabled={darkThemeEnabled} addVerification={addVerification} selectedClass={selectedClass} />)}
             </Tab.Screen>
 
             {/* Grades Screen */}
             <Tab.Screen name="Note" options={{headerStatusBarHeight:65}}>
-                {() => (<Note darkThemeEnabled={props.darkThemeEnabled} />)}
+                {() => (<Grades darkThemeEnabled={darkThemeEnabled} />)}
             </Tab.Screen>
 
             {/* Verifications Screen */}
             <Tab.Screen name="Verifications" options={{headerStatusBarHeight:65}}>
-                {() => (<Verifications darkThemeEnabled={props.darkThemeEnabled} verifications={props.verifications} deleteVerification={props.deleteVerification} />)}
+                {() => (<Verifications darkThemeEnabled={darkThemeEnabled} verifications={verifications} deleteVerification={deleteVerification} />)}
             </Tab.Screen>
         </Tab.Navigator>
     );

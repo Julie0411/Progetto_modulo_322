@@ -4,15 +4,15 @@ import { StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import {INITIAL_CONFIG, CLASSES_OPTIONS} from "../constants/const";
 
-export const DropBox = ({darkThemeEnabled, selected, selectedClass}) => {
+export const DropBox = ({darkThemeEnabled, handleClassSelection}) => {
     // State for dropdown value
-    const [value, setValue] = useState(selectedClass);
+    const [value, setValue] = useState(null);
+
     // State for dropdown focus
     const [, setIsFocus] = useState(false);
-    const selectedObject = (item) => {
-        selected(item);
+    const handleSelection = (item) => {
+        handleClassSelection(item);
     };
-
     const styles = StyleSheet.create({
         dropdown: {
             width: '100%',
@@ -65,7 +65,7 @@ export const DropBox = ({darkThemeEnabled, selected, selectedClass}) => {
             onChange={item => {
                 setValue(item.value);
                 setIsFocus(false);
-                selectedObject(item);
+                handleSelection(item);
             }}
             {...INITIAL_CONFIG}
         />

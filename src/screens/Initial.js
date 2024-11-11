@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useStyles } from "../utils/hooks/useStyles";
 import { DropBox } from "../components/DropBox";
 
-export default function Initial({darkThemeEnabled, selectedClass}) {
+const Initial = ({ darkThemeEnabled, selectedClass }) => {
     // Get styles using custom hook
     const styles = useStyles(createStyles, darkThemeEnabled);
     // Navigation hook
@@ -19,55 +19,51 @@ export default function Initial({darkThemeEnabled, selectedClass}) {
         navigation.navigate('TabNavigator');
     };
     const [objectSelected, setObjectSelected] = useState(true);
-    const selected = (item) => {
+    const handleClassSelection = (item) => {
         setObjectSelected(true);
         selectedClass(item);
     };
+
     // Component render with:
     // - Title section
     // - Dropdown for class selection
     // - Maturity toggle switch
     // - Continue button (disabled when no value selected)
     return (
-        <View style={styles.background}>
-            <View style={styles.container}>
-                <View style={styles.title}>
-                    <Text style={styles.text}>textToDo</Text>
-                </View>
-                <DropBox darkThemeEnabled={darkThemeEnabled} selected={selected}/>
-                <View style={styles.toggle}>
-                    <Text style={styles.toggleText}>Maturità</Text>
-                    <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
-                </View>
-                <Pressable disabled={!objectSelected} onPress={onPress}>
-                    <View style={styles.buttonContainer}>
-                        <Text style={styles.button}>Сontinuare</Text>
-                    </View>
-                </Pressable>
+        <View style={styles.container}>
+            <View style={styles.title}>
+                <Text style={styles.text}>textToDo</Text>
             </View>
+            <DropBox darkThemeEnabled={darkThemeEnabled} handleClassSelection={handleClassSelection}/>
+            <View style={styles.toggle}>
+                <Text style={styles.toggleText}>Maturità</Text>
+                <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
+            </View>
+            <Pressable disabled={!objectSelected} onPress={onPress}>
+                <View style={styles.buttonContainer}>
+                    <Text style={styles.button}>Сontinuare</Text>
+                </View>
+            </Pressable>
         </View>
     );
 }
 
+export default Initial;
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    background: {
+    container: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 16,
+        width: '100%',
     },
     title: {
         justifyContent: 'center',
         alignItems: 'center',
         padding: 1,
         marginBottom: 20
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
-        width: '100%',
     },
     toggle: {
         flexDirection: 'row',
