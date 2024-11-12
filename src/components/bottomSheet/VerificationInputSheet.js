@@ -1,32 +1,23 @@
-// Import necessary React and React Native components
 import React, { useState, useMemo } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 
 // VerificationInputSheet component for handling verification note inputs
-const VerificationInputSheet = ({
-                                    darkThemeEnabled,    // Boolean for dark/light theme
-                                    selectedEvent,       // Currently selected event object
-                                    setSelectedEvent,    // Function to update selected event
-                                    onSave              // Callback function when saving
-                                }) => {
+const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
     // State for managing input text, initialized with selected event text if exists
     const [inputText, setInputText] = useState(selectedEvent?.text || "");
-
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-
     // Handler for saving the input text
     const handleSave = () => {
         onSave(inputText + " ");
         setSelectedEvent(null);
     };
-
     // Handler for canceling the input
     const handleCancel = () => {
+        onCancel()
         setSelectedEvent(null);
     };
-
     // Component render
     return (
         <BottomSheetView style={styles.contentContainer}>

@@ -1,10 +1,10 @@
-# TimeFlow - Modern Timetable Manager
+# TimeFlow - Modern TimeTable Manager
 
 A modern and intuitive timetable application built with React Native and Expo, designed to help students and professionals manage their schedule, track verifications, and organize notes efficiently.
 
 ## 🌟 Features
 
-- 📅 Interactive Timetable Management
+- 📅 Interactive TimeTable Management
 - ✍️ Verification Tracking System
 - 📝 Note Taking & Organization
 - 🎨 Customizable Themes

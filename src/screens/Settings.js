@@ -1,15 +1,17 @@
-// Import necessary React and React Native components
 import React from "react";
 import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-native";
 import {useStyles} from "../utils/hooks/useStyles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme,navigation }) => {
-    // State for maturity toggle switch
-    const [maturityIsEnabled, setMaturityIsEnabled] = React.useState(false);
-    const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
-    // Get dynamic styles based on theme
+const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, selectedClass}) => {
+
     const styles = useStyles(createStyles, darkThemeEnabled);
+
+    const handleClassSelection = () => {
+        setSelectedClass(null);
+        navigation.navigate('Orario');
+    };
+
     return (
         // Main container for settings screen
         <View style={styles.settingsContainer}>
@@ -19,17 +21,14 @@ const Settings = ({ darkThemeEnabled, toggleTheme,navigation }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 alwaysBounceHorizontal={false}
             >
+                <View style={styles.element}>
+                    <Text style={styles.text}>Selected class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled ? 'Si' : 'No'}</Text>
+                </View>
                 {/* Select class */}
-                <Pressable style={styles.element} onPress={() => navigation.navigate('TabNavigator')}>
+                <Pressable style={styles.element} onPress={handleClassSelection}>
                     <Text style={styles.text}>Cambia classe</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
-                {/* Maturity setting toggle */}
-                <View style={styles.element}>
-                    <Text style={styles.text}>Maturità</Text>
-                    <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
-                </View>
-
                 {/* Dark theme toggle with custom colors */}
                 <View style={styles.element}>
                     <Text style={styles.text}>Dark Theme</Text>
@@ -63,7 +62,6 @@ const Settings = ({ darkThemeEnabled, toggleTheme,navigation }) => {
 };
 
 export default Settings;
-
 // StyleSheet creation function that receives colors based on theme
 const createStyles = (colors) => StyleSheet.create({
     // Main container styles

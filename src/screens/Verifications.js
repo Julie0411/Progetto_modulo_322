@@ -1,14 +1,10 @@
-// Import necessary React hooks and components
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import {View, StyleSheet, FlatList} from "react-native";
-// Import custom components
 import Verification from "../components/Verification";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
 import SheetBody from "../components/bottomSheet/VerificationReviewSheet";
-// Import bottom sheet components for modal functionality
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-// Import gesture handler for touch interactions
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Verifications(props) {
@@ -24,23 +20,19 @@ export default function Verifications(props) {
     const snapPoints = useMemo(() => ['20%','70%','100%'], []);
     // Memoized key extractor for FlatList
     const keyExtractor = useCallback((item) => item.id.toString(), []);
-
     // Handler to show bottom sheet modal
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
     }, []);
-
     // Handler for item press - sets selected item and shows modal
     const handlePress = useCallback((selectedItem) => {
         setItem(selectedItem);
         handlePresentModalPress();
     }, [handlePresentModalPress]);
-
     // Handler for long press - deletes the verification
     const handleLongPress = useCallback((selectedItem) => {
         deleteVerification(selectedItem.id);
     }, [deleteVerification]);
-
     // Memoized render function for FlatList items
     const renderItem = useCallback(({ item }) => (
         <Verification
@@ -87,7 +79,6 @@ export default function Verifications(props) {
         </GestureHandlerRootView>
     );
 }
-
 // Style creation function that adapts to theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     // Root container style
@@ -103,7 +94,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     // Bottom sheet handle style
     handleStyle: {
-        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },

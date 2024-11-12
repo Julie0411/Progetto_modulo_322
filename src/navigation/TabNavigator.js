@@ -1,16 +1,14 @@
-// Import necessary components and libraries
 import React from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Verifications from "../screens/Verifications";
 import Grades from "../screens/Grades";
-import Timetable from "../screens/Timetable";
-
+import TimeTable from "../screens/TimeTable";
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({darkThemeEnabled, selectedClass, verifications, addVerification, deleteVerification}) {
+export default function TabNavigator({darkThemeEnabled, selectedClass,setSelectedClass, verifications, addVerification, deleteVerification}) {
     // Define colors based on theme
     const activeColor = darkThemeEnabled ? 'white' : 'black';
     const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
@@ -59,9 +57,14 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, verificat
             })}
         >
 
-            {/* Timetable Screen */}
+            {/* TimeTable Screen */}
             <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
-                {() => (<Timetable darkThemeEnabled={darkThemeEnabled} addVerification={addVerification} selectedClass={selectedClass} />)}
+                {() => (<TimeTable
+                    darkThemeEnabled={darkThemeEnabled}
+                    addVerification={addVerification}
+                    selectedClass={selectedClass}
+                    setSelectedClass={setSelectedClass}
+                />)}
             </Tab.Screen>
 
             {/* Grades Screen */}
@@ -76,7 +79,6 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, verificat
         </Tab.Navigator>
     );
 }
-
 // Styles for header buttons and padding
 const styles = StyleSheet.create({
     settingsButton: {

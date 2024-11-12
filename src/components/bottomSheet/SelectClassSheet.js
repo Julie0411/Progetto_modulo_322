@@ -1,39 +1,36 @@
-// Import necessary React and React Native components
 import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Switch, Text, View} from "react-native";
 import {BottomSheetView} from "@gorhom/bottom-sheet";
 import {DropBox} from "../DropBox";
 
 // VerificationInputSheet component for handling verification note inputs
-const SelectClassSheet = ({darkThemeEnabled, selectedClass}) => {
+const SelectClassSheet = ({darkThemeEnabled, selectedClass, setSelectedClass, handleSavePress}) => {
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-    const selected = () => {
-    };
     // State for maturity toggle
     const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
     // Toggle handler for maturity switch
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
-    const handleClassSelection = (item) => {
-        console.log(item);
-    };
-    const onPress = () => {
-        console.log("pressed");
+
+    const handleChangeClass = (item) => {
+        setSelectedClass({...item,maturityIsEnabled});
     };
     // Component render
     return (
     <BottomSheetView style={styles.contentContainer}>
-        <DropBox darkThemeEnabled={darkThemeEnabled} selectedClass={selectedClass} selected={selected} handleClassSelection={handleClassSelection}/>
+        <DropBox darkThemeEnabled={darkThemeEnabled} selectedClass={selectedClass} setSelectedClass={handleChangeClass}/>
         <View style={styles.toggle}>
             <Text style={styles.toggleText}>Maturità</Text>
             <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
         </View>
         {/* Container for action buttons */}
-        <View style={styles.buttonContainer}>
+        <View style={[styles.buttonContainer,!selectedClass && styles.buttonDisabled]}>
             {/* Save button */}
-            <Pressable style={styles.button} onPress={onPress}>
+            <Pressable style={styles.button} onPress={handleSavePress} disabled={!selectedClass}
+            >
                 <Text style={styles.buttonText}>Save</Text>
             </Pressable>
+
         </View>
     </BottomSheetView>
     );
@@ -78,4 +75,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10
     },
+    buttonDisabled: {
+        opacity: 0.5,
+    }
 });

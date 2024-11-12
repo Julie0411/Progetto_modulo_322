@@ -1,4 +1,3 @@
-// Import necessary dependencies
 import React, { useCallback, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import { BottomSheetFooter, useBottomSheet } from '@gorhom/bottom-sheet';

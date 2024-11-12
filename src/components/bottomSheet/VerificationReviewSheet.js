@@ -1,21 +1,22 @@
-// Import necessary dependencies from React and React Native
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 import { formatDate } from "../../utils/formatters/dateFormatter";
 import { useStyles } from "../../utils/hooks/useStyles";
-
 // VerificationReviewSheet component that displays and allows editing of lesson details
 const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     // State for managing edit mode and edited text content
     const [isEditing, setIsEditing] = useState(false);
+
     const [editedText, setEditedText] = useState('');
     // Memoized styles based on dark theme setting
     const styles = useStyles(createStyles, darkThemeEnabled);
     // Split the item title into components (teacher, lesson, room)
     const [firstPart, roomPart] = item.title.split('\n');
+
     const [insegnante, ...lezioneParts] = firstPart.split(" ");
+
     const lezione = lezioneParts.join(" ");
     // Toggle edit mode and set initial text
     const toggleEdit = () => {
@@ -27,7 +28,6 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
         setItem({ ...item, text: editedText });
         setIsEditing(false);
     };
-
     // Guard clause if no item is provided
     if (!item) return null;
 
@@ -83,10 +83,8 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
         </BottomSheetView>
     );
 };
-
 // Memoize component to prevent unnecessary re-renders
 export default React.memo(VerificationReviewSheet);
-
 // Styles creator function that adapts to dark/light theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     // Container styles
