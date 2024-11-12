@@ -3,15 +3,15 @@ import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-nativ
 import {useStyles} from "../utils/hooks/useStyles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, selectedClass}) => {
+const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, selectedClass, setMaturityIsEnabled}) => {
 
     const styles = useStyles(createStyles, darkThemeEnabled);
 
     const handleClassSelection = () => {
-        setSelectedClass(null);
-        navigation.navigate('Orario');
+        setSelectedClass(null)
+        setMaturityIsEnabled(false)
+        navigation.navigate('Orario')
     };
-
     return (
         // Main container for settings screen
         <View style={styles.settingsContainer}>
@@ -22,7 +22,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                 alwaysBounceHorizontal={false}
             >
                 <View style={styles.element}>
-                    <Text style={styles.text}>Selected class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled ? 'Si' : 'No'}</Text>
+                    <Text style={styles.text}>Selected class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled? "true":"false"}</Text>
                 </View>
                 {/* Select class */}
                 <Pressable style={styles.element} onPress={handleClassSelection}>

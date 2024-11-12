@@ -16,6 +16,10 @@ export default function App() {
     const [verifications, setVerifications] = useState([]);
     // Set theme based on darkThemeEnabled state
     const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
+    // State for maturity toggle
+    const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
+    // Toggle handler for maturity switch
+    const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
     // Theme toggle callback function
     const toggleTheme = useCallback(() => {
         setDarkThemeEnabled(prev => !prev);
@@ -60,6 +64,8 @@ export default function App() {
                                 toggleTheme={toggleTheme}
                                 selectedClass={selectedClass}
                                 setSelectedClass={handleSetClass}
+                                toggleMaturity={toggleMaturity}
+                                maturityIsEnabled={maturityIsEnabled}
                             />
                         )}
                     </Stack.Screen>
@@ -73,6 +79,7 @@ export default function App() {
                                 selectedClass={selectedClass}
                                 navigation={navigation}
                                 setSelectedClass={handleSetClass}
+                                setMaturityIsEnabled={setMaturityIsEnabled}
                             />
                         )}
                     </Stack.Screen>

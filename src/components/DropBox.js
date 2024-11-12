@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import {INITIAL_CONFIG, CLASSES_OPTIONS} from "../constants/const";
 
-export const DropBox = ({darkThemeEnabled, setSelectedClass}) => {
+export const DropBox = ({darkThemeEnabled, selectClass}) => {
 
     const [value, setValue] = useState(null);
 
@@ -30,7 +30,7 @@ export const DropBox = ({darkThemeEnabled, setSelectedClass}) => {
             onChange={item => {
                 setValue(item.value);
                 setIsFocus(false);
-                setSelectedClass(item);
+                selectClass(item);
             }}
 
             {...INITIAL_CONFIG}

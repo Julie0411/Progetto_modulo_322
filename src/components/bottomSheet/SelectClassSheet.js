@@ -4,30 +4,28 @@ import {BottomSheetView} from "@gorhom/bottom-sheet";
 import {DropBox} from "../DropBox";
 
 // VerificationInputSheet component for handling verification note inputs
-const SelectClassSheet = ({darkThemeEnabled, selectedClass, setSelectedClass, handleSavePress}) => {
+const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, setSelectedClass, bottomSheetRef}) => {
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-    // State for maturity toggle
-    const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
-    // Toggle handler for maturity switch
-    const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
-    const handleChangeClass = (item) => {
-        setSelectedClass({...item,maturityIsEnabled});
+    const [selClass, setSelClass] = useState(null);
+
+    const handleSavePress = () => {
+        setSelectedClass({...selClass,maturityIsEnabled});
+        bottomSheetRef.current.close();
     };
     // Component render
     return (
     <BottomSheetView style={styles.contentContainer}>
-        <DropBox darkThemeEnabled={darkThemeEnabled} selectedClass={selectedClass} setSelectedClass={handleChangeClass}/>
+        <DropBox darkThemeEnabled={darkThemeEnabled} selectClass={setSelClass}/>
         <View style={styles.toggle}>
             <Text style={styles.toggleText}>Maturità</Text>
             <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
         </View>
         {/* Container for action buttons */}
-        <View style={[styles.buttonContainer,!selectedClass && styles.buttonDisabled]}>
+        <View style={[styles.buttonContainer,!selClass && styles.buttonDisabled]}>
             {/* Save button */}
-            <Pressable style={styles.button} onPress={handleSavePress} disabled={!selectedClass}
-            >
+            <Pressable style={styles.button} onPress={handleSavePress} disabled={!selClass}>
                 <Text style={styles.buttonText}>Save</Text>
             </Pressable>
 

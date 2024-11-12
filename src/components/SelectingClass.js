@@ -3,13 +3,11 @@ import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
 // Main TimeTable component that handles calendar and verification input
-export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef}) {
+export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef, toggleMaturity, maturityIsEnabled}) {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const selectSnapPoints = useMemo(() => ["40%"], []);
-
-    const handleSavePress = () => bottomSheetRef.current?.close();
 
     return (
         <BottomSheetModal
@@ -24,7 +22,9 @@ export default function SelectingClass({darkThemeEnabled, setSelectedClass, sele
                 selectedClass={selectedClass}
                 setSelectedClass={setSelectedClass}
                 darkThemeEnabled={darkThemeEnabled}
-                handleSavePress={handleSavePress}
+                toggleMaturity={toggleMaturity}
+                maturityIsEnabled={maturityIsEnabled}
+                bottomSheetRef={bottomSheetRef}
             />
         </BottomSheetModal>
     );

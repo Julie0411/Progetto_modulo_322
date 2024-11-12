@@ -6,7 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
 
-export default function TimeTable({darkThemeEnabled, addVerification, selectedClass, setSelectedClass}) {
+export default function TimeTable({darkThemeEnabled, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -64,6 +64,8 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                         selectedClass={selectedClass}
                         setSelectedClass={setSelectedClass}
                         darkThemeEnabled={darkThemeEnabled}
+                        toggleMaturity={toggleMaturity}
+                        maturityIsEnabled={maturityIsEnabled}
                     />
 
                 </View>
