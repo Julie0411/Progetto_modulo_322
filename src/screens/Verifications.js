@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import {View, StyleSheet, FlatList} from "react-native";
-import Verification from "../components/Verification";
+import {View, StyleSheet, FlatList, Pressable, Text, Dimensions} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
 import SheetBody from "../components/bottomSheet/VerificationReviewSheet";
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {formatDate} from "../utils/formatters/dateFormatter";
 
 export default function Verifications(props) {
     // Destructure props for easy access
@@ -35,12 +35,19 @@ export default function Verifications(props) {
     }, [deleteVerification]);
     // Memoized render function for FlatList items
     const renderItem = useCallback(({ item }) => (
-        <Verification
-            item={item}
-            darkThemeEnabled={darkThemeEnabled}
-            press={() => handlePress(item)}
-            longPress={() => handleLongPress(item)}
-        />
+        <View style={styles.container}>
+            <Pressable
+                onLongPress={() => handleLongPress(item)}
+                onPress={() => handlePress(item)}
+                // Dynamic style based on pressed state
+                style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
+            >
+                {/* Display item title with single line truncation */}
+                <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
+                {/* Display formatted date with single line truncation */}
+                <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
+            </Pressable>
+        </View>
     ), [darkThemeEnabled, handlePress, handleLongPress]);
 
     return (
@@ -81,26 +88,49 @@ export default function Verifications(props) {
 }
 // Style creation function that adapts to theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    // Root container style
     root: {
         flex: 1,
     },
-    // Main background container style
     background: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    // Bottom sheet handle style
     handleStyle: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    // Bottom sheet handle indicator style
     handleIndicatorStyle: {
         backgroundColor: darkThemeEnabled ? 'white' : 'black',
         marginTop: 5
+    },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'gray',
+        marginTop: 20,
+        borderRadius: 5,
+        overflow: 'hidden',
+        width: Dimensions.get("window").width - 20,
+        height: 60,
+    },
+    pressable: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+        padding: 20,
+    },
+    text: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        flexShrink: 1,
+        marginRight: 10,
+    },
+    pressedItem: {
+        backgroundColor: 'gray',
     }
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Verifications from "../screens/Verifications";
+import Verifiche from "../screens/Verifications";
 import Grades from "../screens/Grades";
 import TimeTable from "../screens/TimeTable";
 // Create bottom tab navigator instance
@@ -25,7 +25,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                         iconName = focused ? 'calendar-clear' : 'calendar-clear-outline';
                     } else if (route.name === 'Note') {
                         iconName = focused ? 'medal' : 'medal-outline';
-                    } else if (route.name === 'Verifications') {
+                    } else if (route.name === 'Verifiche') {
                         iconName = focused ? 'reader' : 'reader-outline';
                     }
                     return <Ionicons name={iconName} size={size} color={color} />;
@@ -75,8 +75,8 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
             </Tab.Screen>
 
             {/* Verifications Screen */}
-            <Tab.Screen name="Verifications" options={{headerStatusBarHeight:65}}>
-                {() => (<Verifications darkThemeEnabled={darkThemeEnabled} verifications={verifications} deleteVerification={deleteVerification} />)}
+            <Tab.Screen name="Verifiche" options={{headerStatusBarHeight:65}}>
+                {() => (<Verifiche darkThemeEnabled={darkThemeEnabled} verifications={verifications} deleteVerification={deleteVerification} />)}
             </Tab.Screen>
         </Tab.Navigator>
     );

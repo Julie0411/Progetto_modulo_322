@@ -22,7 +22,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                 alwaysBounceHorizontal={false}
             >
                 <View style={styles.element}>
-                    <Text style={styles.text}>Selected class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled? "true":"false"}</Text>
+                    <Text style={styles.text}>Class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled? "true":"false"}</Text>
                 </View>
                 {/* Select class */}
                 <Pressable style={styles.element} onPress={handleClassSelection}>
@@ -31,7 +31,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                 </Pressable>
                 {/* Dark theme toggle with custom colors */}
                 <View style={styles.element}>
-                    <Text style={styles.text}>Dark Theme</Text>
+                    <Text style={styles.text}>Tema nero</Text>
                     <Switch
                         trackColor={{ true: '#818181' }}
                         thumbColor={'#3c3c3c'}

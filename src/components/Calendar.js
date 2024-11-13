@@ -7,6 +7,7 @@ import {lightColors} from "../theme/colors/light";
 import {EVENTS} from "../constants/events";
 import {useStyles} from "../utils/hooks/useStyles";
 import {CALENDAR_CONFIG} from "../constants/const";
+import {LocaleConfigsProps} from "@howljs/calendar-kit";
 // Main Calendar component that accepts darkThemeEnabled and onEventPress as props
 const Calendar = ({ darkThemeEnabled, onEventPress }) => {
     // Initialize styles using custom hook based on theme
@@ -16,6 +17,20 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
             darkThemeEnabled ? darkColors : lightColors,
         [darkThemeEnabled]
     );
+
+    const initialLocales: Record<string, Partial<LocaleConfigsProps>> = {
+        en: {
+            weekDayShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'), // Text in day header (Sun, Mon, etc.)
+            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
+            more: 'more', // Text for "more" button (All day events)
+        },
+        it: {
+            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven_Sab'.split('_'), // Text in day header (Sun, Mon, etc.)
+            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
+            more: 'di più', // Text for "more" button (All day events)
+        },
+
+    };
     // Callback function to render individual calendar events
     // Takes a PackedEvent type parameter and returns a styled View
     const renderEvent = useCallback((event: PackedEvent) => (
@@ -39,6 +54,8 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
             onPressEvent={onEventPress} // Handle event press
             useHaptic={true}         // Enable haptic feedback
             {...CALENDAR_CONFIG}      // Spread additional calendar configuration
+            initialLocales={initialLocales}
+            locale='it'
         >
             <CalendarHeader />
             <CalendarBody renderEvent={renderEvent} />

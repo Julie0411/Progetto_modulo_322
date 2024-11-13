@@ -26,7 +26,7 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
         <View style={[styles.buttonContainer,!selClass && styles.buttonDisabled]}>
             {/* Save button */}
             <Pressable style={styles.button} onPress={handleSavePress} disabled={!selClass}>
-                <Text style={styles.buttonText}>Save</Text>
+                <Text style={styles.buttonText}>Salva</Text>
             </Pressable>
 
         </View>
@@ -63,15 +63,21 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         paddingRight: 10,
     },
     buttonContainer: {
-        backgroundColor: 'white',
-        borderRadius: 8,
-        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginTop: 20,
-        alignItems: 'center',
     },
     button: {
-        backgroundColor: 'white',
-        borderRadius: 10
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderColor: 'gray',
+        borderRadius: 10,
+        marginHorizontal: 10,
+        borderWidth: 0.5
+    },
+    buttonText: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        fontSize: 16,
     },
     buttonDisabled: {
         opacity: 0.5,
