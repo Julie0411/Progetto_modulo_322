@@ -23,7 +23,7 @@ npm install -g expo-cli
 ## Installation
 Clone the repository:
 ```bash
-git clone https://github.com/yourusername/TimeFlow.git
+git clone https://github.com/Julie0411/Progetto_modulo_322.git
 ```
 Navigate to project directory:
 ```bash
