@@ -1,18 +1,58 @@
-1. Prerequisiti
+# TimeFlow - Modern TimeTable Manager
 
-	•	Node.js: Assicurati di avere Node.js installato. Puoi scaricarlo da nodejs.org.<br/>
-	•	Expo CLI: Installa Expo CLI globalmente (se non è già installato) con il comando: npm install -g expo-cli<br/>
+A modern and intuitive timetable application built with React Native and Expo, designed to help students and professionals manage their schedule, track verifications, and organize notes efficiently.
 
-2. Installare le Dipendenze del Progetto
+## 🌟 Features
 
-	•	Dopo aver clonato il progetto o scaricato i file, apri il terminale nella directory principale del progetto.<br/>
-	•	Esegui il comando: npm install ( Questo installerà tutte le dipendenze necessarie definite nel file package.json )<br/>
+- 📅 Interactive TimeTable Management
+- ✍️ Verification Tracking System
+- 📝 Note Taking & Organization
+- 🎨 Customizable Themes
+- 🎯 Modern and Clean UI
+- 📱 Cross-platform (iOS & Android)
 
-3. Avviare l’App in Modalità di Sviluppo
+## 🚀 Getting Started
 
-	•	Avvia l’app con: npx expo start<br/>
+### Prerequisites
 
+- Node.js (Download from [nodejs.org](https://nodejs.org))
+- Expo CLI: Install globally using:
+```bash
+npm install -g expo-cli
+```
+## Installation
+Clone the repository:
+```bash
+git clone https://github.com/yourusername/TimeFlow.git
+```
+Navigate to project directory:
+```bash
+cd TimeFlow
+```
+Install dependencies:
+```bash
+npm install
+```
+Start the development server:
+```bash
+npx expo start
+```
 
-sito di EXPO https://docs.expo.dev/ <br/>
-sito di React Native https://reactnative.dev/ <br/>
-molto utile per React Native https://reactnative.dev/docs/0.75/components-and-apis <br/>
+## 📱 Running the App
+Scan the QR code with:
+
+- Expo Go app (Android)
+- Camera app (iOS)
+
+## 🛠️ Built With
+- React Native
+- Expo Framework
+
+## 📚 Useful Resources
+[Expo Documentation](https://docs.expo.dev/)
+[React Native Documentation](https://reactnative.dev/)
+[React Native Components and APIs](https://reactnative.dev/docs/components-and-apis)
+
+# 📄 License
+This project is licensed under the MIT License.
+

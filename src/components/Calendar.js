@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
 import {View, Text, StyleSheet} from 'react-native';
 import {PackedEvent} from "@howljs/calendar-kit";
@@ -6,47 +6,56 @@ import {darkColors} from "../theme/colors/dark";
 import {lightColors} from "../theme/colors/light";
 import {EVENTS} from "../constants/events";
 import {useStyles} from "../utils/hooks/useStyles";
-
-const createStyles = (colors) => StyleSheet.create({
-    eventContainer: {
-        width: '100%',
-        left: '10%',
-        height: '100%',
-        padding: 4,
-        backgroundColor: colors.surface,
-    },
-    eventText: {
-        color: colors.text,
-        fontSize: 10
-    }
-});
-
+import {CALENDAR_CONFIG} from "../constants/const";
+import {LocaleConfigsProps} from "@howljs/calendar-kit";
+// Main Calendar component that accepts darkThemeEnabled and onEventPress as props
 const Calendar = ({ darkThemeEnabled, onEventPress }) => {
+    // Initialize styles using custom hook based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
+    // Memoized color theme selection based on darkThemeEnabled prop
+    const colors = useMemo(() =>
+            darkThemeEnabled ? darkColors : lightColors,
+        [darkThemeEnabled]
+    );
+
+    const initialLocales: Record<string, Partial<LocaleConfigsProps>> = {
+        en: {
+            weekDayShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'), // Text in day header (Sun, Mon, etc.)
+            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
+            more: 'more', // Text for "more" button (All day events)
+        },
+        it: {
+            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven_Sab'.split('_'), // Text in day header (Sun, Mon, etc.)
+            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
+            more: 'di più', // Text for "more" button (All day events)
+        },
+
+    };
+    // Callback function to render individual calendar events
+    // Takes a PackedEvent type parameter and returns a styled View
     const renderEvent = useCallback((event: PackedEvent) => (
             <View style={styles.eventContainer}>
-                <Text style={styles.eventText}>{event.title}{"\n"}{event.start.dateTime.slice(11,16)} - {event.end.dateTime.slice(11,16)}</Text>
+                <Text style={styles.eventText}>
+                    {/* Display event title and formatted time range */}
+                    {event.title}{"\n"}
+                    {event.start.dateTime.slice(11,16)} - {event.end.dateTime.slice(11,16)}
+                </Text>
             </View>
         ),
-        []
+        [styles]
     );
-    const colors = darkThemeEnabled ? darkColors : lightColors;
-
+    // Return the calendar component structure
     return (
         <CalendarContainer
-            allowPinchToZoom={true}
-            theme={colors}
-            numberOfDays={5}
-            hideWeekDays={[6, 7]}
-            minDate="2024-09-02"
-            maxDate="2025-06-16"
-            events={EVENTS}
-            scrollByDay={false}
-            onPressEvent={onEventPress}
-            timeInterval={45}
-            start={500}
-            end={1000}
-            useHaptic={true}
+            allowPinchToZoom={true}  // Enable pinch zoom functionality
+            theme={colors}           // Apply theme colors
+            events={EVENTS}          // Pass events data
+            scrollByDay={false}      // Disable scroll by day
+            onPressEvent={onEventPress} // Handle event press
+            useHaptic={true}         // Enable haptic feedback
+            {...CALENDAR_CONFIG}      // Spread additional calendar configuration
+            initialLocales={initialLocales}
+            locale='it'
         >
             <CalendarHeader />
             <CalendarBody renderEvent={renderEvent} />
@@ -55,3 +64,17 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
 };
 
 export default Calendar;
+// StyleSheet creation function that receives colors as parameter
+const createStyles = (colors) => StyleSheet.create({
+    eventContainer: {
+        width: '100%',
+        left: '10%',
+        height: '100%',
+        padding: 4,
+        backgroundColor: colors.eventSurface,
+    },
+    eventText: {
+        color: colors.text,
+        fontSize: 10
+    }
+});
