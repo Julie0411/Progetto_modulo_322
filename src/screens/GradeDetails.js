@@ -4,9 +4,7 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 export default function GradeDetails({ route }) {
-
     const { grades, darkThemeEnabled, showAddGrade} = route.params;
-
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const renderGradeItem = ({ item }) => (
@@ -14,15 +12,17 @@ export default function GradeDetails({ route }) {
             <BottomSheetModalProvider>
                 <View style={styles.gradeItem}>
                     <Pressable
-                        // Dynamic style based on pressed state
-                        style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
+                        style={({ pressed }) => [
+                            styles.pressable,
+                            pressed && styles.pressedItem
+                        ]}
                     >
-                        <Text style={[styles.text, { color: darkThemeEnabled ? 'white' : 'black' }]}>
-                            {item.text}
-                        </Text>
-                        <Text style={[styles.text, { color: darkThemeEnabled ? 'white' : 'black' }]}>
-                            Grade: {item.grade}
-                        </Text>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.text}>{item.text}</Text>
+                        </View>
+                        <View style={styles.gradeContainer}>
+                            <Text style={styles.gradeText}>Nota: {item.grade}</Text>
+                        </View>
                     </Pressable>
                 </View>
             </BottomSheetModalProvider>
@@ -30,7 +30,7 @@ export default function GradeDetails({ route }) {
     );
 
     return (
-        <View style={[styles.container, { backgroundColor: darkThemeEnabled ? 'black' : 'white' }]}>
+        <View style={styles.container}>
             <FlatList
                 data={grades}
                 renderItem={renderGradeItem}
@@ -48,28 +48,33 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         alignItems: 'center',
     },
     gradeItem: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         borderWidth: 1,
         borderColor: 'gray',
         marginTop: 20,
         borderRadius: 5,
-        overflow: 'hidden',
         width: Dimensions.get("window").width - 20,
         height: 60,
     },
+    textContainer: {
+        flex: 3,
+        justifyContent: 'center',
+    },
+    gradeContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+    },
     text: {
         color: darkThemeEnabled ? 'white' : 'black',
-        flexShrink: 1,
-        marginRight: 10,
+    },
+    gradeText: {
+        color: darkThemeEnabled ? 'white' : 'black',
     },
     pressable: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         flex: 1,
-        padding: 20,
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+        alignItems: 'center',
     },
     pressedItem: {
         backgroundColor: 'rgba(155,155,155,0.3)',

@@ -55,16 +55,20 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
                 {/* Main content container */}
                 <View style={styles.background}>
                     {/* List of verifications with performance optimizations */}
-                    <FlatList
-                        data={verifications}
-                        renderItem={renderItem}
-                        keyExtractor={keyExtractor}
-                        showsVerticalScrollIndicator={false}
-                        removeClippedSubviews={true}
-                        initialNumToRender={10}
-                        maxToRenderPerBatch={10}
-                        windowSize={5}
-                    />
+                    {verifications.length === 0 ? (
+                        <Text style={styles.text}>Non c’è nessuna verifica</Text>
+                    ) : (
+                        <FlatList
+                            data={verifications}
+                            renderItem={renderItem}
+                            keyExtractor={keyExtractor}
+                            showsVerticalScrollIndicator={false}
+                            removeClippedSubviews={true}
+                            initialNumToRender={10}
+                            maxToRenderPerBatch={10}
+                            windowSize={5}
+                        />
+                    )}
                 </View>
                 {/* Bottom sheet modal for detailed view */}
                 <BottomSheetModal

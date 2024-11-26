@@ -1,31 +1,26 @@
 import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
 import React, {useMemo} from "react";
-import {EVENTS} from "../constants/events";
+import {EVENTS, GRADES} from "../constants/events";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 
 export default function Grades({darkThemeEnabled}) {
-
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+    const lessons = [...new Set(EVENTS.map(event => event.title))];
     const navigation = useNavigation();
 
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+    const lessonsWithGrades = useMemo(() => {
+        return lessons.map(title => ({
+            title: title,
+            grades: GRADES.find(grade => grade.title === title)?.grades || []
+        }));
+    }, [lessons]);
 
-    const lessons = [...new Set(EVENTS.map(event => event.title))];
-    //Lessons with empty grades arrays
-    const lessonsWithGrades = lessons.map(title => ({
-        title: title,
-        grades: []
-    }));
-    //Add a grade to a specific title
-    const addGrade = (title, grade,text) => {
-        const item = lessonsWithGrades.find(item => item.title === title);
-        if (item) {
-            item.grades.push({grade,text});
-        }
+    const calculateAverageGrade = (grades) => {
+        if (!grades || grades.length === 0) return '--';
+        const sum = grades.reduce((acc, curr) => acc + curr.grade, 0);
+        return (sum / grades.length).toFixed(1);
     };
-
-    addGrade("Kra m320", 5.5,"text1");
-    addGrade("Kra m320", 5.0,"text2");
 
     const handleLessonSelection = (selectedLesson) => {
         navigation.navigate('GradeDetails', {
@@ -34,26 +29,30 @@ export default function Grades({darkThemeEnabled}) {
         });
     };
 
-    const renderItem = ({ item }) => (
-        <View style={styles.itemContainer}>
-            <Pressable
-                onPress={() => handleLessonSelection(item)}
-                style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
-            >
-                <View style={styles.leftSection}>
-                    <Text style={styles.itemText}>{item}</Text>
-                </View>
-                <View style={styles.centerSection}>
-                    <Text style={styles.itemText}>Nota media: --</Text>
-                </View>
-                <View style={styles.rightSection}>
-                    <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
-                </View>
-            </Pressable>
-        </View>
-    );
+    const renderItem = ({ item }) => {
+        const lessonGrades = lessonsWithGrades.find(lesson => lesson.title === item)?.grades;
+        const average = calculateAverageGrade(lessonGrades);
 
-    // Render component with theme-aware styling
+        return (
+            <View style={styles.itemContainer}>
+                <Pressable
+                    onPress={() => handleLessonSelection(item)}
+                    style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
+                >
+                    <View style={styles.leftSection}>
+                        <Text style={styles.itemText}>{item}</Text>
+                    </View>
+                    <View style={styles.centerSection}>
+                        <Text style={styles.itemText}>Nota media: {average}</Text>
+                    </View>
+                    <View style={styles.rightSection}>
+                        <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                    </View>
+                </Pressable>
+            </View>
+        );
+    };
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -88,7 +87,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     itemText: {
         color: darkThemeEnabled ? 'white' : 'black',
-        flexShrink: 1,
     },
     pressable: {
         flexDirection: 'row',
@@ -113,5 +111,4 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         flex: 1,
         alignItems: 'flex-end',
     }
-
 })

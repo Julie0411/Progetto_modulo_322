@@ -22,9 +22,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
     return (
         <BottomSheetView style={styles.contentContainer}>
             {/* Title text */}
-            <Text style={styles.title}>
-                Inserisci testo per la verifica
-            </Text>
+            <Text style={styles.title}>Inserisci testo per la verifica</Text>
             {/* Input field for verification notes */}
             <BottomSheetTextInput
                 style={styles.textInput}
@@ -37,9 +35,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
             <View style={styles.buttonContainer}>
                 {/* Cancel button */}
                 <Pressable style={styles.button} onPress={handleCancel}>
-                    <Text style={[styles.buttonText, { color: 'red' }]}>
-                        Cancel
-                    </Text>
+                    <Text style={[styles.buttonText, { color: 'red' }]}>Cancel</Text>
                 </Pressable>
                 {/* Save button */}
                 <Pressable style={styles.button} onPress={handleSave}>

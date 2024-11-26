@@ -4,7 +4,7 @@ export const COLOR_3 = '#d66083';
 
 export const EVENTS = [
     // Monday
-    { id: '0', title: 'Kra m320', classroom: '201', start: { dateTime: '2024-11-04T08:20:00' }, end: { dateTime: '2024-11-04T09:50:00' }, color: COLOR_1 },
+    { id: '0', title: 'Kra m320', classroom: '201', start: { dateTime: '2024-11-04T08:20:00' }, end: { dateTime: '2024-11-04T09:50:00' }, color: COLOR_1},
     { id: '1', title: 'BeA ef', classroom: 'P1', start: { dateTime: '2024-11-04T10:05:00' }, end: { dateTime: '2024-11-04T11:35:00' }, color: COLOR_3 },
     { id: '2', title: 'Kra m320', classroom: '203', start: { dateTime: '2024-11-04T12:20:00' }, end: { dateTime: '2024-11-04T13:50:00' }, color: COLOR_1 },
     { id: '3', title: 'Kra m322', classroom: '203', start: { dateTime: '2024-11-04T13:50:00' }, end: { dateTime: '2024-11-04T14:35:00' }, color: COLOR_1 },
@@ -37,4 +37,24 @@ export const EVENTS = [
     { id: '23', title: 'BeA ef', classroom: 'P1', start: { dateTime: '2024-11-08T12:20:00' }, end: { dateTime: '2024-11-08T13:50:00' }, color: COLOR_3 },
     { id: '24', title: 'GeG m293', classroom: '203', start: { dateTime: '2024-11-08T13:50:00' }, end: { dateTime: '2024-11-08T14:35:00' }, color: COLOR_1 },
     { id: '25', title: 'GeG m293', classroom: '203', start: { dateTime: '2024-11-08T14:45:00' }, end: { dateTime: '2024-11-08T16:15:00' }, color: COLOR_1 },
+];
+
+export const GRADES = [
+    {
+        title: "Kra m320",
+        grades: [
+            {
+                grade: 5.5,
+                text: "Test 1"
+            },
+            {
+                grade: 3.0,
+                text: "Test 2"
+            }
+        ]
+    },
+    {
+        title: "BeA ef",
+        grades: []
+    }
 ];

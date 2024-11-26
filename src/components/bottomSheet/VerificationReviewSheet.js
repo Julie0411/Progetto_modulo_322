@@ -69,9 +69,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
             {isEditing && (
                 <View style={styles.buttons}>
                     <Pressable onPress={toggleEdit} style={styles.button}>
-                        <Text style={[styles.buttonText, {color: 'red'}]}>
-                            Cancel
-                        </Text>
+                        <Text style={[styles.buttonText, {color: 'red'}]}>Cancel</Text>
                     </Pressable>
                     <Pressable onPress={saveChanges} style={styles.button}>
                         <Text style={styles.buttonText}>Save</Text>
