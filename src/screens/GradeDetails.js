@@ -9,8 +9,6 @@ export default function GradeDetails({ route }) {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    console.log(showAddGrade)
-
     const renderGradeItem = ({ item }) => (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>

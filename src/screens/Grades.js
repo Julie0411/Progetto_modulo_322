@@ -27,9 +27,6 @@ export default function Grades({darkThemeEnabled}) {
     addGrade("Kra m320", 5.5,"text1");
     addGrade("Kra m320", 5.0,"text2");
 
-    console.log("!!lessonsWithGrades: ", lessonsWithGrades)
-    console.log("!!lessonsWithGrades[0].grades: ",lessonsWithGrades[0].grades)
-
     const handleLessonSelection = (selectedLesson) => {
         navigation.navigate('GradeDetails', {
             lessonTitle: selectedLesson,

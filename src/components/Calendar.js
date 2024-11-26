@@ -18,15 +18,9 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
     );
 
     const initialLocales: Record<string, Partial<LocaleConfigsProps>> = {
-        en: {
-            weekDayShort: 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'), // Text in day header (Sun, Mon, etc.)
-            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
-            more: 'more', // Text for "more" button (All day events)
-        },
         it: {
-            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven_Sab'.split('_'), // Text in day header (Sun, Mon, etc.)
+            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven'.split('_'), // Text in day header (Sun, Mon, etc.)
             meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
-            more: 'di più', // Text for "more" button (All day events)
         },
 
     };
@@ -54,7 +48,10 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
             useHaptic={true}         // Enable haptic feedback
             {...CALENDAR_CONFIG}      // Spread additional calendar configuration
             initialLocales={initialLocales}
-            locale='it'
+            locale='it' // Set localization as Italian
+            minRegularEventMinutes={15} // Minimum event duration
+            minTimeIntervalHeight={30} // Minimum height for regular events
+            maxTimeIntervalHeight={45} // Maximum height for regular events
         >
             <CalendarHeader />
             <CalendarBody renderEvent={renderEvent} />
@@ -73,7 +70,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         backgroundColor: darkThemeEnabled ? '#2e2e2e' : 'rgba(46,46,46,0.4)',
     },
     eventText: {
-        color: darkThemeEnabled ? 'white' : 'black',
+        color: 'white',
         fontSize: 10
     }
 });

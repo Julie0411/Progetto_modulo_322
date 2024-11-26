@@ -30,12 +30,22 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                     }
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
+                tabBarButton: (props) => (
+                    <Pressable
+                        {...props}
+                        disabled={!selectedClass}
+                        style={[
+                            props.style,
+                            { opacity: selectedClass ? 1 : 0.5 }
+                        ]}
+                    />
+                ),
                 // Set tab bar colors
                 tabBarActiveTintColor: activeColor,
                 tabBarInactiveTintColor: inactiveColor,
                 // Configure settings button in header right
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate('Settings')}>
+                    <Pressable onPress={() => navigation.navigate('Settings')} disabled={!selectedClass} style={{ opacity: selectedClass ? 1 : 0.5 }}>
                         <View style={styles.settingsButton}>
                             <Ionicons name={'settings-outline'} size={28} color={activeColor} />
                         </View>
@@ -43,7 +53,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                 ),
                 // Configure share button in header left
                 headerLeft: () => (
-                    <Pressable>
+                    <Pressable disabled={!selectedClass} style={{ opacity: selectedClass ? 1 : 0.5 }}>
                         <View style={styles.shareButton}>
                             <Ionicons name={'share-outline'} size={28} color={activeColor} />
                         </View>

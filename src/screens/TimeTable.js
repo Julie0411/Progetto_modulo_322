@@ -27,6 +27,7 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleEventPress = (event) => {
+        if (!selectedClass) return;
         setSelectedEvent(event);
         verificationSheetRef.current?.present();
     };
