@@ -67,7 +67,6 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                         toggleMaturity={toggleMaturity}
                         maturityIsEnabled={maturityIsEnabled}
                     />
-
                 </View>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>

@@ -33,7 +33,6 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                 // Set tab bar colors
                 tabBarActiveTintColor: activeColor,
                 tabBarInactiveTintColor: inactiveColor,
-
                 // Configure settings button in header right
                 headerRight: () => (
                     <Pressable onPress={() => navigation.navigate('Settings')}>
@@ -42,7 +41,6 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                         </View>
                     </Pressable>
                 ),
-
                 // Configure share button in header left
                 headerLeft: () => (
                     <Pressable>
@@ -51,12 +49,10 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                         </View>
                     </Pressable>
                 ),
-
                 // Set header style based on theme
                 headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
             })}
         >
-
             {/* TimeTable Screen */}
             <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
                 {() => (<TimeTable
@@ -68,12 +64,10 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                     maturityIsEnabled={maturityIsEnabled}
                 />)}
             </Tab.Screen>
-
             {/* Grades Screen */}
             <Tab.Screen name="Note" options={{headerStatusBarHeight:65}}>
-                {() => (<Grades darkThemeEnabled={darkThemeEnabled} />)}
+                {(navigation) => (<Grades darkThemeEnabled={darkThemeEnabled} navigation={navigation}/>)}
             </Tab.Screen>
-
             {/* Verifications Screen */}
             <Tab.Screen name="Verifiche" options={{headerStatusBarHeight:65}}>
                 {() => (<Verifiche darkThemeEnabled={darkThemeEnabled} verifications={verifications} deleteVerification={deleteVerification} />)}
@@ -81,7 +75,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
         </Tab.Navigator>
     );
 }
-// Styles for header buttons and padding
+
 const styles = StyleSheet.create({
     settingsButton: {
         marginRight: 20,

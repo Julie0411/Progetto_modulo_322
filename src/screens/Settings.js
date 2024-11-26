@@ -1,26 +1,22 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-native";
-import {useStyles} from "../utils/hooks/useStyles";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, selectedClass, setMaturityIsEnabled}) => {
 
-    const styles = useStyles(createStyles, darkThemeEnabled);
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleClassSelection = () => {
         setSelectedClass(null)
         setMaturityIsEnabled(false)
         navigation.navigate('Orario')
     };
+
     return (
         // Main container for settings screen
         <View style={styles.settingsContainer}>
             {/* Scrollable content area */}
-            <ScrollView
-                horizontal={false}
-                contentContainerStyle={{ flexGrow: 1 }}
-                alwaysBounceHorizontal={false}
-            >
+            <ScrollView horizontal={false} contentContainerStyle={{ flexGrow: 1 }} alwaysBounceHorizontal={false}>
                 <View style={styles.element}>
                     <Text style={styles.text}>Class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled? "true":"false"}</Text>
                 </View>
@@ -39,19 +35,16 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                         value={darkThemeEnabled}
                     />
                 </View>
-
                 {/* Information section */}
                 <Pressable style={styles.element}>
                     <Text style={styles.text}>Informazione</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
-
                 {/* FAQ section */}
                 <Pressable style={styles.element}>
                     <Text style={styles.text}>Hai altre domande?</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
-
                 {/* Version footer */}
                 <View style={styles.footer}>
                     <Text style={styles.text}>v: a0.1</Text>
@@ -63,10 +56,9 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
 
 export default Settings;
 // StyleSheet creation function that receives colors based on theme
-const createStyles = (colors) => StyleSheet.create({
-    // Main container styles
+const createStyles = (darkThemeEnabled) => StyleSheet.create({
     settingsContainer: {
-        backgroundColor: colors.background,
+        backgroundColor: darkThemeEnabled ? 'black' : '#f3f2f8',
         flexDirection: 'column',
         height: '100%',
         flex: 1,
@@ -75,7 +67,6 @@ const createStyles = (colors) => StyleSheet.create({
         padding: 8,
         width: '100%',
     },
-    // Individual setting element styles
     element: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -83,16 +74,14 @@ const createStyles = (colors) => StyleSheet.create({
         maxWidth: '100%',
         padding: 20,
         marginTop: 10,
-        backgroundColor: colors.settingsSurface,
+        backgroundColor: darkThemeEnabled? '#2e2e2e' : 'white',
         height: 60,
         borderRadius: 8,
         marginHorizontal: 10,
     },
-    // Text styling for all settings
     text: {
-        color: colors.settingsText,
+        color: darkThemeEnabled ? 'white' : 'black',
     },
-    // Footer section styles
     footer: {
         height: 60,
         borderRadius: 8,

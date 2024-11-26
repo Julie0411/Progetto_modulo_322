@@ -39,7 +39,6 @@ export default React.memo(SelectClassSheet);
 
 // Style creation function based on theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    // Main container styles
     contentContainer: {
         backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
         flex: 1,

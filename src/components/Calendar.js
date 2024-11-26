@@ -2,17 +2,16 @@ import React, {useCallback, useMemo} from 'react';
 import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
 import {View, Text, StyleSheet} from 'react-native';
 import {PackedEvent} from "@howljs/calendar-kit";
-import {darkColors} from "../theme/colors/dark";
-import {lightColors} from "../theme/colors/light";
 import {EVENTS} from "../constants/events";
-import {useStyles} from "../utils/hooks/useStyles";
 import {CALENDAR_CONFIG} from "../constants/const";
 import {LocaleConfigsProps} from "@howljs/calendar-kit";
+import {darkColors} from "../theme/colors/dark";
+import {lightColors} from "../theme/colors/light";
 // Main Calendar component that accepts darkThemeEnabled and onEventPress as props
 const Calendar = ({ darkThemeEnabled, onEventPress }) => {
     // Initialize styles using custom hook based on theme
-    const styles = useStyles(createStyles, darkThemeEnabled);
-    // Memoized color theme selection based on darkThemeEnabled prop
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
     const colors = useMemo(() =>
             darkThemeEnabled ? darkColors : lightColors,
         [darkThemeEnabled]
@@ -64,17 +63,17 @@ const Calendar = ({ darkThemeEnabled, onEventPress }) => {
 };
 
 export default Calendar;
-// StyleSheet creation function that receives colors as parameter
-const createStyles = (colors) => StyleSheet.create({
+
+const createStyles = (darkThemeEnabled) => StyleSheet.create({
     eventContainer: {
         width: '100%',
         left: '10%',
         height: '100%',
         padding: 4,
-        backgroundColor: colors.eventSurface,
+        backgroundColor: darkThemeEnabled ? '#2e2e2e' : 'rgba(46,46,46,0.4)',
     },
     eventText: {
-        color: colors.text,
+        color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 10
     }
 });

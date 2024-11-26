@@ -39,7 +39,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    // Handle indicator styling with theme support
     handleIndicatorStyle: {
         backgroundColor: darkThemeEnabled ? 'white' : 'black',
         marginTop: 5

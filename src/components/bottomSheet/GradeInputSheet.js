@@ -23,7 +23,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
         <BottomSheetView style={styles.contentContainer}>
             {/* Title text */}
             <Text style={styles.title}>
-                Inserisci appunti per la verifica
+                Inserisci testo per la verifica
             </Text>
             {/* Input field for verification notes */}
             <BottomSheetTextInput

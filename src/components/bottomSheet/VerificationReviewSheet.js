@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 import { formatDate } from "../../utils/formatters/dateFormatter";
@@ -38,7 +38,6 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
             <Text style={styles.text}>Insegnante: {insegnante}</Text>
             <Text style={styles.text}>Aula: {roomPart}</Text>
             <Text style={styles.text}>Data: {formatDate(item.data.dateTime)}</Text>
-
             {/* Notes section with edit functionality */}
             <View style={styles.textBody}>
                 <Text style={styles.text}>Appunti: </Text>
@@ -66,7 +65,6 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                     />
                 </Pressable>
             </View>
-
             {/* Edit mode buttons */}
             {isEditing && (
                 <View style={styles.buttons}>
@@ -85,9 +83,8 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
 };
 // Memoize component to prevent unnecessary re-renders
 export default React.memo(VerificationReviewSheet);
-// Styles creator function that adapts to dark/light theme
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    // Container styles
     contentContainer: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
@@ -97,19 +94,16 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         alignItems: 'baseline',
         gap: 20,
     },
-    // Text styles
     text: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
         maxWidth: "90%",
     },
-    // Notes section layout
     textBody: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         maxWidth: "80%",
     },
-    // Input field styles
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
@@ -117,17 +111,14 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         maxWidth: "80%",
         minWidth: "10%",
     },
-    // Edit icon styles
     editIcon: {
         marginLeft: 5
     },
-    // Button container styles
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
     },
-    // Individual button styles
     button: {
         borderWidth: 1,
         borderColor: darkThemeEnabled ? 'white' : 'black',
@@ -135,7 +126,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         padding: 5,
         paddingHorizontal: 20,
     },
-    // Button text styles
     buttonText: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 16,

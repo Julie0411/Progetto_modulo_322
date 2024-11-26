@@ -7,9 +7,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
 
-export default function Verifications(props) {
-    // Destructure props for easy access
-    const { darkThemeEnabled, verifications, deleteVerification } = props;
+export default function Verifications({ darkThemeEnabled, verifications, deleteVerification }) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for currently selected item
@@ -131,6 +129,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         marginRight: 10,
     },
     pressedItem: {
-        backgroundColor: 'gray',
+        backgroundColor: 'rgba(155,155,155,0.3)',
     }
 });

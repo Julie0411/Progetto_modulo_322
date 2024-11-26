@@ -14,7 +14,7 @@ export const INITIAL_CONFIG = {
     labelField: "label",           // Field name for display text in options
     valueField: "value",           // Field name for option values
     placeholder: 'Scegli la sua classe',      // Default placeholder text (Italian: "Click here")
-    searchPlaceholder: "Search...", // Placeholder text for search input
+    searchPlaceholder: "Ricerca…", // Placeholder text for search input
 };
 
 export const CLASSES_OPTIONS = [

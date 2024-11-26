@@ -3,7 +3,10 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNavigator from "./src/navigation/TabNavigator";
 import Settings from "./src/screens/Settings";
-import {StatusBar} from "react-native";
+import {Pressable, StatusBar} from "react-native";
+import GradeDetails from "./src/screens/GradeDetails";
+import Grades from "./src/screens/Grades";
+import Ionicons from "react-native-vector-icons/Ionicons";
 // Create stack navigator instance
 const Stack = createStackNavigator();
 
@@ -11,7 +14,7 @@ export default function App() {
     // State management for theme and verifications
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
 
-    const [selectedClass, setSelectedClass] = useState(null);
+    const [selectedClass, setSelectedClass] = useState({label:"1"});
 
     const [verifications, setVerifications] = useState([]);
     // Set theme based on darkThemeEnabled state
@@ -54,8 +57,8 @@ export default function App() {
                 {/* Stack navigator with header style configuration */}
                 <Stack.Navigator screenOptions={{ height: 110 }}>
                     {/* Tab navigator screen configuration */}
-                    <Stack.Screen name="TabNavigator" options={{ headerShown: false, headerTitle: "Indietro" }}>
-                        {() => (
+                    <Stack.Screen name="TabNavigator" options={{ headerShown: false}}>
+                        {(navigation) => (
                             <TabNavigator
                                 verifications={verifications}
                                 addVerification={addVerification}
@@ -66,12 +69,20 @@ export default function App() {
                                 setSelectedClass={handleSetClass}
                                 toggleMaturity={toggleMaturity}
                                 maturityIsEnabled={maturityIsEnabled}
+                                navigation={navigation}
                             />
                         )}
                     </Stack.Screen>
 
                     {/* Settings screen configuration */}
-                    <Stack.Screen name="Settings" options={{ headerTitle: "Impostazioni" }}>
+                    <Stack.Screen name="Settings"  options={({navigation }) => ({
+                        headerTitle: "Impostazioni",
+                        headerLeft: () => (
+                            <Pressable onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
+                                <Ionicons name="arrow-back" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                            </Pressable>
+                        )
+                    })}>
                         {({ navigation }) => (
                             <Settings
                                 toggleTheme={toggleTheme}
@@ -83,6 +94,25 @@ export default function App() {
                             />
                         )}
                     </Stack.Screen>
+                    <Stack.Screen name="Grades" options={{headerShown: false, headerTitle: "Note" }} component={Grades} />
+                    <Stack.Screen
+                        name="GradeDetails"
+                        options={({ route, navigation }) => ({
+                            headerTitle: route.params?.lessonTitle || "Note",
+                            headerLeft: () => (
+                                <Pressable onPress={() => navigation.goBack()} style={{ marginLeft: 16 }}>
+                                    <Ionicons name="arrow-back" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                                </Pressable>
+                            ),
+                            headerRight: () => (
+                                <Pressable onPress={() => navigation.setParams({ showAddGrade: true })} style={{ marginRight: 16 }}>
+                                    <Ionicons name="add-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                                </Pressable>
+                            )
+                        })}
+                        initialParams={{ darkThemeEnabled: darkThemeEnabled }}
+                        component={GradeDetails}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>
