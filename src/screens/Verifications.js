@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import {View, StyleSheet, FlatList, Pressable, Text, Dimensions} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
-import SheetBody from "../components/bottomSheet/VerificationReviewSheet";
+import VerificationReviewSheet from "../components/bottomSheet/VerificationReviewSheet";
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
@@ -41,7 +41,7 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
                 style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
             >
                 {/* Display item title with single line truncation */}
-                <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.text} numberOfLines={1}>{item.subject} {item.teacher}</Text>
                 {/* Display formatted date with single line truncation */}
                 <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
             </Pressable>
@@ -82,13 +82,13 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
                     index={0}
                     keyboardBehavior="interactive"
                 >
-                    <SheetBody darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
+                    <VerificationReviewSheet darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
                 </BottomSheetModal>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>
     );
 }
-// Style creation function that adapts to theme
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     root: {
         flex: 1,

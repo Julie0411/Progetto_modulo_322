@@ -8,7 +8,7 @@ import TimeTable from "../screens/TimeTable";
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({darkThemeEnabled, selectedClass, setSelectedClass, verifications, addVerification, deleteVerification, toggleMaturity, maturityIsEnabled}) {
+export default function TabNavigator({darkThemeEnabled, selectedClass, setSelectedClass, verifications, addVerification, deleteVerification, toggleMaturity, maturityIsEnabled, grades}) {
     // Define colors based on theme
     const activeColor = darkThemeEnabled ? 'white' : 'black';
     const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
@@ -76,7 +76,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
             </Tab.Screen>
             {/* Grades Screen */}
             <Tab.Screen name="Note" options={{headerStatusBarHeight:65}}>
-                {(navigation) => (<Grades darkThemeEnabled={darkThemeEnabled} navigation={navigation}/>)}
+                {(navigation) => (<Grades darkThemeEnabled={darkThemeEnabled} navigation={navigation} maturityIsEnabled={maturityIsEnabled} selectedClass={selectedClass} grades={grades}/>)}
             </Tab.Screen>
             {/* Verifications Screen */}
             <Tab.Screen name="Verifiche" options={{headerStatusBarHeight:65}}>

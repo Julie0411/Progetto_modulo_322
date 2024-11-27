@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
-
 // VerificationInputSheet component for handling verification note inputs
 const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
     // State for managing input text, initialized with selected event text if exists
@@ -18,7 +17,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
         onCancel()
         setSelectedEvent(null);
     };
-    // Component render
+
     return (
         <BottomSheetView style={styles.contentContainer}>
             {/* Title text */}
@@ -46,7 +45,6 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
     );
 };
 
-// Memoize component to prevent unnecessary re-renders
 export default React.memo(VerificationInputSheet);
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({

@@ -1,6 +1,6 @@
 // Calendar configuration settings
 export const CALENDAR_CONFIG = {
-    timeInterval: 15,        // Duration of each time slot in minutes
+    timeInterval: 25,        // Duration of each time slot in minutes
     start: 500,             // Start time (5:00 AM in 24h format)
     end: 990,              // End time (10:00 AM in 24h format)
     minDate: "2024-09-02",  // Minimum selectable date

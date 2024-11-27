@@ -2,7 +2,6 @@ import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Switch, Text, View} from "react-native";
 import {BottomSheetView} from "@gorhom/bottom-sheet";
 import {DropBox} from "../DropBox";
-
 // VerificationInputSheet component for handling verification note inputs
 const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, setSelectedClass, bottomSheetRef}) => {
     // Memoized styles based on theme
@@ -14,7 +13,7 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
         setSelectedClass({...selClass,maturityIsEnabled});
         bottomSheetRef.current.close();
     };
-    // Component render
+
     return (
     <BottomSheetView style={styles.contentContainer}>
         <DropBox darkThemeEnabled={darkThemeEnabled} selectClass={setSelClass}/>
@@ -34,10 +33,8 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
     );
 };
 
-// Memoize component to prevent unnecessary re-renders
 export default React.memo(SelectClassSheet);
 
-// Style creation function based on theme
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     contentContainer: {
         backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',

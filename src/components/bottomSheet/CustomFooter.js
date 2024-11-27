@@ -48,7 +48,6 @@ const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
         [arrowAnimatedStyle, styles.arrow]
     );
 
-    // Render the footer component
     return (
         <BottomSheetFooter
             bottomInset={bottomSafeArea}
@@ -61,7 +60,6 @@ const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
     );
 };
 
-// Memoize the entire component for performance
 export default React.memo(CustomFooter);
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({

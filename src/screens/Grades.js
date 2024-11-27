@@ -1,36 +1,58 @@
 import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
 import React, {useMemo} from "react";
-import {EVENTS, GRADES} from "../constants/events";
+import {EVENTS} from "../constants/events";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 
-export default function Grades({darkThemeEnabled}) {
+export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
+
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-    const lessons = [...new Set(EVENTS.map(event => event.title))];
+
     const navigation = useNavigation();
 
+    const lessons = [...new Set(EVENTS.filter(event => {
+
+        if (!selectedClass?.label) return false;
+
+        if (maturityIsEnabled) {
+            return event.maturity === true;
+        } else {
+            return event.class === selectedClass.label;
+        }
+    }).map(event => event.title))];
+
     const lessonsWithGrades = useMemo(() => {
+
         return lessons.map(title => ({
             title: title,
-            grades: GRADES.find(grade => grade.title === title)?.grades || []
+            grades: grades.find(grade => grade.title === title)?.grades || []
         }));
-    }, [lessons]);
+    }, [lessons, grades]);
 
     const calculateAverageGrade = (grades) => {
+
         if (!grades || grades.length === 0) return '--';
+
         const sum = grades.reduce((acc, curr) => acc + curr.grade, 0);
+
         return (sum / grades.length).toFixed(1);
     };
 
     const handleLessonSelection = (selectedLesson) => {
+
+        const subjectGrades = grades.find(grade => grade.title === selectedLesson) || { grades: [] };
+
         navigation.navigate('GradeDetails', {
             lessonTitle: selectedLesson,
-            grades: lessonsWithGrades.find(lesson => lesson.title === selectedLesson)?.grades || [],
+            grades: subjectGrades.grades,
+            darkThemeEnabled: darkThemeEnabled
         });
     };
 
     const renderItem = ({ item }) => {
+
         const lessonGrades = lessonsWithGrades.find(lesson => lesson.title === item)?.grades;
+
         const average = calculateAverageGrade(lessonGrades);
 
         return (

@@ -49,8 +49,8 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                 <View style={styles.container}>
                     <Calendar
                         darkThemeEnabled={darkThemeEnabled}
-                        addVerification={addVerification}
                         onEventPress={handleEventPress}
+                        selectedClass={selectedClass}
                     />
                     <VerificationInput
                         bottomSheetRef={verificationSheetRef}

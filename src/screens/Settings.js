@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, selectedClass, setMaturityIsEnabled}) => {
+const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -17,9 +17,6 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
         <View style={styles.settingsContainer}>
             {/* Scrollable content area */}
             <ScrollView horizontal={false} contentContainerStyle={{ flexGrow: 1 }} alwaysBounceHorizontal={false}>
-                <View style={styles.element}>
-                    <Text style={styles.text}>Class: {selectedClass.label}. Maturità: {selectedClass.maturityIsEnabled? "true":"false"}</Text>
-                </View>
                 {/* Select class */}
                 <Pressable style={styles.element} onPress={handleClassSelection}>
                     <Text style={styles.text}>Cambia classe</Text>
@@ -55,7 +52,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
 };
 
 export default Settings;
-// StyleSheet creation function that receives colors based on theme
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     settingsContainer: {
         backgroundColor: darkThemeEnabled ? 'black' : '#f3f2f8',
@@ -86,7 +83,11 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         height: 60,
         borderRadius: 8,
         padding: 10,
-        marginTop: 20,
         alignItems: 'center',
+        position: 'absolute',
+        bottom: 20,
+        left: 0,
+        right: 0
+
     }
 });

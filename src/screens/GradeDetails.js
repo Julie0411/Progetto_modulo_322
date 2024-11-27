@@ -1,21 +1,36 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useRef, useEffect} from 'react';
 import {View, Text, StyleSheet, FlatList, Dimensions, Pressable} from 'react-native';
-import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import GradeInput from "../components/GradeInput";
 
-export default function GradeDetails({ route }) {
-    const { grades, darkThemeEnabled, showAddGrade} = route.params;
+export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade}) {
+
+    const { lessonTitle } = route.params;
+
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
+    const gradeSheetRef = useRef(null);
+
+    useEffect(() => {
+        if (route.params?.showSheet) {
+            gradeSheetRef.current?.present();
+        }
+    }, [route.params?.showSheet]);
+
+    const handleAddNewGrade = (lessonTitle, newGrade) => {
+        handleAddGrade(lessonTitle, newGrade);
+        gradeSheetRef.current?.close();
+    };
+
     const renderGradeItem = ({ item }) => (
-        <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
                 <View style={styles.gradeItem}>
                     <Pressable
                         style={({ pressed }) => [
                             styles.pressable,
                             pressed && styles.pressedItem
                         ]}
+                        onLongPress={() => handleDeleteGrade(lessonTitle, item)}
                     >
                         <View style={styles.textContainer}>
                             <Text style={styles.text}>{item.text}</Text>
@@ -25,18 +40,27 @@ export default function GradeDetails({ route }) {
                         </View>
                     </Pressable>
                 </View>
-            </BottomSheetModalProvider>
-        </GestureHandlerRootView>
     );
 
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={grades}
-                renderItem={renderGradeItem}
-                keyExtractor={(_, index) => index.toString()}
-            />
-        </View>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <BottomSheetModalProvider>
+                <View style={styles.container}>
+                    <FlatList
+                        data={grades}
+                        renderItem={renderGradeItem}
+                        keyExtractor={(_, index) => index.toString()}
+                    />
+                    <GradeInput
+                        gradeSheetRef={gradeSheetRef}
+                        darkThemeEnabled={darkThemeEnabled}
+                        onCancel={() => gradeSheetRef.current?.dismiss()}
+                        lessonTitle={lessonTitle}
+                        addGrade={handleAddNewGrade}
+                    />
+                </View>
+            </BottomSheetModalProvider>
+        </GestureHandlerRootView>
     );
 }
 
