@@ -1,10 +1,8 @@
 import React, {useCallback, useMemo} from 'react';
 import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
 import {View, Text, StyleSheet} from 'react-native';
-import {PackedEvent} from "@howljs/calendar-kit";
 import {EVENTS} from "../constants/events";
 import {CALENDAR_CONFIG} from "../constants/const";
-import {LocaleConfigsProps} from "@howljs/calendar-kit";
 import {darkColors} from "../theme/colors/dark";
 import {lightColors} from "../theme/colors/light";
 // Main Calendar component that accepts darkThemeEnabled and onEventPress as props
@@ -14,7 +12,7 @@ const Calendar = ({ darkThemeEnabled, onEventPress, selectedClass }) => {
     // Determine colors based on theme
     const colors = useMemo(() => darkThemeEnabled ? darkColors : lightColors, [darkThemeEnabled]);
     // Locale configuration for the calendar
-    const initialLocales: Record<string, Partial<LocaleConfigsProps>> = {
+    const initialLocales = {
         it: {
             weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven'.split('_'), // Text in day header (Sun, Mon, etc.)
             meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
@@ -22,7 +20,7 @@ const Calendar = ({ darkThemeEnabled, onEventPress, selectedClass }) => {
     };
     // Callback function to render individual calendar events
     // Takes a PackedEvent type parameter and returns a styled View
-    const renderEvent = useCallback((event: PackedEvent) => (
+    const renderEvent = useCallback((event) => (
             <View style={styles.eventContainer}>
                 <Text style={styles.eventText}>
                     {event.title}{"\n"}
@@ -33,7 +31,6 @@ const Calendar = ({ darkThemeEnabled, onEventPress, selectedClass }) => {
         ),
         [styles]
     );
-
     const filteredEvents = useMemo(() => {
         if (!selectedClass?.label) return [];
         const standardClass = selectedClass.label;
