@@ -106,10 +106,10 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
-        padding: 0, // Add this
-        margin: 0,  // Add this
-        height: 'auto', // Add this
-        textAlignVertical: 'top', // Add this
+        padding: 0,
+        margin: 0,
+        height: 'auto',
+        textAlignVertical: 'top',
     },
     editIcon: {
         width: 25,
