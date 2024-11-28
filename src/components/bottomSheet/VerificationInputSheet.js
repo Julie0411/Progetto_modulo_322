@@ -9,7 +9,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // Handler for saving the input text
     const handleSave = () => {
-        onSave(inputText + " ");
+        onSave(inputText);
         setSelectedEvent(null);
     };
     // Handler for canceling the input

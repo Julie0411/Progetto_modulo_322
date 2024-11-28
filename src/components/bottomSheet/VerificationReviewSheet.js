@@ -6,7 +6,6 @@ import { formatDate } from "../../utils/formatters/dateFormatter";
 import { useStyles } from "../../utils/hooks/useStyles";
 // VerificationReviewSheet component that displays and allows editing of lesson details
 const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
-    console.log(darkThemeEnabled)
     // State for managing edit mode and edited text content
     const [isEditing, setIsEditing] = useState(false);
 
