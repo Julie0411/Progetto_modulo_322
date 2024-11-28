@@ -57,7 +57,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                             placeholderTextColor={darkThemeEnabled ? 'white' : 'black'}
                         />
                     ) : (
-                        <Text style={styles.text}>{item.text}</Text>
+                        <Text style={[styles.text,{width: "90%"}]}>{item.text}</Text>
                     )}
                     <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
                         <FontAwesome
@@ -102,6 +102,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: "85%",
+        marginRight: 30,
     },
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
@@ -110,6 +111,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         margin: 0,
         height: 'auto',
         textAlignVertical: 'top',
+        width: "90%",
     },
     editIcon: {
         width: 25,
@@ -140,7 +142,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         paddingHorizontal: 10,
         borderWidth: 1,
         borderColor: 'gray',
-        borderRadius: 5,
+        borderRadius: 10,
         padding: 10
     },
 });
