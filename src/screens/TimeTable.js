@@ -27,6 +27,7 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleEventPress = (event) => {
+        if (!selectedClass) return;
         setSelectedEvent(event);
         verificationSheetRef.current?.present();
     };
@@ -48,8 +49,8 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                 <View style={styles.container}>
                     <Calendar
                         darkThemeEnabled={darkThemeEnabled}
-                        addVerification={addVerification}
                         onEventPress={handleEventPress}
+                        selectedClass={selectedClass}
                     />
                     <VerificationInput
                         bottomSheetRef={verificationSheetRef}
@@ -67,7 +68,6 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                         toggleMaturity={toggleMaturity}
                         maturityIsEnabled={maturityIsEnabled}
                     />
-
                 </View>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>

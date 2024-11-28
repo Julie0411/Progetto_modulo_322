@@ -1,30 +1,28 @@
 import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
+import GradeInputSheet from "./bottomSheet/GradeInputSheet";
 // Main TimeTable component that handles calendar and verification input
-export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef, toggleMaturity, maturityIsEnabled}) {
+export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef}) {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const selectSnapPoints = useMemo(() => ["40%"], []);
+    const selectSnapPoints = useMemo(() => ["50%"], []);
 
     return (
         <BottomSheetModal
-            ref={bottomSheetRef}
+            ref={gradeSheetRef}
             snapPoints={selectSnapPoints}
-            enablePanDownToClose={false}
+            enablePanDownToClose={true}
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
             handleIndicatorStyle={styles.handleIndicatorStyle}
         >
-            <SelectClassSheet
-                selectedClass={selectedClass}
-                setSelectedClass={setSelectedClass}
+            <GradeInputSheet
                 darkThemeEnabled={darkThemeEnabled}
-                toggleMaturity={toggleMaturity}
-                maturityIsEnabled={maturityIsEnabled}
-                bottomSheetRef={bottomSheetRef}
+                onCancel={onCancel}
+                lessonTitle={lessonTitle}
+                onSaveGrade={addGrade}
             />
         </BottomSheetModal>
     );
@@ -33,6 +31,7 @@ export default function SelectingClass({darkThemeEnabled, setSelectedClass, sele
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
     },
     handleStyle: {
         backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',

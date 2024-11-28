@@ -2,14 +2,12 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import {View, StyleSheet, FlatList, Pressable, Text, Dimensions} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
-import SheetBody from "../components/bottomSheet/VerificationReviewSheet";
+import VerificationReviewSheet from "../components/bottomSheet/VerificationReviewSheet";
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
 
-export default function Verifications(props) {
-    // Destructure props for easy access
-    const { darkThemeEnabled, verifications, deleteVerification } = props;
+export default function Verifications({ darkThemeEnabled, verifications, deleteVerification }) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for currently selected item
@@ -43,7 +41,7 @@ export default function Verifications(props) {
                 style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
             >
                 {/* Display item title with single line truncation */}
-                <Text style={styles.text} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.text} numberOfLines={1}>{item.subject} {item.teacher}</Text>
                 {/* Display formatted date with single line truncation */}
                 <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
             </Pressable>
@@ -57,16 +55,20 @@ export default function Verifications(props) {
                 {/* Main content container */}
                 <View style={styles.background}>
                     {/* List of verifications with performance optimizations */}
-                    <FlatList
-                        data={verifications}
-                        renderItem={renderItem}
-                        keyExtractor={keyExtractor}
-                        showsVerticalScrollIndicator={false}
-                        removeClippedSubviews={true}
-                        initialNumToRender={10}
-                        maxToRenderPerBatch={10}
-                        windowSize={5}
-                    />
+                    {verifications.length === 0 ? (
+                        <Text style={styles.text}>Non c’è nessuna verifica</Text>
+                    ) : (
+                        <FlatList
+                            data={verifications}
+                            renderItem={renderItem}
+                            keyExtractor={keyExtractor}
+                            showsVerticalScrollIndicator={false}
+                            removeClippedSubviews={true}
+                            initialNumToRender={10}
+                            maxToRenderPerBatch={10}
+                            windowSize={5}
+                        />
+                    )}
                 </View>
                 {/* Bottom sheet modal for detailed view */}
                 <BottomSheetModal
@@ -80,13 +82,13 @@ export default function Verifications(props) {
                     index={0}
                     keyboardBehavior="interactive"
                 >
-                    <SheetBody darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
+                    <VerificationReviewSheet darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
                 </BottomSheetModal>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>
     );
 }
-// Style creation function that adapts to theme
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     root: {
         flex: 1,
@@ -131,6 +133,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         marginRight: 10,
     },
     pressedItem: {
-        backgroundColor: 'gray',
+        backgroundColor: 'rgba(155,155,155,0.3)',
     }
 });

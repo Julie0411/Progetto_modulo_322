@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 import { formatDate } from "../../utils/formatters/dateFormatter";
@@ -12,12 +12,6 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     const [editedText, setEditedText] = useState('');
     // Memoized styles based on dark theme setting
     const styles = useStyles(createStyles, darkThemeEnabled);
-    // Split the item title into components (teacher, lesson, room)
-    const [firstPart, roomPart] = item.title.split('\n');
-
-    const [insegnante, ...lezioneParts] = firstPart.split(" ");
-
-    const lezione = lezioneParts.join(" ");
     // Toggle edit mode and set initial text
     const toggleEdit = () => {
         setEditedText(item.text);
@@ -33,47 +27,51 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
 
     return (
         <BottomSheetView style={styles.contentContainer}>
-            {/* Display lesson details */}
-            <Text style={styles.text}>Lezzione: {lezione}</Text>
-            <Text style={styles.text}>Insegnante: {insegnante}</Text>
-            <Text style={styles.text}>Aula: {roomPart}</Text>
-            <Text style={styles.text}>Data: {formatDate(item.data.dateTime)}</Text>
-
-            {/* Notes section with edit functionality */}
-            <View style={styles.textBody}>
-                <Text style={styles.text}>Appunti: </Text>
-                {isEditing ? (
-                    // Editable text input when in edit mode
-                    <BottomSheetTextInput
-                        style={styles.textInput}
-                        value={editedText}
-                        onChangeText={setEditedText}
-                        onSubmitEditing={saveChanges}
-                        multiline
-                        placeholder="Inserisci qua"
-                        placeholderTextColor={darkThemeEnabled ? 'white' : 'black'}
-                    />
-                ) : (
-                    // Display text when not editing
-                    <Text style={styles.text}>{item.text}</Text>
-                )}
-                {/* Edit icon button */}
-                <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
-                    <FontAwesome
-                        name="pencil"
-                        size={20}
-                        color={darkThemeEnabled ? 'white' : 'black'}
-                    />
-                </Pressable>
+            <View style={styles.element}>
+                <Text style={styles.text}>Lezzione:</Text>
+                <Text style={styles.text}>{item.subject}</Text>
             </View>
-
-            {/* Edit mode buttons */}
+            <View style={styles.element}>
+                <Text style={styles.text}>Insegnante:</Text>
+                <Text style={styles.text}>{item.teacher}</Text>
+            </View>
+            <View style={styles.element}>
+                <Text style={styles.text}>Aula:</Text>
+                <Text style={styles.text}>{item.classroom}</Text>
+            </View>
+            <View style={styles.element}>
+                <Text style={styles.text}>Data:</Text>
+                <Text style={styles.text}>{formatDate(item.data.dateTime)}</Text>
+            </View>
+            <View style={styles.element}>
+                <Text style={styles.text}>Appunti:</Text>
+                <View style={styles.textBody}>
+                    {isEditing ? (
+                        <BottomSheetTextInput
+                            style={styles.textInput}
+                            value={editedText}
+                            onChangeText={setEditedText}
+                            onSubmitEditing={saveChanges}
+                            multiline
+                            placeholder="Inserisci qua"
+                            placeholderTextColor={darkThemeEnabled ? 'white' : 'black'}
+                        />
+                    ) : (
+                        <Text style={styles.text}>{item.text}</Text>
+                    )}
+                    <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
+                        <FontAwesome
+                            name="pencil"
+                            size={20}
+                            color={darkThemeEnabled ? 'white' : 'black'}
+                        />
+                    </Pressable>
+                </View>
+            </View>
             {isEditing && (
                 <View style={styles.buttons}>
                     <Pressable onPress={toggleEdit} style={styles.button}>
-                        <Text style={[styles.buttonText, {color: 'red'}]}>
-                            Cancel
-                        </Text>
+                        <Text style={[styles.buttonText, {color: 'red'}]}>Cancel</Text>
                     </Pressable>
                     <Pressable onPress={saveChanges} style={styles.button}>
                         <Text style={styles.buttonText}>Save</Text>
@@ -83,11 +81,10 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
         </BottomSheetView>
     );
 };
-// Memoize component to prevent unnecessary re-renders
+
 export default React.memo(VerificationReviewSheet);
-// Styles creator function that adapts to dark/light theme
+
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    // Container styles
     contentContainer: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
@@ -97,37 +94,28 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         alignItems: 'baseline',
         gap: 20,
     },
-    // Text styles
     text: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
-        maxWidth: "90%",
     },
-    // Notes section layout
     textBody: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        maxWidth: "80%",
+        width: "70%",
+        right: 20,
     },
-    // Input field styles
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
-        bottom: 4,
-        maxWidth: "80%",
-        minWidth: "10%",
     },
-    // Edit icon styles
     editIcon: {
         marginLeft: 5
     },
-    // Button container styles
     buttons: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
     },
-    // Individual button styles
     button: {
         borderWidth: 1,
         borderColor: darkThemeEnabled ? 'white' : 'black',
@@ -135,9 +123,19 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         padding: 5,
         paddingHorizontal: 20,
     },
-    // Button text styles
     buttonText: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 16,
+    },
+    element: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        width: '100%',
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        padding: 10
     },
 });

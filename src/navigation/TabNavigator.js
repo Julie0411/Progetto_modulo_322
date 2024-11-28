@@ -8,7 +8,7 @@ import TimeTable from "../screens/TimeTable";
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigator({darkThemeEnabled, selectedClass, setSelectedClass, verifications, addVerification, deleteVerification, toggleMaturity, maturityIsEnabled}) {
+export default function TabNavigator({darkThemeEnabled, selectedClass, setSelectedClass, verifications, addVerification, deleteVerification, toggleMaturity, maturityIsEnabled, grades}) {
     // Define colors based on theme
     const activeColor = darkThemeEnabled ? 'white' : 'black';
     const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
@@ -30,33 +30,39 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                     }
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
+                tabBarButton: (props) => (
+                    <Pressable
+                        {...props}
+                        disabled={!selectedClass}
+                        style={[
+                            props.style,
+                            { opacity: selectedClass ? 1 : 0.5 }
+                        ]}
+                    />
+                ),
                 // Set tab bar colors
                 tabBarActiveTintColor: activeColor,
                 tabBarInactiveTintColor: inactiveColor,
-
                 // Configure settings button in header right
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate('Settings')}>
+                    <Pressable onPress={() => navigation.navigate('Settings')} disabled={!selectedClass} style={{ opacity: selectedClass ? 1 : 0.5 }}>
                         <View style={styles.settingsButton}>
                             <Ionicons name={'settings-outline'} size={28} color={activeColor} />
                         </View>
                     </Pressable>
                 ),
-
                 // Configure share button in header left
                 headerLeft: () => (
-                    <Pressable>
+                    <Pressable disabled={!selectedClass} style={{ opacity: selectedClass ? 1 : 0.5 }}>
                         <View style={styles.shareButton}>
                             <Ionicons name={'share-outline'} size={28} color={activeColor} />
                         </View>
                     </Pressable>
                 ),
-
                 // Set header style based on theme
                 headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
             })}
         >
-
             {/* TimeTable Screen */}
             <Tab.Screen name="Orario" options={{headerStatusBarHeight:65}}>
                 {() => (<TimeTable
@@ -68,12 +74,10 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                     maturityIsEnabled={maturityIsEnabled}
                 />)}
             </Tab.Screen>
-
             {/* Grades Screen */}
             <Tab.Screen name="Note" options={{headerStatusBarHeight:65}}>
-                {() => (<Grades darkThemeEnabled={darkThemeEnabled} />)}
+                {(navigation) => (<Grades darkThemeEnabled={darkThemeEnabled} navigation={navigation} maturityIsEnabled={maturityIsEnabled} selectedClass={selectedClass} grades={grades}/>)}
             </Tab.Screen>
-
             {/* Verifications Screen */}
             <Tab.Screen name="Verifiche" options={{headerStatusBarHeight:65}}>
                 {() => (<Verifiche darkThemeEnabled={darkThemeEnabled} verifications={verifications} deleteVerification={deleteVerification} />)}
@@ -81,7 +85,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
         </Tab.Navigator>
     );
 }
-// Styles for header buttons and padding
+
 const styles = StyleSheet.create({
     settingsButton: {
         marginRight: 20,
