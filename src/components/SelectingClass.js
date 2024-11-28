@@ -17,6 +17,7 @@ export default function SelectingClass({darkThemeEnabled, setSelectedClass, sele
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
             handleIndicatorStyle={styles.handleIndicatorStyle}
+            backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
         >
             <SelectClassSheet
                 selectedClass={selectedClass}

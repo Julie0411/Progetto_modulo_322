@@ -17,6 +17,7 @@ export default function VerificationInput({ darkThemeEnabled, selectedEvent, set
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
             handleIndicatorStyle={styles.handleIndicatorStyle}
+            backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
         >
             <VerificationInputSheet
                 darkThemeEnabled={darkThemeEnabled}

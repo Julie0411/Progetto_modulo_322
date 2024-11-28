@@ -15,7 +15,7 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
     // Reference for bottom sheet modal
     const bottomSheetModalRef = useRef(null);
     // Memoized snap points for bottom sheet
-    const snapPoints = useMemo(() => ['20%','70%','100%'], []);
+    const snapPoints = useMemo(() => ['20%','70%'], []);
     // Memoized key extractor for FlatList
     const keyExtractor = useCallback((item) => item.id.toString(), []);
     // Handler to show bottom sheet modal
@@ -78,6 +78,7 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
                     footerComponent={CustomFooter}
                     handleStyle={styles.handleStyle}
                     handleIndicatorStyle={styles.handleIndicatorStyle}
+                    backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
                     enablePanDownToClose={true}
                     index={0}
                     keyboardBehavior="interactive"
