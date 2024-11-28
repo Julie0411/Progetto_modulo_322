@@ -45,15 +45,17 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, onSaveGrade})
 
     return (
         <BottomSheetView style={styles.contentContainer}>
-            <Text style={styles.title}>Inserisci la nota</Text>
-            <BottomSheetTextInput
-                style={[styles.numberInput,{width: 70, textAlign: 'center'}]}
-                value={gradeValue}
-                onChangeText={handleGradeChange}
-                placeholder="Enter a number"
-                keyboardType="numeric"
-            />
-            <Text style={styles.title}>Inserisci un testo aggiuntivo per la nota</Text>
+            <View style={styles.gradeContainer}>
+                <Text style={styles.title}>Inserisci la nota</Text>
+                <BottomSheetTextInput
+                    style={[styles.numberInput,{width: 70, textAlign: 'center'}]}
+                    value={gradeValue}
+                    onChangeText={handleGradeChange}
+                    placeholder="1-6"
+                    keyboardType="numeric"
+                />
+            </View>
+            <Text style={[styles.title,{marginBottom: 10}]}>Inserisci un testo aggiuntivo per la nota</Text>
             <BottomSheetTextInput
                 style={styles.textInput}
                 value={noteText}
@@ -86,8 +88,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
-        borderBottomColor: darkThemeEnabled ? 'white' : 'black',
-        borderBottomWidth: 1,
         width: '100%',
         fontSize: 18,
         marginBottom: 30,
@@ -98,11 +98,8 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     numberInput: {
         color: darkThemeEnabled ? 'white' : 'black',
-        borderBottomColor: darkThemeEnabled ? 'white' : 'black',
-        borderBottomWidth: 1,
         width: '100%',
         fontSize: 18,
-        marginBottom: 30,
         paddingHorizontal: 12,
         paddingVertical: 8,
         borderRadius: 8,
@@ -128,6 +125,14 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     title: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
-        marginBottom: 10
+    },
+    gradeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '50%',
+        marginBottom: 20,
+        minHeight: 40,
+        paddingVertical: 10,
     }
 });

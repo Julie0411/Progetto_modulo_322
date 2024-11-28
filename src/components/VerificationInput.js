@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
+import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 // Main TimeTable component that handles calendar and verification input
 export default function VerificationInput({ darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
 
@@ -16,6 +17,7 @@ export default function VerificationInput({ darkThemeEnabled, selectedEvent, set
             enablePanDownToClose={true}
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
+            backdropComponent={CustomBackdrop}
             handleIndicatorStyle={styles.handleIndicatorStyle}
             backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
         >

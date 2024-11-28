@@ -58,8 +58,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
-        borderBottomColor: darkThemeEnabled ? 'white' : 'black',
-        borderBottomWidth: 1,
         width: '100%',
         fontSize: 18,
         marginBottom: 30,

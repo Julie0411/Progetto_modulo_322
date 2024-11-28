@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
+import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 // Main TimeTable component that handles calendar and verification input
 export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef, toggleMaturity, maturityIsEnabled}) {
 
@@ -16,6 +17,7 @@ export default function SelectingClass({darkThemeEnabled, setSelectedClass, sele
             enablePanDownToClose={false}
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
+            backdropComponent={CustomBackdrop}
             handleIndicatorStyle={styles.handleIndicatorStyle}
             backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
         >
