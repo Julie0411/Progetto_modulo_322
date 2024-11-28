@@ -48,7 +48,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 20,
-        borderRadius: 8,
+        borderRadius: 10,
         borderWidth: 0.5,
         borderColor: 'gray',
         padding: 10,

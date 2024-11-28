@@ -44,7 +44,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         height: 50,
         borderColor: 'gray',
         borderWidth: 0.5,
-        borderRadius: 8,
+        borderRadius: 10,
         paddingHorizontal: 8,
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
     },
@@ -64,7 +64,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     containerStyle: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         borderWidth: 0.4,
-        borderRadius: 8,
+        borderRadius: 10,
         padding: 2,
     },
     itemTextStyle: {

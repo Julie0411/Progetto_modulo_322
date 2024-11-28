@@ -75,7 +75,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         borderWidth: 1,
         borderColor: 'gray',
         marginTop: 20,
-        borderRadius: 5,
+        borderRadius: 10,
         width: Dimensions.get("window").width - 20,
         height: 60,
     },

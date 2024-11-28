@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
@@ -6,12 +6,13 @@ import { formatDate } from "../../utils/formatters/dateFormatter";
 import { useStyles } from "../../utils/hooks/useStyles";
 // VerificationReviewSheet component that displays and allows editing of lesson details
 const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
+    console.log(darkThemeEnabled)
     // State for managing edit mode and edited text content
     const [isEditing, setIsEditing] = useState(false);
 
     const [editedText, setEditedText] = useState('');
     // Memoized styles based on dark theme setting
-    const styles = useStyles(createStyles, darkThemeEnabled);
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // Toggle edit mode and set initial text
     const toggleEdit = () => {
         setEditedText(item.text);

@@ -9,7 +9,7 @@ export const darkColors = {
         color: '#8c8c8c',
     },
     eventContainerStyle: {
-        borderRadius: 5,
+        borderRadius: 10,
     },
     primary: '#3498db',
     background: 'black',

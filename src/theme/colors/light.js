@@ -9,7 +9,7 @@ export const lightColors = {
         color: '#666666',
     },
     eventContainerStyle: {
-        borderRadius: 5,
+        borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },

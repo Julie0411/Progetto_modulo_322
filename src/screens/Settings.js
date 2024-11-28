@@ -73,7 +73,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         marginTop: 10,
         backgroundColor: darkThemeEnabled? '#2e2e2e' : 'white',
         height: 60,
-        borderRadius: 8,
+        borderRadius: 10,
         marginHorizontal: 10,
     },
     text: {
@@ -81,7 +81,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     footer: {
         height: 60,
-        borderRadius: 8,
+        borderRadius: 10,
         padding: 10,
         alignItems: 'center',
         position: 'absolute',

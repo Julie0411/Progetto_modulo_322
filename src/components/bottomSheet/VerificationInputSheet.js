@@ -63,7 +63,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         marginBottom: 30,
         paddingHorizontal: 12,
         paddingVertical: 8,
-        borderRadius: 8,
+        borderRadius: 10,
         backgroundColor: darkThemeEnabled ? '#333' : '#f5f5f5',
     },
     buttonContainer: {
