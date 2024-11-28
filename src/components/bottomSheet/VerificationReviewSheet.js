@@ -62,7 +62,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                     <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
                         <FontAwesome
                             name="pencil"
-                            size={20}
+                            size={23}
                             color={darkThemeEnabled ? 'white' : 'black'}
                         />
                     </Pressable>
@@ -101,15 +101,20 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     textBody: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: "70%",
-        right: 20,
+        width: "85%",
     },
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
+        padding: 0, // Add this
+        margin: 0,  // Add this
+        height: 'auto', // Add this
+        textAlignVertical: 'top', // Add this
     },
     editIcon: {
-        marginLeft: 5
+        width: 25,
+        height: 25,
+        alignItems: 'center',
     },
     buttons: {
         flexDirection: 'row',
