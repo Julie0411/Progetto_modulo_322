@@ -112,7 +112,8 @@ export default function App() {
                         name="Settings"
                         options={({ navigation }) => ({
                             headerTitle: "Impostazioni",
-                            headerLeft: () => <BackButton navigation={navigation} />
+                            headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
+                            headerLeft: () => <BackButton navigation={navigation}/>
                         })}
                     >
                         {(props) => (
@@ -131,6 +132,7 @@ export default function App() {
                         name="GradeDetails"
                         options={({route, navigation}) => ({
                             headerTitle: route?.params?.lessonTitle || "Note",
+                            headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
                             headerLeft: () => <BackButton navigation={navigation}/>,
                             headerRight: () => (
                                 <Pressable

@@ -18,6 +18,9 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
             // Configure screen options for all tabs
             screenOptions={({ route, navigation }) => ({
                 // Configure tab bar icons
+                tabBarStyle: {
+                    backgroundColor: darkThemeEnabled ? 'black' : 'white',
+                },
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
                     // Set appropriate icon names based on route and focus state
