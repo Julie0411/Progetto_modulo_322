@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {Text, View, StyleSheet, ScrollView, Switch, Pressable} from "react-native";
+import {Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
@@ -38,7 +38,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
                 {/* FAQ section */}
-                <Pressable style={styles.element}>
+                <Pressable style={styles.element} onPress={() => Linking.openURL("https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header")}>
                     <Text style={styles.text}>Hai altre domande?</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
