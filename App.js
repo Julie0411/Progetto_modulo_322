@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-    const [darkThemeEnabled, setDarkThemeEnabled] = useState(true);
+    const [darkThemeEnabled, setDarkThemeEnabled] = useState(false);
 
     const [selectedClass, setSelectedClass] = useState({label: "I2a", maturityIsEnabled: true});
 

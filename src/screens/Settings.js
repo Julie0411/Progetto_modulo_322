@@ -1,16 +1,26 @@
-import React, {useMemo} from "react";
-import {Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking} from "react-native";
+import React, { useMemo, useState } from "react";
+import { Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
+const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled }) => {
+    const [showOutput, setShowOutput] = useState(false);  // Stato per visualizzare la schermata delle informazioni
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleClassSelection = () => {
-        setSelectedClass(null)
-        setMaturityIsEnabled(false)
-        navigation.navigate('TabNavigator');
+        setSelectedClass(null);
+        setMaturityIsEnabled(false);
+        navigation.navigate("TabNavigator");
     };
+
+    const handleInformationPress = () => {
+        setShowOutput(true); // Mostra la schermata delle informazioni
+    };
+
+    if (showOutput) {
+        return <Output darkThemeEnabled={darkThemeEnabled} setShowOutput={setShowOutput} />;
+    }
 
     return (
         // Main container for settings screen
@@ -33,12 +43,19 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                     />
                 </View>
                 {/* Information section */}
-                <Pressable style={styles.element}>
+                <Pressable style={styles.element} onPress={handleInformationPress}>
                     <Text style={styles.text}>Informazione</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
                 {/* FAQ section */}
-                <Pressable style={styles.element} onPress={() => Linking.openURL("https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header")}>
+                <Pressable
+                    style={styles.element}
+                    onPress={() =>
+                        Linking.openURL(
+                            "https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header"
+                        )
+                    }
+                >
                     <Text style={styles.text}>Hai altre domande?</Text>
                     <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
                 </Pressable>
@@ -47,6 +64,20 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
                     <Text style={styles.text}>v: a0.1</Text>
                 </View>
             </ScrollView>
+        </View>
+    );
+};
+
+// Output component
+const Output = ({ darkThemeEnabled, setShowOutput }) => {
+    const styles = outputStyles(darkThemeEnabled);
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>Ciao! Questa è la schermata Informazioni.</Text>
+            <Pressable style={styles.button} onPress={() => setShowOutput(false)}>
+                <Text style={styles.buttonText}>Torna a Impostazioni</Text>
+            </Pressable>
         </View>
     );
 };
@@ -71,7 +102,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         maxWidth: '100%',
         padding: 20,
         marginTop: 10,
-        backgroundColor: darkThemeEnabled? '#2e2e2e' : 'white',
+        backgroundColor: darkThemeEnabled ? '#2e2e2e' : 'white',
         height: 60,
         borderRadius: 10,
         marginHorizontal: 10,
@@ -88,6 +119,28 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         bottom: 20,
         left: 0,
         right: 0
-
     }
+});
+
+const outputStyles = (darkThemeEnabled) => StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: darkThemeEnabled ? "black" : "white",
+    },
+    text: {
+        fontSize: 20,
+        color: darkThemeEnabled ? "white" : "black",
+    },
+    button: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: darkThemeEnabled ? "#2e2e2e" : "#f3f2f8",
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: darkThemeEnabled ? "white" : "black",
+        fontSize: 16,
+    },
 });
