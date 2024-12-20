@@ -74,7 +74,18 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Ciao! Questa è la schermata Informazioni.</Text>
+            <Text style={styles.questionText}>1. Come aggiungo un test?</Text>
+            <Text style={styles.text}>
+                Aggiungere un test è semplice, clicca sulla lezione nella quale si farà il test, riempi i campi richiesti, clicca salvare.
+            </Text>
+            <Text style={styles.questionText}>2. Come aggiungo una nota?</Text>
+            <Text style={styles.text}>
+                Aggiungere una nota è semplice, clicca su note, clicca il modulo/la materia alla quale devi aggiungere una nota, clicca il “+” in alto a destra, inserisci la nota e il tipo di test (presentazione, interrogazione, test scritto) e infine clicca salva.
+            </Text>
+            <Text style={styles.questionText}>3. Come esporto il calendario?</Text>
+            <Text style={styles.text}>
+                Semplice: schiaccia il bottone esporta in alto a sinistra, e poi conferma. Aprendo i file troverai i dati del calendario e le note esportate.
+            </Text>
             <Pressable style={styles.button} onPress={() => setShowOutput(false)}>
                 <Text style={styles.buttonText}>Torna a Impostazioni</Text>
             </Pressable>
@@ -83,6 +94,66 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
 };
 
 export default Settings;
+
+const outputStyles = (darkThemeEnabled) => {
+    const colors = {
+        background: darkThemeEnabled ? 'black' : '#f3f2f8',
+        text: darkThemeEnabled ? '#f3f2f8' : 'black',
+        buttonBackground: darkThemeEnabled ? '#5CBCF3' : '#007AFF',
+        buttonText: '#FFFFFF',
+        cardBackground: darkThemeEnabled ? '#1E1E1E' : '#FFFFFF',
+        shadowColor: darkThemeEnabled ? '#000000' : '#CCCCCC',
+    };
+
+    return StyleSheet.create({
+        container: {
+            flex: 1,
+            padding: 20,
+            backgroundColor: colors.background,
+        },
+        text: {
+            fontSize: 16,
+            color: colors.text,
+            marginBottom: 12,
+            lineHeight: 24,
+        },
+        questionText: {
+            fontSize: 18,
+            fontWeight: 'bold',
+            color: colors.text,
+            marginBottom: 12,
+        },
+        card: {
+            backgroundColor: colors.cardBackground,
+            padding: 16,
+            borderRadius: 16,
+            marginBottom: 16,
+            shadowColor: colors.shadowColor,
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.15,
+            shadowRadius: 6,
+            elevation: 5,
+        },
+        button: {
+            marginTop: 20,
+            paddingVertical: 14,
+            paddingHorizontal: 20,
+            backgroundColor: colors.buttonBackground,
+            borderRadius: 12,
+            alignItems: 'center',
+            shadowColor: colors.shadowColor,
+            shadowOffset: { width: 0, height: 3 },
+            shadowOpacity: 0.25,
+            shadowRadius: 5,
+            elevation: 4,
+        },
+        buttonText: {
+            fontSize: 16,
+            color: colors.buttonText,
+            fontWeight: '600',
+        },
+    });
+};
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     settingsContainer: {
@@ -122,25 +193,14 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     }
 });
 
-const outputStyles = (darkThemeEnabled) => StyleSheet.create({
+const textStyle = (darkThemeEnabled) => StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: darkThemeEnabled ? "black" : "white",
+        textAlign: 'left',
+        backgroundColor: darkThemeEnabled ? "black" : "white"
     },
     text: {
-        fontSize: 20,
-        color: darkThemeEnabled ? "white" : "black",
-    },
-    button: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: darkThemeEnabled ? "#2e2e2e" : "#f3f2f8",
-        borderRadius: 10,
-    },
-    buttonText: {
-        color: darkThemeEnabled ? "white" : "black",
         fontSize: 16,
-    },
+        color: darkThemeEnabled ? "white" : "black"
+    }
 });
