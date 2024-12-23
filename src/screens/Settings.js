@@ -99,8 +99,8 @@ const outputStyles = (darkThemeEnabled) => {
     const colors = {
         background: darkThemeEnabled ? 'black' : '#f3f2f8',
         text: darkThemeEnabled ? '#f3f2f8' : 'black',
-        buttonBackground: darkThemeEnabled ? '#5CBCF3' : '#007AFF',
-        buttonText: '#FFFFFF',
+        buttonBackground: '#6089D6',
+        buttonText: '#f3f2f8',
         cardBackground: darkThemeEnabled ? '#1E1E1E' : '#FFFFFF',
         shadowColor: darkThemeEnabled ? '#000000' : '#CCCCCC',
     };
@@ -109,7 +109,7 @@ const outputStyles = (darkThemeEnabled) => {
         container: {
             flex: 1,
             padding: 20,
-            backgroundColor: colors.background,
+            backgroundCxolor: colors.background,
         },
         text: {
             fontSize: 16,
