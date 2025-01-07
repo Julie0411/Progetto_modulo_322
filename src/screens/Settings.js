@@ -3,8 +3,7 @@ import { Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking } from "
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled }) => {
-    const [showOutput, setShowOutput] = useState(false);  // Stato per visualizzare la schermata delle informazioni
-
+    // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleClassSelection = () => {
@@ -15,11 +14,14 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
     };
 
     const handleInformationPress = () => {
-        setShowOutput(true); // Mostra la schermata delle informazioni
+        setShowInformation(true); // Mostra la schermata delle informazioni
     };
 
-    if (showOutput) {
-        return <Output darkThemeEnabled={darkThemeEnabled} setShowOutput={setShowOutput} />;
+    // Stato per visualizzare la schermata delle informazioni
+    const [showInformation, setShowInformation] = useState(false);
+
+    if (showInformation) {
+        return <Information darkThemeEnabled={darkThemeEnabled} setShowInformation={setShowInformation} />;
     }
 
     return (
@@ -67,9 +69,9 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
         </View>
     );
 };
-// Output component
-const Output = ({ darkThemeEnabled, setShowOutput }) => {
-    const styles = outputStyles(darkThemeEnabled);
+// Information component
+const Information = ({ darkThemeEnabled, setShowInformation }) => {
+    const styles = informationStyles(darkThemeEnabled);
 
     return (
         <View style={styles.container}>
@@ -105,7 +107,7 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
                 </View>
             </View>
 
-            <Pressable style={styles.button} onPress={() => setShowOutput(false)}>
+            <Pressable style={styles.button} onPress={() => setShowInformation(false)}>
                 <Text style={styles.buttonText}>Torna a Impostazioni</Text>
             </Pressable>
         </View>
@@ -114,7 +116,7 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
 
 export default Settings;
 
-const outputStyles = (darkThemeEnabled) => {
+const informationStyles = (darkThemeEnabled) => {
     const colors = {
         background: darkThemeEnabled ? 'black' : '#f3f2f8',
         text: darkThemeEnabled ? '#f3f2f8' : 'black',

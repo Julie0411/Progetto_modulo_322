@@ -2,14 +2,6 @@ import React, { useMemo } from "react";
 import Animated, { interpolate, useAnimatedStyle, useDerivedValue } from "react-native-reanimated";
 
 const CustomBackdrop = ({ animatedIndex, style }) => {
-    // Safely derive animatedIndex value
-    const derivedIndex = useDerivedValue(() => animatedIndex.value);
-
-    // Create animated style for opacity
-    const containerAnimatedStyle = useAnimatedStyle(() => ({
-        opacity: interpolate(derivedIndex.value, [0.1, 1], [0.5, 1]),
-    }));
-
     // Combine styles using useMemo
     const containerStyle = useMemo(
         () => [
@@ -19,6 +11,12 @@ const CustomBackdrop = ({ animatedIndex, style }) => {
         ],
         [style, containerAnimatedStyle]
     );
+    // Safely derive animatedIndex value
+    const derivedIndex = useDerivedValue(() => animatedIndex.value);
+    // Create animated style for opacity
+    const containerAnimatedStyle = useAnimatedStyle(() => ({
+        opacity: interpolate(derivedIndex.value, [0.1, 1], [0.5, 1]),
+    }));
 
     return <Animated.View style={containerStyle} />;
 };

@@ -3,10 +3,10 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 // VerificationInputSheet component for handling verification note inputs
 const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
-    // State for managing input text, initialized with selected event text if exists
-    const [inputText, setInputText] = useState(selectedEvent?.text || "");
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+    // State for managing input text, initialized with selected event text if exists
+    const [inputText, setInputText] = useState(selectedEvent?.text || "");
     // Handler for saving the input text
     const handleSave = () => {
         onSave(inputText);

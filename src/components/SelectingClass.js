@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
-// Main TimeTable component that handles calendar and verification input
-export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef, toggleMaturity, maturityIsEnabled}) {
+import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
 
+export default function SelectingClass({darkThemeEnabled, setSelectedClass, selectedClass, bottomSheetRef, toggleMaturity, maturityIsEnabled}) {
+    // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const selectSnapPoints = useMemo(() => ["40%"], []);

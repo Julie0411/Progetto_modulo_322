@@ -1,15 +1,15 @@
-import React, {useMemo, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, FlatList, Dimensions, Pressable} from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import GradeInput from "../components/GradeInput";
+import React, {useMemo, useRef, useEffect} from 'react';
 import {formatDate} from "../utils/formatters/dateFormatter";
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {View, Text, StyleSheet, FlatList, Dimensions, Pressable} from 'react-native';
 
 export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade, sortAscending}) {
+    // Create memoized styles based on theme
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const { lessonTitle } = route.params;
-
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const gradeSheetRef = useRef(null);
 
@@ -53,7 +53,6 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
             </Pressable>
         </View>
     );
-
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>

@@ -1,15 +1,15 @@
-import React, {useMemo, useState} from 'react';
 import { StyleSheet } from 'react-native';
+import React, {useMemo, useState} from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import {INITIAL_CONFIG, CLASSES_OPTIONS} from "../constants/const";
 
 export const DropBox = ({darkThemeEnabled, selectClass}) => {
+    // Create memoized styles based on theme
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const [value, setValue] = useState(null);
 
     const [, setIsFocus] = useState(false);
-
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     return (
         <Dropdown
@@ -20,7 +20,11 @@ export const DropBox = ({darkThemeEnabled, selectClass}) => {
             containerStyle={styles.containerStyle}
             itemContainerStyle={styles.itemContainerStyle}
             itemTextStyle={styles.itemTextStyle}
-            data={CLASSES_OPTIONS}
+            data={[
+                { label: 'I2a', value: '1' },
+                { label: 'I2b', value: '2' },
+                { label: 'I2c', value: '3' }
+            ]}
             search
             activeColor={darkThemeEnabled ? 'black' : 'white'}
             maxHeight={300}
@@ -32,8 +36,10 @@ export const DropBox = ({darkThemeEnabled, selectClass}) => {
                 setIsFocus(false);
                 selectClass(item);
             }}
-
-            {...INITIAL_CONFIG}
+            labelField={"label"}
+            valueField={"value"}
+            placeholder={'Scegli la sua classe'}
+            searchPlaceholder={"Ricerca…"}
         />
     );
 };

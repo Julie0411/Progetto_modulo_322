@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import TabNavigator from "./src/navigation/TabNavigator";
 import Settings from "./src/screens/Settings";
 import {Pressable, StatusBar} from "react-native";
 import GradeDetails from "./src/screens/GradeDetails";
+import TabNavigator from "./src/navigation/TabNavigator";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import {createStackNavigator} from '@react-navigation/stack';
+import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
+
 
 const Stack = createStackNavigator();
 
@@ -32,8 +33,12 @@ export default function App() {
 
     const BackButton = ({navigation}) => {
         return (
-            <Pressable onPress={() => navigation.goBack()} style={{marginLeft: 16}}>
-                <Ionicons name="arrow-back" size={24} color={darkThemeEnabled ? 'white' : 'black'}/>
+            <Pressable style={{marginLeft: 16}} onPress={() => navigation.goBack()}>
+                <Ionicons
+                    name="arrow-back"
+                    size={24}
+                    color={darkThemeEnabled ? 'white' : 'black'}
+                />
             </Pressable>
         );
     };
@@ -54,20 +59,13 @@ export default function App() {
     };
 
     const addGrade = (lessonTitle, newGrade) => {
-        console.log(lessonTitle,newGrade);
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
+
             if (existingSubject) {
-                return prev.map(subject =>
-                    subject.title === lessonTitle
-                        ? {...subject, grades: [...subject.grades, newGrade]}
-                        : subject
-                );
+                return prev.map(subject => subject.title === lessonTitle ? {...subject, grades: [...subject.grades, newGrade]} : subject);
             } else {
-                return [...prev, {
-                    title: lessonTitle,
-                    grades: [newGrade]
-                }];
+                return [...prev, {title: lessonTitle, grades: [newGrade]}];
             }
         });
     };
@@ -75,16 +73,11 @@ export default function App() {
     const deleteGrade = (lessonTitle, gradeToDelete) => {
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
+
             if (existingSubject) {
-                return prev.map(subject =>
-                    subject.title === lessonTitle
-                        ? {
-                            ...subject,
-                            grades: subject.grades.filter(grade => grade.text !== gradeToDelete.text)
-                        }
-                        : subject
-                );
+                return prev.map(subject => subject.title === lessonTitle ? {...subject, grades: subject.grades.filter(grade => grade.text !== gradeToDelete.text)} : subject);
             }
+
             return prev;
         });
     };
@@ -94,11 +87,7 @@ export default function App() {
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
             <NavigationContainer theme={theme}>
                 <Stack.Navigator>
-
-                    <Stack.Screen
-                        name="TabNavigator"
-                        options={{headerShown: false}}
-                    >
+                    <Stack.Screen name="TabNavigator" options={{headerShown: false}}>
                         {(navigation) => (
                             <TabNavigator
                                 {...{

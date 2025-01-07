@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
-// Main TimeTable component that handles calendar and verification input
+import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
+
 export default function VerificationInput({ darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
+    // Create memoized styles based on theme
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const verificationSnapPoints = useMemo(() => ["30%"], []);
-
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     return (
         <BottomSheetModal

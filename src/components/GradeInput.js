@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import GradeInputSheet from "./bottomSheet/GradeInputSheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
-// Main TimeTable component that handles calendar and verification input
-export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef, lessonTime}) {
+import GradeInputSheet from "./bottomSheet/GradeInputSheet";
 
+export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef, lessonTime}) {
+    // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const selectSnapPoints = useMemo(() => ["40%"], []);

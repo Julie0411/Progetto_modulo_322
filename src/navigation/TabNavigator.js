@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable, View, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Verifiche from "../screens/Verifications";
 import Grades from "../screens/Grades";
 import TimeTable from "../screens/TimeTable";
+import Verifiche from "../screens/Verifications";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Pressable, View, StyleSheet } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
@@ -18,9 +18,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
             // Configure screen options for all tabs
             screenOptions={({ route, navigation }) => ({
                 // Configure tab bar icons
-                tabBarStyle: {
-                    backgroundColor: darkThemeEnabled ? 'black' : 'white',
-                },
+                tabBarStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white',},
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
                     // Set appropriate icon names based on route and focus state
@@ -31,6 +29,7 @@ export default function TabNavigator({darkThemeEnabled, selectedClass, setSelect
                     } else if (route.name === 'Verifiche') {
                         iconName = focused ? 'reader' : 'reader-outline';
                     }
+                    // Return icon component
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 tabBarButton: (props) => (

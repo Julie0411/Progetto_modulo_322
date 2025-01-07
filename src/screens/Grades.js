@@ -1,17 +1,16 @@
-import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
 import React, {useMemo} from "react";
 import {EVENTS} from "../constants/events";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
 
 export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
-
+    // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const navigation = useNavigation();
 
     const lessons = [...new Set(EVENTS.filter(event => {
-
         if (!selectedClass?.label) return false;
 
         if (maturityIsEnabled) {
@@ -22,7 +21,6 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
     }).map(event => event.title))];
 
     const lessonsWithGrades = useMemo(() => {
-
         return lessons.map(title => ({
             title: title,
             grades: grades.find(grade => grade.title === title)?.grades || []
@@ -30,16 +28,12 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
     }, [lessons, grades]);
 
     const calculateAverageGrade = (grades) => {
-
         if (!grades || grades.length === 0) return '--';
-
         const sum = grades.reduce((acc, curr) => acc + curr.grade, 0);
-
         return (sum / grades.length).toFixed(1);
     };
 
     const handleLessonSelection = (selectedLesson) => {
-
         const subjectGrades = grades.find(grade => grade.title === selectedLesson) || { grades: [] };
 
         navigation.navigate('GradeDetails', {
@@ -57,10 +51,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
 
         return (
             <View style={styles.itemContainer}>
-                <Pressable
-                    onPress={() => handleLessonSelection(item)}
-                    style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
-                >
+                <Pressable onPress={() => handleLessonSelection(item)} style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}>
                     <View style={styles.leftSection}>
                         <Text style={styles.itemText}>{item}</Text>
                     </View>
@@ -93,9 +84,6 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
             )}
         </View>
     );
-
-
-
 }
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({

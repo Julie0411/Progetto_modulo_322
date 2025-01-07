@@ -10,8 +10,11 @@ import { useStyles } from "../../utils/hooks/useStyles";
 const AnimatedRectButton = Animated.createAnimatedComponent(RectButton);
 
 const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
+    // Memoized styles based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
+
     const { bottom: bottomSafeArea } = useSafeAreaInsets();
+
     const { animatedIndex, snapToIndex } = useBottomSheet();
 
     const derivedIndex = useDerivedValue(() => animatedIndex.value);

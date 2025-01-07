@@ -49,7 +49,6 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
         </View>
     ), [darkThemeEnabled, handlePress, handleLongPress]);
 
-
     return (
         // Root view with gesture handling
         <GestureHandlerRootView style={styles.root}>
@@ -96,6 +95,18 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     root: {
         flex: 1,
     },
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'gray',
+        marginTop: 20,
+        borderRadius: 10,
+        overflow: 'hidden',
+        width: Dimensions.get("window").width - 20,
+        height: 60,
+    },
     background: {
         backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
@@ -110,18 +121,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     handleIndicatorStyle: {
         backgroundColor: darkThemeEnabled ? 'white' : 'black',
         marginTop: 5
-    },
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'gray',
-        marginTop: 20,
-        borderRadius: 10,
-        overflow: 'hidden',
-        width: Dimensions.get("window").width - 20,
-        height: 60,
     },
     pressable: {
         flexDirection: 'row',

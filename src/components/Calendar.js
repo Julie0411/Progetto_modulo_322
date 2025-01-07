@@ -53,7 +53,13 @@ const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedCl
             scrollByDay={false}      // Disable scroll by day
             onPressEvent={onPressEvent}
             onLongPressEvent={onLongPressEvent} // Handle event press
-            {...CALENDAR_CONFIG}      // Spread additional calendar configuration
+            timeInterval={25}        // Duration of each time slot in minutes
+            start={500}             // Start time (5:00 AM in 24h format)
+            end={990}              // End time (10:00 AM in 24h format)
+            minDate={"2024-09-02"} // Minimum selectable date
+            maxDate={"2025-06-16"}  // Maximum selectable date
+            numberOfDays={5}        // Number of days to display in the calendar view
+            hideWeekDays={[6, 7]}    // Hide Saturday (6) and Sunday (7) from the calendar
             initialLocales={initialLocales} // Set localizations
             locale='it' // Set localization as Italian
             minRegularEventMinutes={30} // Minimum event duration

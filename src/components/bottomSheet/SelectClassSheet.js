@@ -21,13 +21,10 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
             <Text style={styles.toggleText}>Maturità</Text>
             <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
         </View>
-        {/* Container for action buttons */}
         <View style={[styles.buttonContainer,!selClass && styles.buttonDisabled]}>
-            {/* Save button */}
             <Pressable style={styles.button} onPress={handleSavePress} disabled={!selClass}>
                 <Text style={styles.buttonText}>Salva</Text>
             </Pressable>
-
         </View>
     </BottomSheetView>
     );

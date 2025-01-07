@@ -3,7 +3,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 
 const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, onSaveGrade}) => {
-
+    // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const [gradeValue, setGradeValue] = useState('');
