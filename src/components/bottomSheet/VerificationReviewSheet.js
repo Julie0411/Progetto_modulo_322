@@ -28,11 +28,11 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     return (
         <BottomSheetView style={styles.contentContainer}>
             <View style={styles.element}>
-                <Text style={styles.text}>Lezzione:</Text>
+                <Text style={styles.text}>Lezione:</Text>
                 <Text style={styles.text}>{item.subject}</Text>
             </View>
             <View style={styles.element}>
-                <Text style={styles.text}>Insegnante:</Text>
+                <Text style={styles.text}>Docente:</Text>
                 <Text style={styles.text}>{item.teacher}</Text>
             </View>
             <View style={styles.element}>
@@ -44,7 +44,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                 <Text style={styles.text}>{formatDate(item.data.dateTime)}</Text>
             </View>
             <View style={styles.element}>
-                <Text style={styles.text}>Appunti:</Text>
+                <Text style={styles.text}>Appunti: </Text>
                 <View style={styles.textBody}>
                     {isEditing ? (
                         <BottomSheetTextInput
@@ -53,7 +53,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                             onChangeText={setEditedText}
                             onSubmitEditing={saveChanges}
                             multiline
-                            placeholder="Inserisci qua"
+                            placeholder="es: Presentazione"
                             placeholderTextColor={darkThemeEnabled ? 'white' : 'black'}
                         />
                     ) : (

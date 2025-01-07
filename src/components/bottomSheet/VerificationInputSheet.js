@@ -27,7 +27,7 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
                 style={styles.textInput}
                 value={inputText}
                 onChangeText={setInputText}
-                placeholder="Inserisci qua"
+                placeholder="es: Test scritto"
                 placeholderTextColor={darkThemeEnabled ? '#666' : '#aaa'}
             />
             {/* Container for action buttons */}
