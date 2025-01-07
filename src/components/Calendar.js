@@ -69,14 +69,15 @@ export default Calendar;
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     eventContainer: {
-        width: '100%',
+        width: '95%',
         left: '10%',
         height: '100%',
         padding: 4,
-        backgroundColor: darkThemeEnabled ? '#2e2e2e' : 'rgba(46,46,46,0.4)',
+        backgroundColor: darkThemeEnabled ? '#2e2e2e' : 'rgba(46,46,46,0.1)',
     },
     eventText: {
         color: 'white',
-        fontSize: 10
+        fontSize: 10,
+        width: '95%'
     }
 });

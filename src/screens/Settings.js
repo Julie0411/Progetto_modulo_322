@@ -86,6 +86,26 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
             <Text style={styles.text}>
                 Semplice: schiaccia il bottone esporta in alto a sinistra, e poi conferma. Aprendo i file troverai i dati del calendario e le note esportate.
             </Text>
+            <Text style={styles.questionText}>4. Cosa significano colori?</Text>
+            <View style={styles.colorContainer}>
+                <View style={styles.colorRow}>
+                    <View style={[styles.colorSquare, { backgroundColor: '#6089d6' }]} />
+                    <Text style={styles.colorText}>Moduli tecnici</Text>
+                </View>
+                <View style={styles.colorRow}>
+                    <View style={[styles.colorSquare, { backgroundColor: '#82ba2e' }]} />
+                    <Text style={styles.colorText}>Cultura generale</Text>
+                </View>
+                <View style={styles.colorRow}>
+                    <View style={[styles.colorSquare, { backgroundColor: '#d3cc4e' }]} />
+                    <Text style={styles.colorText}>Materie di maturità</Text>
+                </View>
+                <View style={styles.colorRow}>
+                    <View style={[styles.colorSquare, { backgroundColor: '#d66083' }]} />
+                    <Text style={styles.colorText}>Educazione fisica</Text>
+                </View>
+            </View>
+
             <Pressable style={styles.button} onPress={() => setShowOutput(false)}>
                 <Text style={styles.buttonText}>Torna a Impostazioni</Text>
             </Pressable>
@@ -152,6 +172,24 @@ const outputStyles = (darkThemeEnabled) => {
             color: colors.buttonText,
             fontWeight: '600',
         },
+        colorContainer: {
+            gap: 10
+        },
+        colorRow: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 10,
+        },
+        colorSquare: {
+            width: 20,
+            height: 20,
+            marginRight: 10,
+            borderRadius: 4,
+        },
+        colorText: {
+            fontSize: 16,
+            color: colors.text,
+        },
     });
 };
 
@@ -193,14 +231,3 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     }
 });
 
-const textStyle = (darkThemeEnabled) => StyleSheet.create({
-    container: {
-        flex: 1,
-        textAlign: 'left',
-        backgroundColor: darkThemeEnabled ? "black" : "white"
-    },
-    text: {
-        fontSize: 16,
-        color: darkThemeEnabled ? "white" : "black"
-    }
-});
