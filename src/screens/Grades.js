@@ -78,7 +78,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
     return (
         <View style={styles.container}>
             {!lessonsWithGrades.filter(lesson => lesson.grades.length > 0).length ? (
-                <Text style={styles.textHolder}>Ancora nessuna nota</Text>
+                <Text style={styles.textHolder}>Non c’è nessuna nota</Text>
             ) : (
                 <FlatList
                     data={lessonsWithGrades.filter(lesson => lesson.grades.length > 0).map(lesson => lesson.title)}
@@ -142,7 +142,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     textHolder: {
         color: darkThemeEnabled ? 'white' : 'black',
-        fontSize: 18,
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
