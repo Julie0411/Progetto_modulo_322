@@ -6,6 +6,7 @@ import Settings from "./src/screens/Settings";
 import {Pressable, StatusBar} from "react-native";
 import GradeDetails from "./src/screens/GradeDetails";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,8 @@ export default function App() {
     const [grades, setGrades] = useState([]);
 
     const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
+
+    const [sortAscending, setSortAscending] = useState(true);
 
     const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
 
@@ -134,6 +137,18 @@ export default function App() {
                             headerTitle: route?.params?.lessonTitle || "Note",
                             headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
                             headerLeft: () => <BackButton navigation={navigation}/>,
+                            headerRight: () => (
+                                <Pressable
+                                    style={{marginRight: 16}}
+                                    onPress={() => setSortAscending(!sortAscending)}
+                                >
+                                    <MaterialCommunityIcons
+                                        name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
+                                        size={24}
+                                        color={darkThemeEnabled ? 'white' : 'black'}
+                                    />
+                                </Pressable>
+                            )
                         })}
                     >
                     {props => (
@@ -143,6 +158,7 @@ export default function App() {
                                 handleAddGrade={addGrade}
                                 handleDeleteGrade={deleteGrade}
                                 grades={grades.find(g => g.title === props.route?.params?.lessonTitle)?.grades || []}
+                                sortAscending={sortAscending}
                             />
                         )}
                     </Stack.Screen>

@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 
-const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, onSaveGrade}) => {
+const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, onSaveGrade}) => {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -29,14 +29,13 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, onSaveGrade})
             const newGrade = {
                 grade: parseFloat(gradeValue),
                 text: noteText.trim(),
-                timestamp: new Date().toISOString() // Add timestamp for sorting if needed
+                time: lessonTime,
             };
-
             onSaveGrade(lessonTitle, newGrade);
             setGradeValue('');
             setNoteText('');
+            onCancel();
         }
-        onCancel();
     };
 
     const handleCancel = () => {
@@ -55,12 +54,12 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, onSaveGrade})
                     keyboardType="numeric"
                 />
             </View>
-            <Text style={[styles.title,{marginBottom: 10}]}>Inserisci un testo aggiuntivo per la nota</Text>
+            <Text style={[styles.title,{marginBottom: 10}]}>Inserisci un testo opzionale per la nota</Text>
             <BottomSheetTextInput
                 style={styles.textInput}
                 value={noteText}
                 onChangeText={setNoteText}
-                placeholder="Inserisci qua"
+                placeholder="es: Test scritto"
                 placeholderTextColor={darkThemeEnabled ? '#666' : '#aaa'}
             />
             <View style={styles.buttonContainer}>

@@ -5,13 +5,21 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import GradeInput from "../components/GradeInput";
 import {formatDate} from "../utils/formatters/dateFormatter";
 
-export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade}) {
+export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade, sortAscending}) {
 
     const { lessonTitle } = route.params;
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const gradeSheetRef = useRef(null);
+
+    const sortedGrades = useMemo(() => {
+        return [...grades].sort((a, b) => {
+            const timeA = new Date(a.time).getTime();
+            const timeB = new Date(b.time).getTime();
+            return sortAscending ? timeA - timeB : timeB - timeA;
+        });
+    }, [grades, sortAscending]);
 
     useEffect(() => {
         if (route.params?.showSheet) {
@@ -34,7 +42,7 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
                 onLongPress={() => handleDeleteGrade(lessonTitle, item)}
             >
                 <View style={styles.leftSection}>
-                    <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
+                    <Text style={styles.text}>{formatDate(item.time)}</Text>
                 </View>
                 <View style={styles.centerSection}>
                     <Text style={styles.gradeText}>Nota: {item.grade}</Text>
@@ -52,7 +60,7 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <FlatList
-                        data={grades}
+                        data={sortedGrades}
                         renderItem={renderGradeItem}
                         keyExtractor={(_, index) => index.toString()}
                     />

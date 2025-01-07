@@ -4,7 +4,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import GradeInputSheet from "./bottomSheet/GradeInputSheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 // Main TimeTable component that handles calendar and verification input
-export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef}) {
+export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef, lessonTime}) {
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -25,6 +25,7 @@ export default function GradeInput({ darkThemeEnabled, onCancel, lessonTitle, ad
                 darkThemeEnabled={darkThemeEnabled}
                 onCancel={onCancel}
                 lessonTitle={lessonTitle}
+                lessonTime={lessonTime}
                 onSaveGrade={addGrade}
             />
         </BottomSheetModal>
