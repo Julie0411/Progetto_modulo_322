@@ -11,7 +11,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
     const handleClassSelection = () => {
         setSelectedClass(null);
         setMaturityIsEnabled(false);
-        navigation.navigate("TabNavigator");
+        navigation.goBack();
     };
 
     const handleInformationPress = () => {
