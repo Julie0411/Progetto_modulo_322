@@ -65,10 +65,10 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, onSaveGrade})
             />
             <View style={styles.buttonContainer}>
                 <Pressable style={styles.button} onPress={handleCancel}>
-                    <Text style={[styles.buttonText, { color: 'red' }]}>Cancel</Text>
+                    <Text style={[styles.buttonText, { color: 'red' }]}>Annulla</Text>
                 </Pressable>
                 <Pressable style={styles.button} onPress={handleSave}>
-                    <Text style={styles.buttonText}>Save</Text>
+                    <Text style={styles.buttonText}>Salva</Text>
                 </Pressable>
             </View>
         </BottomSheetView>

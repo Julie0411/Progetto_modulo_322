@@ -5,8 +5,9 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
+import GradeInput from "../components/GradeInput";
 
-export default function TimeTable({darkThemeEnabled, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
+export default function TimeTable({darkThemeEnabled, addGrade, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -20,13 +21,21 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
 
     const verificationSheetRef = useRef(null);
 
+    const gradeSheetRef = useRef(null);
+
     const selectClassSheetRef = useRef(null);
 
-    const [selectedEvent, setSelectedEvent] = useState({});
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const handleEventPress = (event) => {
+    const handleGradeInput = (event) => {
+        if (!selectedClass) return;
+        setSelectedEvent(event);
+        gradeSheetRef.current?.present();
+    };
+
+    const handleVerificationInput = (event) => {
         if (!selectedClass) return;
         setSelectedEvent(event);
         verificationSheetRef.current?.present();
@@ -49,7 +58,8 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                 <View style={styles.container}>
                     <Calendar
                         darkThemeEnabled={darkThemeEnabled}
-                        onEventPress={handleEventPress}
+                        onPressEvent={handleGradeInput}
+                        onLongPressEvent={handleVerificationInput}
                         selectedClass={selectedClass}
                     />
                     <VerificationInput
@@ -67,6 +77,13 @@ export default function TimeTable({darkThemeEnabled, addVerification, selectedCl
                         darkThemeEnabled={darkThemeEnabled}
                         toggleMaturity={toggleMaturity}
                         maturityIsEnabled={maturityIsEnabled}
+                    />
+                    <GradeInput
+                        gradeSheetRef={gradeSheetRef}
+                        darkThemeEnabled={darkThemeEnabled}
+                        onCancel={() => gradeSheetRef.current?.close()}
+                        lessonTitle={selectedEvent?.title}
+                        addGrade={addGrade}
                     />
                 </View>
             </BottomSheetModalProvider>

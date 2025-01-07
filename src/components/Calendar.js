@@ -5,8 +5,8 @@ import {EVENTS} from "../constants/events";
 import {CALENDAR_CONFIG} from "../constants/const";
 import {darkColors} from "../theme/colors/dark";
 import {lightColors} from "../theme/colors/light";
-// Main Calendar component that accepts darkThemeEnabled and onEventPress as props
-const Calendar = ({ darkThemeEnabled, onEventPress, selectedClass }) => {
+// Main Calendar component that accepts darkThemeEnabled and onLongPressEvent as props
+const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedClass }) => {
     // Initialize styles using custom hook based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // Determine colors based on theme
@@ -51,7 +51,8 @@ const Calendar = ({ darkThemeEnabled, onEventPress, selectedClass }) => {
             theme={colors}           // Apply theme colors
             events={filteredEvents}          // Pass events data
             scrollByDay={false}      // Disable scroll by day
-            onPressEvent={onEventPress} // Handle event press
+            onPressEvent={onPressEvent}
+            onLongPressEvent={onLongPressEvent} // Handle event press
             {...CALENDAR_CONFIG}      // Spread additional calendar configuration
             initialLocales={initialLocales} // Set localizations
             locale='it' // Set localization as Italian

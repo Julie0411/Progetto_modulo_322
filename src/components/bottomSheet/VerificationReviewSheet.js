@@ -3,7 +3,6 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
 import { formatDate } from "../../utils/formatters/dateFormatter";
-import { useStyles } from "../../utils/hooks/useStyles";
 // VerificationReviewSheet component that displays and allows editing of lesson details
 const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     // State for managing edit mode and edited text content
@@ -101,8 +100,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     textBody: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: "85%",
-        marginRight: 30,
+        width: "80%",
     },
     textInput: {
         color: darkThemeEnabled ? 'white' : 'black',

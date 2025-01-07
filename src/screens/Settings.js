@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled }) => {
     const [showOutput, setShowOutput] = useState(false);  // Stato per visualizzare la schermata delle informazioni
@@ -12,6 +11,7 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
         setSelectedClass(null);
         setMaturityIsEnabled(false);
         navigation.goBack();
+        navigation.navigate('TabNavigator', { screen: 'Orario' });
     };
 
     const handleInformationPress = () => {
@@ -67,7 +67,6 @@ const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass,
         </View>
     );
 };
-
 // Output component
 const Output = ({ darkThemeEnabled, setShowOutput }) => {
     const styles = outputStyles(darkThemeEnabled);
@@ -76,11 +75,11 @@ const Output = ({ darkThemeEnabled, setShowOutput }) => {
         <View style={styles.container}>
             <Text style={styles.questionText}>1. Come aggiungo un test?</Text>
             <Text style={styles.text}>
-                Aggiungere un test è semplice, clicca sulla lezione nella quale si farà il test, riempi i campi richiesti, clicca salvare.
+                Per aggiungere un test, tieni premuto sulla lezione nell'orario nella quale si farà il test, riempi i campi richiesti e clicca salvare.
             </Text>
             <Text style={styles.questionText}>2. Come aggiungo una nota?</Text>
             <Text style={styles.text}>
-                Aggiungere una nota è semplice, clicca su note, clicca il modulo/la materia alla quale devi aggiungere una nota, clicca il “+” in alto a destra, inserisci la nota e il tipo di test (presentazione, interrogazione, test scritto) e infine clicca salva.
+                Per aggiungere una nota, clicca sulla lezione nell'orario, inserisci la nota e il tipo di test (presentazione, interrogazione, test scritto) e infine clicca salva.
             </Text>
             <Text style={styles.questionText}>3. Come esporto il calendario?</Text>
             <Text style={styles.text}>

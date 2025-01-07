@@ -34,11 +34,11 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
             <View style={styles.buttonContainer}>
                 {/* Cancel button */}
                 <Pressable style={styles.button} onPress={handleCancel}>
-                    <Text style={[styles.buttonText, { color: 'red' }]}>Cancel</Text>
+                    <Text style={[styles.buttonText, { color: 'red' }]}>Annulla</Text>
                 </Pressable>
                 {/* Save button */}
                 <Pressable style={styles.button} onPress={handleSave}>
-                    <Text style={styles.buttonText}>Save</Text>
+                    <Text style={styles.buttonText}>Salva</Text>
                 </Pressable>
             </View>
         </BottomSheetView>

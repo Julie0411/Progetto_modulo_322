@@ -27,6 +27,14 @@ export default function App() {
 
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
 
+    const BackButton = ({navigation}) => {
+        return (
+            <Pressable onPress={() => navigation.goBack()} style={{marginLeft: 16}}>
+                <Ionicons name="arrow-back" size={24} color={darkThemeEnabled ? 'white' : 'black'}/>
+            </Pressable>
+        );
+    };
+
     const addVerification = (item) => {
         setVerifications(prev => [...prev, {
             id: item.id,
@@ -38,7 +46,12 @@ export default function App() {
         }]);
     };
 
+    const deleteVerification = (id) => {
+        setVerifications(prev => prev.filter(v => v.id !== id));
+    };
+
     const addGrade = (lessonTitle, newGrade) => {
+        console.log(lessonTitle,newGrade);
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
             if (existingSubject) {
@@ -71,19 +84,6 @@ export default function App() {
             }
             return prev;
         });
-    };
-
-
-    const deleteVerification = (id) => {
-        setVerifications(prev => prev.filter(v => v.id !== id));
-    };
-
-    const BackButton = ({navigation}) => {
-        return (
-            <Pressable onPress={() => navigation.goBack()} style={{marginLeft: 16}}>
-                <Ionicons name="arrow-back" size={24} color={darkThemeEnabled ? 'white' : 'black'}/>
-            </Pressable>
-        );
     };
 
     return (
@@ -134,18 +134,6 @@ export default function App() {
                             headerTitle: route?.params?.lessonTitle || "Note",
                             headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
                             headerLeft: () => <BackButton navigation={navigation}/>,
-                            headerRight: () => (
-                                <Pressable
-                                    onPress={() => navigation.setParams({ showSheet: Date.now() })}
-                                    style={{marginRight: 16}}
-                                >
-                                    <Ionicons
-                                        name="add-outline"
-                                        size={24}
-                                        color={darkThemeEnabled ? 'white' : 'black'}
-                                    />
-                                </Pressable>
-                            )
                         })}
                     >
                     {props => (

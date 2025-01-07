@@ -77,18 +77,25 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={lessons}
-                renderItem={renderItem}
-                keyExtractor={(item, index) => index.toString()}
-                showsVerticalScrollIndicator={false}
-                removeClippedSubviews={true}
-                initialNumToRender={10}
-                maxToRenderPerBatch={10}
-                windowSize={5}
-            />
+            {!lessonsWithGrades.filter(lesson => lesson.grades.length > 0).length ? (
+                <Text style={styles.textHolder}>Ancora nessuna nota</Text>
+            ) : (
+                <FlatList
+                    data={lessonsWithGrades.filter(lesson => lesson.grades.length > 0).map(lesson => lesson.title)}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) => index.toString()}
+                    showsVerticalScrollIndicator={false}
+                    removeClippedSubviews={true}
+                    initialNumToRender={10}
+                    maxToRenderPerBatch={10}
+                    windowSize={5}
+                />
+            )}
         </View>
     );
+
+
+
 }
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
@@ -132,5 +139,13 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     rightSection: {
         flex: 1,
         alignItems: 'flex-end',
-    }
+    },
+    textHolder: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        fontSize: 18,
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
 })

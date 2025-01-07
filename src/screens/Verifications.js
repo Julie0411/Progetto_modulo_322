@@ -37,16 +37,18 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
             <Pressable
                 onLongPress={() => handleLongPress(item)}
                 onPress={() => handlePress(item)}
-                // Dynamic style based on pressed state
                 style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
             >
-                {/* Display item title with single line truncation */}
-                <Text style={styles.text} numberOfLines={1}>{item.subject} {item.teacher}</Text>
-                {/* Display formatted date with single line truncation */}
-                <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
+                <View style={styles.leftSection}>
+                    <Text style={styles.text} numberOfLines={1}>{item.teacher} {item.subject}</Text>
+                </View>
+                <View style={styles.rightSection}>
+                    <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
+                </View>
             </Pressable>
         </View>
     ), [darkThemeEnabled, handlePress, handleLongPress]);
+
 
     return (
         // Root view with gesture handling

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, FlatList, Dimensions, Pressable} from 'react-nat
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import GradeInput from "../components/GradeInput";
+import {formatDate} from "../utils/formatters/dateFormatter";
 
 export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade}) {
 
@@ -24,23 +25,27 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
     };
 
     const renderGradeItem = ({ item }) => (
-                <View style={styles.gradeItem}>
-                    <Pressable
-                        style={({ pressed }) => [
-                            styles.pressable,
-                            pressed && styles.pressedItem
-                        ]}
-                        onLongPress={() => handleDeleteGrade(lessonTitle, item)}
-                    >
-                        <View style={styles.textContainer}>
-                            <Text style={styles.text}>{item.text}</Text>
-                        </View>
-                        <View style={styles.gradeContainer}>
-                            <Text style={styles.gradeText}>Nota: {item.grade}</Text>
-                        </View>
-                    </Pressable>
+        <View style={styles.gradeItem}>
+            <Pressable
+                style={({ pressed }) => [
+                    styles.pressable,
+                    pressed && styles.pressedItem
+                ]}
+                onLongPress={() => handleDeleteGrade(lessonTitle, item)}
+            >
+                <View style={styles.leftSection}>
+                    <Text style={styles.text}>{formatDate(item.timestamp)}</Text>
                 </View>
+                <View style={styles.centerSection}>
+                    <Text style={styles.gradeText}>Nota: {item.grade}</Text>
+                </View>
+                <View style={styles.rightSection}>
+                    <Text style={styles.text}>{item.text}</Text>
+                </View>
+            </Pressable>
+        </View>
     );
+
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -102,5 +107,17 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     pressedItem: {
         backgroundColor: 'rgba(155,155,155,0.3)',
+    },
+    leftSection: {
+        flex: 1,
+        alignItems: 'flex-start',
+    },
+    centerSection: {
+        flex: 1,
+        alignItems: 'center',
+    },
+    rightSection: {
+        flex: 1,
+        alignItems: 'flex-end',
     }
 });
