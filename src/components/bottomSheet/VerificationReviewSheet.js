@@ -1,10 +1,10 @@
 import React, {useMemo, useState} from "react";
-import { FontAwesome } from "@expo/vector-icons";
+import {FontAwesome} from "@expo/vector-icons";
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import { formatDate } from "../../utils/formatters/dateFormatter";
-import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
+import {formatDate} from "../../utils/formatters/dateFormatter";
+import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 // VerificationReviewSheet component that displays and allows editing of lesson details
-const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
+const VerificationReviewSheet = ({darkThemeEnabled, item, setItem}) => {
     // Memoized styles based on dark theme setting
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for managing edit mode and edited text content
@@ -18,7 +18,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
     };
     // Save edited text and exit edit mode
     const saveChanges = () => {
-        setItem({ ...item, text: editedText });
+        setItem({...item, text: editedText});
         setIsEditing(false);
     };
     // Guard clause if no item is provided
@@ -56,7 +56,7 @@ const VerificationReviewSheet = ({ darkThemeEnabled, item, setItem }) => {
                             placeholderTextColor={darkThemeEnabled ? 'white' : 'black'}
                         />
                     ) : (
-                        <Text style={[styles.text,{width: "90%"}]}>{item.text}</Text>
+                        <Text style={[styles.text, {width: "90%"}]}>{item.text}</Text>
                     )}
                     <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
                         <FontAwesome

@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
-import Animated, { interpolate, useAnimatedStyle, useDerivedValue } from "react-native-reanimated";
+import React, {useMemo} from "react";
+import Animated, {interpolate, useAnimatedStyle, useDerivedValue} from "react-native-reanimated";
 
-const CustomBackdrop = ({ animatedIndex, style }) => {
+const CustomBackdrop = ({animatedIndex, style}) => {
     // Combine styles using useMemo
     const containerStyle = useMemo(
         () => [
             style,
-            { backgroundColor: 'rgba(151,151,151,0.4)' },
+            {backgroundColor: 'rgba(151,151,151,0.4)'},
             containerAnimatedStyle,
         ],
         [style, containerAnimatedStyle]
@@ -18,7 +18,7 @@ const CustomBackdrop = ({ animatedIndex, style }) => {
         opacity: interpolate(derivedIndex.value, [0.1, 1], [0.5, 1]),
     }));
 
-    return <Animated.View style={containerStyle} />;
+    return <Animated.View style={containerStyle}/>;
 };
 
 export default React.memo(CustomBackdrop);

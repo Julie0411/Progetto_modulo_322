@@ -1,15 +1,22 @@
 import GradeInput from "../components/GradeInput";
-import React, {useMemo, useRef, useEffect} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {formatDate} from "../utils/formatters/dateFormatter";
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import {View, Text, StyleSheet, FlatList, Dimensions, Pressable} from 'react-native';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 
-export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, grades, handleDeleteGrade, sortAscending}) {
+export default function GradeDetails({
+                                         route,
+                                         darkThemeEnabled,
+                                         handleAddGrade,
+                                         grades,
+                                         handleDeleteGrade,
+                                         sortAscending
+                                     }) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const { lessonTitle } = route.params;
+    const {lessonTitle} = route.params;
 
     const gradeSheetRef = useRef(null);
 
@@ -32,10 +39,10 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
         gradeSheetRef.current?.close();
     };
 
-    const renderGradeItem = ({ item }) => (
+    const renderGradeItem = ({item}) => (
         <View style={styles.gradeItem}>
             <Pressable
-                style={({ pressed }) => [
+                style={({pressed}) => [
                     styles.pressable,
                     pressed && styles.pressedItem
                 ]}
@@ -55,7 +62,7 @@ export default function GradeDetails({ route, darkThemeEnabled, handleAddGrade, 
     );
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <FlatList

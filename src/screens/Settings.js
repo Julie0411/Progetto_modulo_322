@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { Text, View, StyleSheet, ScrollView, Switch, Pressable, Linking } from "react-native";
+import React, {useMemo, useState} from "react";
+import {Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import verificationReviewSheet from "../components/bottomSheet/VerificationReviewSheet";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({ darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled }) => {
+const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 

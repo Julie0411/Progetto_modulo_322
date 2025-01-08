@@ -58,12 +58,15 @@ export default function App() {
     };
 
     const addGrade = (lessonTitle, newGrade) => {
-        console.log(lessonTitle,newGrade);
+        console.log(lessonTitle, newGrade);
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
 
             if (existingSubject) {
-                return prev.map(subject => subject.title === lessonTitle ? {...subject, grades: [...subject.grades, newGrade]} : subject);
+                return prev.map(subject => subject.title === lessonTitle ? {
+                    ...subject,
+                    grades: [...subject.grades, newGrade]
+                } : subject);
             } else {
                 return [...prev, {title: lessonTitle, grades: [newGrade]}];
             }
@@ -75,7 +78,10 @@ export default function App() {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
 
             if (existingSubject) {
-                return prev.map(subject => subject.title === lessonTitle ? {...subject, grades: subject.grades.filter(grade => grade.text !== gradeToDelete.text)} : subject);
+                return prev.map(subject => subject.title === lessonTitle ? {
+                    ...subject,
+                    grades: subject.grades.filter(grade => grade.text !== gradeToDelete.text)
+                } : subject);
             }
 
             return prev;
@@ -101,9 +107,9 @@ export default function App() {
                     </Stack.Screen>
                     <Stack.Screen
                         name="Settings"
-                        options={({ navigation }) => ({
+                        options={({navigation}) => ({
                             headerTitle: "Impostazioni",
-                            headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
+                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
                             headerLeft: () => <BackButton navigation={navigation}/>
                         })}
                     >
@@ -116,14 +122,14 @@ export default function App() {
                                 setSelectedClass={setSelectedClass}
                                 setMaturityIsEnabled={setMaturityIsEnabled}
                             />
-                         )}
+                        )}
                     </Stack.Screen>
 
                     <Stack.Screen
                         name="GradeDetails"
                         options={({route, navigation}) => ({
                             headerTitle: route?.params?.lessonTitle || "Note",
-                            headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
+                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
                             headerLeft: () => <BackButton navigation={navigation}/>,
                             headerRight: () => (
                                 <Pressable
@@ -139,7 +145,7 @@ export default function App() {
                             )
                         })}
                     >
-                    {props => (
+                        {props => (
                             <GradeDetails
                                 {...props}
                                 darkThemeEnabled={darkThemeEnabled}

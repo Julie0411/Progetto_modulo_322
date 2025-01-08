@@ -1,13 +1,13 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import {View, StyleSheet, FlatList, Pressable, Text, Dimensions} from "react-native";
+import React, {useCallback, useMemo, useRef, useState} from "react";
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
 import VerificationReviewSheet from "../components/bottomSheet/VerificationReviewSheet";
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
 
-export default function Verifications({ darkThemeEnabled, verifications, deleteVerification }) {
+export default function Verifications({darkThemeEnabled, verifications, deleteVerification}) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for currently selected item
@@ -15,7 +15,7 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
     // Reference for bottom sheet modal
     const bottomSheetModalRef = useRef(null);
     // Memoized snap points for bottom sheet
-    const snapPoints = useMemo(() => ['20%','70%'], []);
+    const snapPoints = useMemo(() => ['20%', '70%'], []);
     // Memoized key extractor for FlatList
     const keyExtractor = useCallback((item) => item.id.toString(), []);
     // Handler to show bottom sheet modal
@@ -32,12 +32,12 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
         deleteVerification(selectedItem.id);
     }, [deleteVerification]);
     // Memoized render function for FlatList items
-    const renderItem = useCallback(({ item }) => (
+    const renderItem = useCallback(({item}) => (
         <View style={styles.container}>
             <Pressable
                 onLongPress={() => handleLongPress(item)}
                 onPress={() => handlePress(item)}
-                style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}
+                style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}
             >
                 <View style={styles.leftSection}>
                     <Text style={styles.text} numberOfLines={1}>{item.teacher} {item.subject}</Text>
@@ -79,12 +79,12 @@ export default function Verifications({ darkThemeEnabled, verifications, deleteV
                     footerComponent={CustomFooter}
                     handleStyle={styles.handleStyle}
                     handleIndicatorStyle={styles.handleIndicatorStyle}
-                    backgroundStyle={{ backgroundColor: darkThemeEnabled ? 'black' : 'white' }}
+                    backgroundStyle={{backgroundColor: darkThemeEnabled ? 'black' : 'white'}}
                     enablePanDownToClose={true}
                     index={0}
                     keyboardBehavior="interactive"
                 >
-                    <VerificationReviewSheet darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item} />
+                    <VerificationReviewSheet darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item}/>
                 </BottomSheetModal>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>
