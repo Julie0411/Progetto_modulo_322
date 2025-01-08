@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
+import {Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
@@ -16,10 +16,8 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
     const handleInformationPress = () => {
         setShowInformation(true); // Mostra la schermata delle informazioni
     };
-
     // Stato per visualizzare la schermata delle informazioni
     const [showInformation, setShowInformation] = useState(false);
-
     // Stato per esportare il calendario
     const handleExportPress = () => {
 
@@ -27,10 +25,6 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
 
     if (showInformation) {
         return <Information darkThemeEnabled={darkThemeEnabled} setShowInformation={setShowInformation}/>;
-    }
-
-    if (showOutput) {
-        return <Output darkThemeEnabled={darkThemeEnabled} setShowOutput={setShowOutput}/>;
     }
 
     return (
@@ -70,8 +64,17 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
                 <Pressable
                     style={styles.element}
                     onPress={() =>
-                        Linking.openURL(
-                            "https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header"
+                        Alert.alert(
+                            'Apri Google Form',
+                            'Vuoi essere reindirizzato al questionario esterno?',
+                            [{
+                                text: 'Annulla',
+                                style: 'destructive',
+                            }, {
+                                text: 'Procedi',
+                                style: 'default',
+                                onPress: () => Linking.openURL("https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header")
+                            }]
                         )
                     }
                 >
@@ -88,7 +91,7 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
     );
 }
 
-const Information = ({darkThemeEnabled, setShowInformation}) => {
+const Information = ({darkThemeEnabled}) => {
     const styles = informationStyles(darkThemeEnabled);
 
     return (
