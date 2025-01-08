@@ -132,7 +132,8 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     text: {
         color: darkThemeEnabled ? 'white' : 'black',
         flexShrink: 1,
-        marginRight: 10,
+        marginRight: 5,
+        fontSize: 18
     },
     pressedItem: {
         backgroundColor: 'rgba(155,155,155,0.3)',

@@ -1,8 +1,8 @@
+import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
 import React, {useMemo} from "react";
 import {EVENTS} from "../constants/events";
-import { useNavigation } from '@react-navigation/native';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
     // Create memoized styles based on theme
@@ -133,6 +133,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+        fontSize: 18
     },
 
 })

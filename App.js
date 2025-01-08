@@ -8,7 +8,6 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {createStackNavigator} from '@react-navigation/stack';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -59,6 +58,7 @@ export default function App() {
     };
 
     const addGrade = (lessonTitle, newGrade) => {
+        console.log(lessonTitle,newGrade);
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
 
@@ -99,7 +99,6 @@ export default function App() {
                             />
                         )}
                     </Stack.Screen>
-
                     <Stack.Screen
                         name="Settings"
                         options={({ navigation }) => ({
@@ -117,7 +116,7 @@ export default function App() {
                                 setSelectedClass={setSelectedClass}
                                 setMaturityIsEnabled={setMaturityIsEnabled}
                             />
-                        )}
+                         )}
                     </Stack.Screen>
 
                     <Stack.Screen
