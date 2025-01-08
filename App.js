@@ -8,7 +8,6 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {createStackNavigator} from '@react-navigation/stack';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -88,10 +87,6 @@ export default function App() {
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
             <NavigationContainer theme={theme}>
                 <Stack.Navigator>
-                    <Stack.Screen
-                        name="TabNavigator"
-                        options={{headerShown: false}}
-                    >
                     <Stack.Screen name="TabNavigator" options={{headerShown: false}}>
                         {(navigation) => (
                             <TabNavigator
@@ -154,7 +149,6 @@ export default function App() {
                                 sortAscending={sortAscending}
                             />
                         )}
-                    </Stack.Screen>
                     </Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
