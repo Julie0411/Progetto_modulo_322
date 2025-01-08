@@ -93,16 +93,25 @@ export default function App() {
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
             <SafeAreaView style={{flex: 1}}>
                 <NavigationContainer theme={theme}>
-                    <Stack.Navigator>
-                        <Stack.Screen name="TabNavigator" options={{headerShown: false}}>
+                    <Stack.Navigator id="MainStack">
+                        <Stack.Screen
+                            name="TabNavigator"
+                            options={{headerShown: false}}
+                        >
                             {(navigation) => (
                                 <TabNavigator
-                                    {...{
-                                        verifications, addVerification, deleteVerification,
-                                        darkThemeEnabled, toggleTheme, selectedClass,
-                                        setSelectedClass, toggleMaturity, maturityIsEnabled,
-                                        navigation, grades, addGrade
-                                    }}
+                                    verifications={verifications}
+                                    addVerification={addVerification}
+                                    deleteVerification={deleteVerification}
+                                    darkThemeEnabled={darkThemeEnabled}
+                                    toggleTheme={toggleTheme}
+                                    selectedClass={selectedClass}
+                                    setSelectedClass={setSelectedClass}
+                                    toggleMaturity={toggleMaturity}
+                                    maturityIsEnabled={maturityIsEnabled}
+                                    navigation={navigation}
+                                    grades={grades}
+                                    addGrade={addGrade}
                                 />
                             )}
                         </Stack.Screen>
@@ -125,7 +134,6 @@ export default function App() {
                                 />
                             )}
                         </Stack.Screen>
-
                         <Stack.Screen
                             name="GradeDetails"
                             options={({route, navigation}) => ({
