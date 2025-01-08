@@ -46,24 +46,24 @@ const Calendar = ({darkThemeEnabled, onPressEvent, onLongPressEvent, selectedCla
 
     return (
         <CalendarContainer
-            allowPinchToZoom={true}  // Enable pinch zoom functionality
-            theme={colors}           // Apply theme colors
-            events={filteredEvents}          // Pass events data
-            scrollByDay={false}      // Disable scroll by day
-            onPressEvent={onPressEvent}
-            onLongPressEvent={onLongPressEvent} // Handle event press
-            timeInterval={25}        // Duration of each time slot in minutes
-            start={500}             // Start time (5:00 AM in 24h format)
-            end={990}              // End time (10:00 AM in 24h format)
-            minDate={"2024-09-02"} // Minimum selectable date
-            maxDate={"2025-06-16"}  // Maximum selectable date
-            numberOfDays={5}        // Number of days to display in the calendar view
-            hideWeekDays={[6, 7]}    // Hide Saturday (6) and Sunday (7) from the calendar
-            initialLocales={initialLocales} // Set localizations
-            locale='it' // Set localization as Italian
-            minRegularEventMinutes={30} // Minimum event duration
-            minTimeIntervalHeight={40} // Minimum height for regular events
-            maxTimeIntervalHeight={60} // Maximum height for regular events
+            allowPinchToZoom={true}             // Enable pinch zoom functionality
+            theme={colors}                      // Apply theme colors
+            events={filteredEvents}             // Pass events data
+            scrollByDay={false}                 // Disable scroll by day
+            onPressEvent={onPressEvent}         // Handle short press on event
+            onLongPressEvent={onLongPressEvent} // Handle long press on event
+            timeInterval={25}                   // Duration of each time slot in minutes
+            start={500}                         // Start time (5:00 AM in 24h format)
+            end={990}                           // End time (10:00 AM in 24h format)
+            minDate={"2024-09-02"}              // Minimum selectable date
+            maxDate={"2025-06-16"}              // Maximum selectable date
+            numberOfDays={5}                    // Number of days to display in the calendar view
+            hideWeekDays={[6, 7]}               // Hide Saturday (6) and Sunday (7) from the calendar
+            initialLocales={initialLocales}     // Set localizations
+            locale='it'                         // Set localization as Italian
+            minRegularEventMinutes={30}         // Minimum event duration
+            minTimeIntervalHeight={40}          // Minimum height for regular events
+            maxTimeIntervalHeight={60}          // Maximum height for regular events
         >
             <CalendarHeader/>
             <CalendarBody renderEvent={renderEvent}/>
