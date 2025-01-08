@@ -59,6 +59,7 @@ export default function App() {
     };
 
     const addGrade = (lessonTitle, newGrade) => {
+        console.log(lessonTitle,newGrade);
         setGrades(prev => {
             const existingSubject = prev.find(subject => subject.title === lessonTitle);
 
@@ -87,6 +88,10 @@ export default function App() {
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
             <NavigationContainer theme={theme}>
                 <Stack.Navigator>
+                    <Stack.Screen
+                        name="TabNavigator"
+                        options={{headerShown: false}}
+                    >
                     <Stack.Screen name="TabNavigator" options={{headerShown: false}}>
                         {(navigation) => (
                             <TabNavigator
@@ -99,7 +104,6 @@ export default function App() {
                             />
                         )}
                     </Stack.Screen>
-
                     <Stack.Screen
                         name="Settings"
                         options={({ navigation }) => ({
@@ -117,7 +121,7 @@ export default function App() {
                                 setSelectedClass={setSelectedClass}
                                 setMaturityIsEnabled={setMaturityIsEnabled}
                             />
-                        )}
+                         )}
                     </Stack.Screen>
 
                     <Stack.Screen
@@ -150,6 +154,7 @@ export default function App() {
                                 sortAscending={sortAscending}
                             />
                         )}
+                    </Stack.Screen>
                     </Stack.Screen>
                 </Stack.Navigator>
             </NavigationContainer>
