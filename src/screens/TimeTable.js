@@ -1,13 +1,21 @@
-import React, { useRef, useState, useMemo, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import React, {useEffect, useMemo, useRef, useState} from "react";
+import {StyleSheet, View} from "react-native";
 import Calendar from "../components/Calendar";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
 import GradeInput from "../components/GradeInput";
 
-export default function TimeTable({darkThemeEnabled, addGrade, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
+export default function TimeTable({
+                                      darkThemeEnabled,
+                                      addGrade,
+                                      addVerification,
+                                      selectedClass,
+                                      setSelectedClass,
+                                      toggleMaturity,
+                                      maturityIsEnabled
+                                  }) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -43,7 +51,7 @@ export default function TimeTable({darkThemeEnabled, addGrade, addVerification, 
 
     const handleSaveText = (text) => {
         if (selectedEvent) {
-            addVerification({ ...selectedEvent, text });
+            addVerification({...selectedEvent, text});
         }
         verificationSheetRef.current?.close();
     };
@@ -53,7 +61,7 @@ export default function TimeTable({darkThemeEnabled, addGrade, addVerification, 
     };
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <Calendar

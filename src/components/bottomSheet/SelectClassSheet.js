@@ -10,23 +10,23 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
     const [selClass, setSelClass] = useState(null);
 
     const handleSavePress = () => {
-        setSelectedClass({...selClass,maturityIsEnabled});
+        setSelectedClass({...selClass, maturityIsEnabled});
         bottomSheetRef.current.close();
     };
 
     return (
-    <BottomSheetView style={styles.contentContainer}>
-        <DropBox darkThemeEnabled={darkThemeEnabled} selectClass={setSelClass}/>
-        <View style={styles.toggle}>
-            <Text style={styles.toggleText}>Maturità</Text>
-            <Switch onValueChange={toggleMaturity} value={maturityIsEnabled} />
-        </View>
-        <View style={[styles.buttonContainer,!selClass && styles.buttonDisabled]}>
-            <Pressable style={styles.button} onPress={handleSavePress} disabled={!selClass}>
-                <Text style={styles.buttonText}>Salva</Text>
-            </Pressable>
-        </View>
-    </BottomSheetView>
+        <BottomSheetView style={styles.contentContainer}>
+            <DropBox darkThemeEnabled={darkThemeEnabled} selectClass={setSelClass}/>
+            <View style={styles.toggle}>
+                <Text style={styles.toggleText}>Maturità</Text>
+                <Switch onValueChange={toggleMaturity} value={maturityIsEnabled}/>
+            </View>
+            <View style={[styles.buttonContainer, !selClass && styles.buttonDisabled]}>
+                <Pressable style={styles.button} onPress={handleSavePress} disabled={!selClass}>
+                    <Text style={styles.buttonText}>Salva</Text>
+                </Pressable>
+            </View>
+        </BottomSheetView>
     );
 };
 

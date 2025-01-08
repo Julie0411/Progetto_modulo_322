@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import { BottomSheetTextInput, BottomSheetView } from "@gorhom/bottom-sheet";
+import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 
 const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, onSaveGrade}) => {
     // Memoized styles based on theme
@@ -47,14 +47,14 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
             <View style={styles.gradeContainer}>
                 <Text style={styles.title}>Inserisci la nota</Text>
                 <BottomSheetTextInput
-                    style={[styles.numberInput,{width: 70, textAlign: 'center'}]}
+                    style={[styles.numberInput, {width: 70, textAlign: 'center'}]}
                     value={gradeValue}
                     onChangeText={handleGradeChange}
                     placeholder="1-6"
                     keyboardType="numeric"
                 />
             </View>
-            <Text style={[styles.title,{marginBottom: 10}]}>Inserisci un testo opzionale per la nota</Text>
+            <Text style={[styles.title, {marginBottom: 10}]}>Inserisci un testo opzionale per la nota</Text>
             <BottomSheetTextInput
                 style={styles.textInput}
                 value={noteText}
@@ -64,7 +64,7 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
             />
             <View style={styles.buttonContainer}>
                 <Pressable style={styles.button} onPress={handleCancel}>
-                    <Text style={[styles.buttonText, { color: 'red' }]}>Annulla</Text>
+                    <Text style={[styles.buttonText, {color: 'red'}]}>Annulla</Text>
                 </Pressable>
                 <Pressable style={styles.button} onPress={handleSave}>
                     <Text style={styles.buttonText}>Salva</Text>

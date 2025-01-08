@@ -1,8 +1,8 @@
-import {Text, View, StyleSheet, FlatList, Dimensions, Pressable} from "react-native";
+import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import React, {useMemo} from "react";
 import {EVENTS} from "../constants/events";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
     // Create memoized styles based on theme
@@ -34,7 +34,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
     };
 
     const handleLessonSelection = (selectedLesson) => {
-        const subjectGrades = grades.find(grade => grade.title === selectedLesson) || { grades: [] };
+        const subjectGrades = grades.find(grade => grade.title === selectedLesson) || {grades: []};
 
         navigation.navigate('GradeDetails', {
             lessonTitle: selectedLesson,
@@ -43,7 +43,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
         });
     };
 
-    const renderItem = ({ item }) => {
+    const renderItem = ({item}) => {
 
         const lessonGrades = lessonsWithGrades.find(lesson => lesson.title === item)?.grades;
 
@@ -51,7 +51,8 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
 
         return (
             <View style={styles.itemContainer}>
-                <Pressable onPress={() => handleLessonSelection(item)} style={({ pressed }) => [styles.pressable, pressed && styles.pressedItem]}>
+                <Pressable onPress={() => handleLessonSelection(item)}
+                           style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}>
                     <View style={styles.leftSection}>
                         <Text style={styles.itemText}>{item}</Text>
                     </View>
@@ -59,7 +60,8 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
                         <Text style={styles.itemText}>Nota media: {average}</Text>
                     </View>
                     <View style={styles.rightSection}>
-                        <Ionicons name="chevron-forward-outline" size={24} color={darkThemeEnabled ? 'white' : 'black'} />
+                        <Ionicons name="chevron-forward-outline" size={24}
+                                  color={darkThemeEnabled ? 'white' : 'black'}/>
                     </View>
                 </Pressable>
             </View>

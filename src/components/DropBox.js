@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import React, {useMemo, useState} from 'react';
-import { Dropdown } from 'react-native-element-dropdown';
-import {INITIAL_CONFIG, CLASSES_OPTIONS} from "../constants/const";
+import {Dropdown} from 'react-native-element-dropdown';
 
 export const DropBox = ({darkThemeEnabled, selectClass}) => {
     // Create memoized styles based on theme
@@ -21,9 +20,9 @@ export const DropBox = ({darkThemeEnabled, selectClass}) => {
             itemContainerStyle={styles.itemContainerStyle}
             itemTextStyle={styles.itemTextStyle}
             data={[
-                { label: 'I2a', value: '1' },
-                { label: 'I2b', value: '2' },
-                { label: 'I2c', value: '3' }
+                {label: 'I2a', value: '1'},
+                {label: 'I2b', value: '2'},
+                {label: 'I2c', value: '3'}
             ]}
             search
             activeColor={darkThemeEnabled ? 'black' : 'white'}

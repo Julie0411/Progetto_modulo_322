@@ -1,21 +1,21 @@
-import React, { useCallback, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { BottomSheetFooter, useBottomSheet } from '@gorhom/bottom-sheet';
-import { RectButton } from 'react-native-gesture-handler';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, { interpolate, useAnimatedStyle, useDerivedValue } from 'react-native-reanimated';
-import { toRad } from 'react-native-redash';
-import { useStyles } from "../../utils/hooks/useStyles";
+import React, {useCallback, useMemo} from 'react';
+import {StyleSheet} from 'react-native';
+import {BottomSheetFooter, useBottomSheet} from '@gorhom/bottom-sheet';
+import {RectButton} from 'react-native-gesture-handler';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Animated, {interpolate, useAnimatedStyle, useDerivedValue} from 'react-native-reanimated';
+import {toRad} from 'react-native-redash';
+import {useStyles} from "../../utils/hooks/useStyles";
 
 const AnimatedRectButton = Animated.createAnimatedComponent(RectButton);
 
-const CustomFooter = ({ animatedFooterPosition, darkThemeEnabled }) => {
+const CustomFooter = ({animatedFooterPosition, darkThemeEnabled}) => {
     // Memoized styles based on theme
     const styles = useStyles(createStyles, darkThemeEnabled);
 
-    const { bottom: bottomSafeArea } = useSafeAreaInsets();
+    const {bottom: bottomSafeArea} = useSafeAreaInsets();
 
-    const { animatedIndex, snapToIndex } = useBottomSheet();
+    const {animatedIndex, snapToIndex} = useBottomSheet();
 
     const derivedIndex = useDerivedValue(() => animatedIndex.value);
 

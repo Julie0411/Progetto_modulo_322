@@ -1,12 +1,11 @@
 import React, {useCallback, useMemo} from 'react';
-import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
-import {View, Text, StyleSheet} from 'react-native';
+import {CalendarBody, CalendarContainer, CalendarHeader} from '@howljs/calendar-kit';
+import {StyleSheet, Text, View} from 'react-native';
 import {EVENTS} from "../constants/events";
-import {CALENDAR_CONFIG} from "../constants/const";
 import {darkColors} from "../theme/colors/dark";
 import {lightColors} from "../theme/colors/light";
 // Main Calendar component that accepts darkThemeEnabled and onLongPressEvent as props
-const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedClass }) => {
+const Calendar = ({darkThemeEnabled, onPressEvent, onLongPressEvent, selectedClass}) => {
     // Initialize styles using custom hook based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // Determine colors based on theme
@@ -15,7 +14,7 @@ const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedCl
     const initialLocales = {
         it: {
             weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven'.split('_'), // Text in day header (Sun, Mon, etc.)
-            meridiem: { ante: 'am', post: 'pm' }, // Hour format (hh:mm a)
+            meridiem: {ante: 'am', post: 'pm'}, // Hour format (hh:mm a)
         },
     };
     // Callback function to render individual calendar events
@@ -25,7 +24,7 @@ const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedCl
                 <Text style={styles.eventText}>
                     {event.title}{"\n"}
                     {event.classroom?.startsWith('P') ? 'Palestra' : 'Aula'} {event.classroom}{"\n"}
-                    {event.start.dateTime.slice(11,16)} - {event.end.dateTime.slice(11,16)}
+                    {event.start.dateTime.slice(11, 16)} - {event.end.dateTime.slice(11, 16)}
                 </Text>
             </View>
         ),
@@ -66,8 +65,8 @@ const Calendar = ({ darkThemeEnabled, onPressEvent, onLongPressEvent, selectedCl
             minTimeIntervalHeight={40} // Minimum height for regular events
             maxTimeIntervalHeight={60} // Maximum height for regular events
         >
-            <CalendarHeader />
-            <CalendarBody renderEvent={renderEvent} />
+            <CalendarHeader/>
+            <CalendarBody renderEvent={renderEvent}/>
         </CalendarContainer>
     );
 };
