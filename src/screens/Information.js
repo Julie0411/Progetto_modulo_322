@@ -1,7 +1,10 @@
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import React from "react";
+import React, {useContext} from "react";
+import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-const Information = ({darkThemeEnabled, setShowInformation}) => {
+const Information = ({setShowInformation}) => {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     const styles = informationStyles(darkThemeEnabled);
 
     return (
@@ -40,7 +43,10 @@ const Information = ({darkThemeEnabled, setShowInformation}) => {
                     <Text style={styles.colorText}>Educazione fisica</Text>
                 </View>
             </View>
-            <Pressable style={styles.button} onPress={() => setShowOutput(false)}>
+            <Pressable style={styles.button} onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                setShowOutput(false)
+            }}>
                 <Text style={styles.buttonText}>Torna a Impostazioni</Text>
             </Pressable>
         </View>

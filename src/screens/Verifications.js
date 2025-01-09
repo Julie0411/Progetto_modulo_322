@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from "react";
+import React, {useCallback, useContext, useMemo, useRef, useState} from "react";
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
@@ -6,8 +6,11 @@ import VerificationReviewSheet from "../components/bottomSheet/VerificationRevie
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
+import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function Verifications({darkThemeEnabled, verifications, deleteVerification}) {
+export default function Verifications({verifications, deleteVerification}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for currently selected item
@@ -24,11 +27,13 @@ export default function Verifications({darkThemeEnabled, verifications, deleteVe
     }, []);
     // Handler for item press - sets selected item and shows modal
     const handlePress = useCallback((selectedItem) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         setItem(selectedItem);
         handlePresentModalPress();
     }, [handlePresentModalPress]);
     // Handler for long press - deletes the verification
     const handleLongPress = useCallback((selectedItem) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         deleteVerification(selectedItem.id);
     }, [deleteVerification]);
     // Memoized render function for FlatList items

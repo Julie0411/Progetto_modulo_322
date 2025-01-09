@@ -1,10 +1,13 @@
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {EVENTS} from "../constants/events";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from '@react-navigation/native';
+import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
+export default function Grades({maturityIsEnabled, selectedClass, grades}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -37,7 +40,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
         const subjectGrades = grades.find(grade => grade.title === selectedLesson) || {grades: []};
 
         navigation.navigate('GradeDetails', {
-            lessonTitle: selectedLesson,
+            subjectTitle: selectedLesson,
             grades: subjectGrades.grades,
             darkThemeEnabled: darkThemeEnabled
         });
@@ -52,7 +55,10 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
         return (
             <View style={styles.itemContainer}>
                 <Pressable
-                    onPress={() => handleLessonSelection(item)}
+                    onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                        handleLessonSelection(item)
+                    }}
                     style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}
                 >
                     <View style={styles.leftSection}>
@@ -71,6 +77,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
     };
 
     return (
+
         <View style={styles.container}>
             {!lessonsWithGrades.filter(lesson => lesson.grades.length > 0).length ? (
                 <Text style={styles.textHolder}>Non c’è nessuna nota</Text>

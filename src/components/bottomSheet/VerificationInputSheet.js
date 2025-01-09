@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
+import * as Haptics from "expo-haptics";
 
 const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
     // Memoized styles based on theme
@@ -9,11 +10,13 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
     const [inputText, setInputText] = useState(selectedEvent?.text || "");
 
     const handleSave = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         onSave(inputText);
         setSelectedEvent(null);
     };
 
     const handleCancel = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
         onCancel();
         setSelectedEvent(null);
     };

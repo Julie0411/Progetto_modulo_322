@@ -4,7 +4,7 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 import GradeInputSheet from "./bottomSheet/GradeInputSheet";
 
-export default function GradeInput({darkThemeEnabled, onCancel, lessonTitle, addGrade, gradeSheetRef, lessonTime}) {
+export default function GradeInput({darkThemeEnabled, onCancel, subjectTitle, addGrade, gradeSheetRef, lessonTime}) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -24,7 +24,7 @@ export default function GradeInput({darkThemeEnabled, onCancel, lessonTitle, add
             <GradeInputSheet
                 darkThemeEnabled={darkThemeEnabled}
                 onCancel={onCancel}
-                lessonTitle={lessonTitle}
+                subjectTitle={subjectTitle}
                 lessonTime={lessonTime}
                 onSaveGrade={addGrade}
             />

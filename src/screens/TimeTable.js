@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import Calendar from "../components/Calendar";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
@@ -6,16 +6,11 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
 import GradeInput from "../components/GradeInput";
+import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function TimeTable({
-                                      darkThemeEnabled,
-                                      addGrade,
-                                      addVerification,
-                                      selectedClass,
-                                      setSelectedClass,
-                                      toggleMaturity,
-                                      maturityIsEnabled
-                                  }) {
+export default function TimeTable({addGrade, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -38,18 +33,21 @@ export default function TimeTable({
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const handleGradeInput = (event) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
         setSelectedEvent(event);
         gradeSheetRef.current?.present();
     };
 
     const handleVerificationInput = (event) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
         setSelectedEvent(event);
         verificationSheetRef.current?.present();
     };
 
     const handleSaveText = (text) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (selectedEvent) {
             addVerification({...selectedEvent, text});
         }
@@ -57,6 +55,7 @@ export default function TimeTable({
     };
 
     const onCancel = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         verificationSheetRef.current?.close();
     };
 
@@ -90,7 +89,7 @@ export default function TimeTable({
                         gradeSheetRef={gradeSheetRef}
                         darkThemeEnabled={darkThemeEnabled}
                         onCancel={() => gradeSheetRef.current?.close()}
-                        lessonTitle={selectedEvent?.title}
+                        subjectTitle={selectedEvent?.title}
                         lessonTime={selectedEvent?.start.dateTime}
                         addGrade={addGrade}
                     />

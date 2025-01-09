@@ -6,6 +6,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Animated, {interpolate, useAnimatedStyle, useDerivedValue} from 'react-native-reanimated';
 import {toRad} from 'react-native-redash';
 import {useStyles} from "../../utils/hooks/useStyles";
+import * as Haptics from "expo-haptics";
 
 const AnimatedRectButton = Animated.createAnimatedComponent(RectButton);
 
@@ -34,6 +35,7 @@ const CustomFooter = ({animatedFooterPosition, darkThemeEnabled}) => {
     }));
 
     const handleArrowPress = useCallback(() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         snapToIndex(derivedIndex.value === 0 ? 2 : 0);
     }, [snapToIndex, derivedIndex]);
 
