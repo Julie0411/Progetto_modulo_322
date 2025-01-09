@@ -1,10 +1,15 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext,useMemo, useState} from "react";
 import {Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Information from "./Information";
+import { ThemeContext } from '../context/ThemeContext';
 import * as Haptics from "expo-haptics";
+import {useClassSettings} from "../hooks/useClassSettings";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
+const Settings = ({navigation}) => {
+    const { darkThemeEnabled, toggleTheme } = useContext(ThemeContext);
+    const { setSelectedClass, setMaturityIsEnabled } = useClassSettings();
+
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 

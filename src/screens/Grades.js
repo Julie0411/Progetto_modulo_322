@@ -1,11 +1,13 @@
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {EVENTS} from "../constants/events";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from '@react-navigation/native';
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedClass, grades}) {
+export default function Grades({maturityIsEnabled, selectedClass, grades}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 

@@ -1,19 +1,14 @@
 import GradeInput from "../components/GradeInput";
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useContext, useEffect, useMemo, useRef} from 'react';
 import {formatDate} from "../utils/formatters/dateFormatter";
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function GradeDetails({
-                                         route,
-                                         darkThemeEnabled,
-                                         handleAddGrade,
-                                         grades,
-                                         handleDeleteGrade,
-                                         sortAscending
-                                     }) {
+export default function GradeDetails({route, handleAddGrade, grades, handleDeleteGrade, sortAscending}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 

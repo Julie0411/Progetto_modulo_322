@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import {StyleSheet, View} from "react-native";
 import Calendar from "../components/Calendar";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
@@ -7,16 +7,10 @@ import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
 import GradeInput from "../components/GradeInput";
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function TimeTable({
-                                      darkThemeEnabled,
-                                      addGrade,
-                                      addVerification,
-                                      selectedClass,
-                                      setSelectedClass,
-                                      toggleMaturity,
-                                      maturityIsEnabled
-                                  }) {
+export default function TimeTable({addGrade, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
