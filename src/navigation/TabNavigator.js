@@ -26,6 +26,7 @@ export default function TabNavigator({
 
     return (
         <Tab.Navigator
+            id={'BottomTabNavigator'}
             // Configure screen options for all tabs
             screenOptions={({route, navigation}) => ({
                 // Configure tab bar icons

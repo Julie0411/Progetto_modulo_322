@@ -40,10 +40,10 @@ export default function Verifications({darkThemeEnabled, verifications, deleteVe
                 style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}
             >
                 <View style={styles.leftSection}>
-                    <Text style={styles.text} numberOfLines={1}>{item.teacher} {item.subject}</Text>
+                    <Text style={styles.itemText} numberOfLines={1}>{item.teacher} {item.subject}</Text>
                 </View>
                 <View style={styles.rightSection}>
-                    <Text style={styles.text} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
+                    <Text style={styles.itemText} numberOfLines={1}>{formatDate(item.data.dateTime)}</Text>
                 </View>
             </Pressable>
         </View>
@@ -57,7 +57,7 @@ export default function Verifications({darkThemeEnabled, verifications, deleteVe
                 <View style={styles.background}>
                     {/* List of verifications with performance optimizations */}
                     {verifications.length === 0 ? (
-                        <Text style={styles.text}>Non c’è nessuna verifica</Text>
+                        <Text style={styles.textHolder}>Non c’è nessuna verifica</Text>
                     ) : (
                         <FlatList
                             data={verifications}
@@ -129,13 +129,17 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         flex: 1,
         padding: 20,
     },
-    text: {
+    itemText: {
         color: darkThemeEnabled ? 'white' : 'black',
-        flexShrink: 1,
-        marginRight: 5,
-        fontSize: 18
     },
     pressedItem: {
         backgroundColor: 'rgba(155,155,155,0.3)',
-    }
+    },
+    textHolder: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 18
+    },
 });

@@ -4,22 +4,15 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
 
-export default function VerificationInput({
-                                              darkThemeEnabled,
-                                              selectedEvent,
-                                              setSelectedEvent,
-                                              onSave,
-                                              onCancel,
-                                              bottomSheetRef
-                                          }) {
+export default function VerificationInput({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const verificationSnapPoints = useMemo(() => ["30%"], []);
+    const verificationSnapPoints = useMemo(() => ["35%"], []);
 
     return (
         <BottomSheetModal
-            ref={bottomSheetRef}  // Use the passed ref instead
+            ref={bottomSheetRef}
             snapPoints={verificationSnapPoints}
             enablePanDownToClose={true}
             keyboardBehavior="interactive"

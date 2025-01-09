@@ -1,42 +1,42 @@
 import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
-// VerificationInputSheet component for handling verification note inputs
+
 const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-    // State for managing input text, initialized with selected event text if exists
+
     const [inputText, setInputText] = useState(selectedEvent?.text || "");
-    // Handler for saving the input text
+
     const handleSave = () => {
         onSave(inputText);
         setSelectedEvent(null);
     };
-    // Handler for canceling the input
+
     const handleCancel = () => {
-        onCancel()
+        onCancel();
         setSelectedEvent(null);
     };
 
     return (
-        <BottomSheetView style={styles.contentContainer}>
-            {/* Title text */}
+        <BottomSheetView style={styles.container}>
             <Text style={styles.title}>Inserisci appunti per la verifica</Text>
-            {/* Input field for verification notes */}
-            <BottomSheetTextInput
-                style={styles.textInput}
-                value={inputText}
-                onChangeText={setInputText}
-                placeholder="es: Test scritto"
-                placeholderTextColor={darkThemeEnabled ? '#666' : '#aaa'}
-            />
-            {/* Container for action buttons */}
+
+            <View style={styles.noteContainer}>
+                <Text style={styles.text}>Testo:</Text>
+                <BottomSheetTextInput
+                    style={styles.textInput}
+                    value={inputText}
+                    onChangeText={setInputText}
+                    placeholder="es: Test scritto"
+                    placeholderTextColor={darkThemeEnabled ? '#666' : '#aaa'}
+                />
+            </View>
+
             <View style={styles.buttonContainer}>
-                {/* Cancel button */}
                 <Pressable style={styles.button} onPress={handleCancel}>
                     <Text style={[styles.buttonText, {color: 'red'}]}>Annulla</Text>
                 </Pressable>
-                {/* Save button */}
                 <Pressable style={styles.button} onPress={handleSave}>
                     <Text style={styles.buttonText}>Salva</Text>
                 </Pressable>
@@ -48,44 +48,55 @@ const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEve
 export default React.memo(VerificationInputSheet);
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
-    contentContainer: {
-        backgroundColor: darkThemeEnabled ? 'rgba(0,0,0,1)' : 'white',
+    container: {
+        backgroundColor: darkThemeEnabled ? 'black' : 'white',
         flex: 1,
-        padding: 20,
-        flexDirection: 'column',
+        paddingHorizontal: 20,
+        paddingBottom: 20,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+    },
+    title: {
+        fontSize: 20,
+        marginBottom: 20,
+        color: darkThemeEnabled ? 'white' : 'black',
+        borderBottomWidth: 1,
+        borderBottomColor: darkThemeEnabled ? 'white' : 'black',
+    },
+    noteContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 30,
     },
     textInput: {
+        flex: 1,
         color: darkThemeEnabled ? 'white' : 'black',
-        width: '100%',
         fontSize: 18,
-        marginBottom: 30,
         paddingHorizontal: 12,
         paddingVertical: 8,
         borderRadius: 10,
         backgroundColor: darkThemeEnabled ? '#333' : '#f5f5f5',
+        marginLeft: 15,
     },
     buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '90%',
+        justifyContent: 'center',
+        marginTop: 10,
     },
     button: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        marginHorizontal: 10,
         borderColor: 'gray',
         borderRadius: 10,
-        marginHorizontal: 10,
         borderWidth: 0.5
     },
     buttonText: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 16,
     },
-    title: {
+    text: {
         color: darkThemeEnabled ? 'white' : 'black',
         fontSize: 18,
-        marginBottom: 10
     }
 });

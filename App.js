@@ -91,7 +91,10 @@ export default function App() {
     return (
         <>
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{
+                flex: 1,
+                backgroundColor: darkThemeEnabled ? 'black' : 'white'
+            }}>
                 <NavigationContainer theme={theme}>
                     <Stack.Navigator id="MainStack">
                         <Stack.Screen
