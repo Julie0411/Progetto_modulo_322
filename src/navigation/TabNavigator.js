@@ -78,7 +78,7 @@ export default function TabNavigator({
             })}
         >
             {/* TimeTable Screen */}
-            <Tab.Screen name="Orario" options={{headerStatusBarHeight: 65}}>
+            <Tab.Screen name="Orario">
                 {() => (<TimeTable
                     darkThemeEnabled={darkThemeEnabled}
                     addVerification={addVerification}
@@ -90,13 +90,13 @@ export default function TabNavigator({
                 />)}
             </Tab.Screen>
             {/* Grades Screen */}
-            <Tab.Screen name="Note" options={{headerStatusBarHeight: 65}}>
+            <Tab.Screen name="Note">
                 {(navigation) => (<Grades darkThemeEnabled={darkThemeEnabled} navigation={navigation}
                                           maturityIsEnabled={maturityIsEnabled} selectedClass={selectedClass}
                                           grades={grades}/>)}
             </Tab.Screen>
             {/* Verifications Screen */}
-            <Tab.Screen name="Verifiche" options={{headerStatusBarHeight: 65}}>
+            <Tab.Screen name="Verifiche">
                 {() => (<Verifiche darkThemeEnabled={darkThemeEnabled} verifications={verifications}
                                    deleteVerification={deleteVerification}/>)}
             </Tab.Screen>

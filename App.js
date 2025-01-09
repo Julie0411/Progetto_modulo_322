@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Settings from "./src/screens/Settings";
-import {Pressable, StatusBar} from "react-native";
+import {Pressable, SafeAreaView, StatusBar} from "react-native";
 import GradeDetails from "./src/screens/GradeDetails";
 import TabNavigator from "./src/navigation/TabNavigator";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -91,73 +91,83 @@ export default function App() {
     return (
         <>
             <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
-            <NavigationContainer theme={theme}>
-                <Stack.Navigator>
-                    <Stack.Screen name="TabNavigator" options={{headerShown: false}}>
-                        {(navigation) => (
-                            <TabNavigator
-                                {...{
-                                    verifications, addVerification, deleteVerification,
-                                    darkThemeEnabled, toggleTheme, selectedClass,
-                                    setSelectedClass, toggleMaturity, maturityIsEnabled,
-                                    navigation, grades, addGrade
-                                }}
-                            />
-                        )}
-                    </Stack.Screen>
-                    <Stack.Screen
-                        name="Settings"
-                        options={({navigation}) => ({
-                            headerTitle: "Impostazioni",
-                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
-                            headerLeft: () => <BackButton navigation={navigation}/>
-                        })}
-                    >
-                        {(props) => (
-                            <Settings
-                                {...props}
-                                toggleTheme={toggleTheme}
-                                darkThemeEnabled={darkThemeEnabled}
-                                selectedClass={selectedClass}
-                                setSelectedClass={setSelectedClass}
-                                setMaturityIsEnabled={setMaturityIsEnabled}
-                            />
-                        )}
-                    </Stack.Screen>
-
-                    <Stack.Screen
-                        name="GradeDetails"
-                        options={({route, navigation}) => ({
-                            headerTitle: route?.params?.lessonTitle || "Note",
-                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
-                            headerLeft: () => <BackButton navigation={navigation}/>,
-                            headerRight: () => (
-                                <Pressable
-                                    style={{marginRight: 16}}
-                                    onPress={() => setSortAscending(!sortAscending)}
-                                >
-                                    <MaterialCommunityIcons
-                                        name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
-                                        size={24}
-                                        color={darkThemeEnabled ? 'white' : 'black'}
-                                    />
-                                </Pressable>
-                            )
-                        })}
-                    >
-                        {props => (
-                            <GradeDetails
-                                {...props}
-                                darkThemeEnabled={darkThemeEnabled}
-                                handleAddGrade={addGrade}
-                                handleDeleteGrade={deleteGrade}
-                                grades={grades.find(g => g.title === props.route?.params?.lessonTitle)?.grades || []}
-                                sortAscending={sortAscending}
-                            />
-                        )}
-                    </Stack.Screen>
-                </Stack.Navigator>
-            </NavigationContainer>
+            <SafeAreaView style={{flex: 1}}>
+                <NavigationContainer theme={theme}>
+                    <Stack.Navigator id="MainStack">
+                        <Stack.Screen
+                            name="TabNavigator"
+                            options={{headerShown: false}}
+                        >
+                            {(navigation) => (
+                                <TabNavigator
+                                    verifications={verifications}
+                                    addVerification={addVerification}
+                                    deleteVerification={deleteVerification}
+                                    darkThemeEnabled={darkThemeEnabled}
+                                    toggleTheme={toggleTheme}
+                                    selectedClass={selectedClass}
+                                    setSelectedClass={setSelectedClass}
+                                    toggleMaturity={toggleMaturity}
+                                    maturityIsEnabled={maturityIsEnabled}
+                                    navigation={navigation}
+                                    grades={grades}
+                                    addGrade={addGrade}
+                                />
+                            )}
+                        </Stack.Screen>
+                        <Stack.Screen
+                            name="Settings"
+                            options={({navigation}) => ({
+                                headerTitle: "Impostazioni",
+                                headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
+                                headerLeft: () => <BackButton navigation={navigation}/>
+                            })}
+                        >
+                            {(props) => (
+                                <Settings
+                                    {...props}
+                                    toggleTheme={toggleTheme}
+                                    darkThemeEnabled={darkThemeEnabled}
+                                    selectedClass={selectedClass}
+                                    setSelectedClass={setSelectedClass}
+                                    setMaturityIsEnabled={setMaturityIsEnabled}
+                                />
+                            )}
+                        </Stack.Screen>
+                        <Stack.Screen
+                            name="GradeDetails"
+                            options={({route, navigation}) => ({
+                                headerTitle: route?.params?.lessonTitle || "Note",
+                                headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
+                                headerLeft: () => <BackButton navigation={navigation}/>,
+                                headerRight: () => (
+                                    <Pressable
+                                        style={{marginRight: 16}}
+                                        onPress={() => setSortAscending(!sortAscending)}
+                                    >
+                                        <MaterialCommunityIcons
+                                            name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
+                                            size={24}
+                                            color={darkThemeEnabled ? 'white' : 'black'}
+                                        />
+                                    </Pressable>
+                                )
+                            })}
+                        >
+                            {props => (
+                                <GradeDetails
+                                    {...props}
+                                    darkThemeEnabled={darkThemeEnabled}
+                                    handleAddGrade={addGrade}
+                                    handleDeleteGrade={deleteGrade}
+                                    grades={grades.find(g => g.title === props.route?.params?.lessonTitle)?.grades || []}
+                                    sortAscending={sortAscending}
+                                />
+                            )}
+                        </Stack.Screen>
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </SafeAreaView>
         </>
     );
 }
