@@ -8,7 +8,7 @@ export default function GradeInput({darkThemeEnabled, onCancel, lessonTitle, add
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const selectSnapPoints = useMemo(() => ["40%"], []);
+    const selectSnapPoints = useMemo(() => ["45%"], []);
 
     return (
         <BottomSheetModal

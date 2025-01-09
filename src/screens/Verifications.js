@@ -57,7 +57,7 @@ export default function Verifications({darkThemeEnabled, verifications, deleteVe
                 <View style={styles.background}>
                     {/* List of verifications with performance optimizations */}
                     {verifications.length === 0 ? (
-                        <Text style={styles.text}>Non c’è nessuna verifica</Text>
+                        <Text style={styles.textHolder}>Non c’è nessuna verifica</Text>
                     ) : (
                         <FlatList
                             data={verifications}
@@ -134,5 +134,12 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     pressedItem: {
         backgroundColor: 'rgba(155,155,155,0.3)',
-    }
+    },
+    textHolder: {
+        color: darkThemeEnabled ? 'white' : 'black',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 18
+    },
 });
