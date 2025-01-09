@@ -51,8 +51,10 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
 
         return (
             <View style={styles.itemContainer}>
-                <Pressable onPress={() => handleLessonSelection(item)}
-                           style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}>
+                <Pressable
+                    onPress={() => handleLessonSelection(item)}
+                    style={({pressed}) => [styles.pressable, pressed && styles.pressedItem]}
+                >
                     <View style={styles.leftSection}>
                         <Text style={styles.itemText}>{item}</Text>
                     </View>

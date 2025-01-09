@@ -51,6 +51,7 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
                     value={gradeValue}
                     onChangeText={handleGradeChange}
                     placeholder="1-6"
+                    placeholderTextColor={darkThemeEnabled ? '#666' : '#aaa'}
                     keyboardType="numeric"
                 />
             </View>
