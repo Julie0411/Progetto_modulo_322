@@ -6,6 +6,7 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
 import VerificationInput from "../components/VerificationInput";
 import GradeInput from "../components/GradeInput";
+import * as Haptics from "expo-haptics";
 
 export default function TimeTable({
                                       darkThemeEnabled,
@@ -38,18 +39,21 @@ export default function TimeTable({
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const handleGradeInput = (event) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
         setSelectedEvent(event);
         gradeSheetRef.current?.present();
     };
 
     const handleVerificationInput = (event) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
         setSelectedEvent(event);
         verificationSheetRef.current?.present();
     };
 
     const handleSaveText = (text) => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (selectedEvent) {
             addVerification({...selectedEvent, text});
         }
@@ -57,6 +61,7 @@ export default function TimeTable({
     };
 
     const onCancel = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         verificationSheetRef.current?.close();
     };
 

@@ -3,6 +3,7 @@ import {FontAwesome} from "@expo/vector-icons";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {formatDate} from "../../utils/formatters/dateFormatter";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
+import * as Haptics from "expo-haptics";
 // VerificationReviewSheet component that displays and allows editing of lesson details
 const VerificationReviewSheet = ({darkThemeEnabled, item, setItem}) => {
     // Memoized styles based on dark theme setting
@@ -13,11 +14,13 @@ const VerificationReviewSheet = ({darkThemeEnabled, item, setItem}) => {
     const [editedText, setEditedText] = useState('');
     // Toggle edit mode and set initial text
     const toggleEdit = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         setEditedText(item.text);
         setIsEditing(!isEditing);
     };
     // Save edited text and exit edit mode
     const saveChanges = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         setItem({...item, text: editedText});
         setIsEditing(false);
     };
@@ -58,7 +61,15 @@ const VerificationReviewSheet = ({darkThemeEnabled, item, setItem}) => {
                     ) : (
                         <Text style={[styles.text, {width: "90%"}]}>{item.text}</Text>
                     )}
-                    <Pressable onPress={isEditing ? null : toggleEdit} style={styles.editIcon}>
+                    <Pressable
+                        onPress={() => {
+                            if (!isEditing) {
+                                toggleEdit();
+                                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+                            }
+                        }}
+                        style={styles.editIcon}
+                    >
                         <FontAwesome
                             name="pencil"
                             size={23}

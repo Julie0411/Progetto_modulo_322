@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
+import * as Haptics from "expo-haptics";
 
 const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, onSaveGrade}) => {
     // Memoized styles based on theme
@@ -26,6 +27,7 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
 
     const handleSave = () => {
         if (gradeValue && parseFloat(gradeValue) >= 1 && parseFloat(gradeValue) <= 6) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
             const newGrade = {
                 grade: parseFloat(gradeValue),
                 text: noteText.trim(),
@@ -39,6 +41,7 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
     };
 
     const handleCancel = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         onCancel();
     };
 

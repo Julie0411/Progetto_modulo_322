@@ -2,6 +2,7 @@ import React, {useMemo, useState} from "react";
 import {Pressable, StyleSheet, Switch, Text, View} from "react-native";
 import {BottomSheetView} from "@gorhom/bottom-sheet";
 import {DropBox} from "../DropBox";
+import * as Haptics from "expo-haptics";
 // VerificationInputSheet component for handling verification note inputs
 const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, setSelectedClass, bottomSheetRef}) => {
     // Memoized styles based on theme
@@ -10,6 +11,7 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
     const [selClass, setSelClass] = useState(null);
 
     const handleSavePress = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         setSelectedClass({...selClass, maturityIsEnabled});
         bottomSheetRef.current.close();
     };

@@ -21,8 +21,6 @@ export const DropBox = ({darkThemeEnabled, selectClass}) => {
             itemTextStyle={styles.itemTextStyle}
             data={[
                 {label: 'I2a', value: '1'},
-                {label: 'I2b', value: '2'},
-                {label: 'I2c', value: '3'}
             ]}
             search
             activeColor={darkThemeEnabled ? 'black' : 'white'}

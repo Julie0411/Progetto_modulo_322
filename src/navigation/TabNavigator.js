@@ -5,6 +5,7 @@ import Verifiche from "../screens/Verifications";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import * as Haptics from "expo-haptics";
 // Create bottom tab navigator instance
 const Tab = createBottomTabNavigator();
 
@@ -48,6 +49,10 @@ export default function TabNavigator({
                     <Pressable
                         {...props}
                         disabled={!selectedClass}
+                        onPress={() => {
+                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+                            props.onPress();
+                        }}
                         style={[
                             props.style,
                             {opacity: selectedClass ? 1 : 0.5}
@@ -59,7 +64,10 @@ export default function TabNavigator({
                 tabBarInactiveTintColor: inactiveColor,
                 // Configure settings button in header right
                 headerRight: () => (
-                    <Pressable onPress={() => navigation.navigate('Settings')} disabled={!selectedClass}
+                    <Pressable onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+                        navigation.navigate('Settings')
+                    }} disabled={!selectedClass}
                                style={{opacity: selectedClass ? 1 : 0.5, marginBottom: 10}}>
                         <View style={styles.settingsButton}>
                             <Ionicons name={'settings-outline'} size={28} color={activeColor}/>

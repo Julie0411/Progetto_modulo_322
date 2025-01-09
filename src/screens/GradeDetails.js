@@ -4,6 +4,7 @@ import {formatDate} from "../utils/formatters/dateFormatter";
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import * as Haptics from "expo-haptics";
 
 export default function GradeDetails({
                                          route,
@@ -46,7 +47,10 @@ export default function GradeDetails({
                     styles.pressable,
                     pressed && styles.pressedItem
                 ]}
-                onLongPress={() => handleDeleteGrade(lessonTitle, item)}
+                onLongPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                    handleDeleteGrade(lessonTitle, item)
+                }}
             >
                 <View style={styles.leftSection}>
                     <Text style={styles.text}>{formatDate(item.time)}</Text>

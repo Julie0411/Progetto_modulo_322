@@ -2,12 +2,14 @@ import React, {useMemo, useState} from "react";
 import {Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Information from "./Information";
+import * as Haptics from "expo-haptics";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, setMaturityIsEnabled}) => {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleClassSelection = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         setSelectedClass(null);
         setMaturityIsEnabled(false);
         navigation.goBack();
@@ -15,6 +17,7 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
     };
 
     const handleInformationPress = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         navigation.navigate('Information') // Mostra la schermata delle informazioni
     };
     // Stato per visualizzare la schermata delle informazioni
@@ -22,6 +25,7 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
 
     // Stato per esportare il calendario
     const handleExportPress = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         //TODO put some logic here
         console.log("Exporting calendar")
     }
@@ -66,19 +70,25 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
                 {/* FAQ section */}
                 <Pressable
                     style={styles.element}
-                    onPress={() =>
+                    onPress={() => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
                         Alert.alert(
                             'Apri Google Form',
                             'Vuoi essere reindirizzato al questionario esterno?',
                             [{
                                 text: 'Annulla',
                                 style: 'destructive',
+                                onPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft),
                             }, {
                                 text: 'Procedi',
                                 style: 'default',
-                                onPress: () => Linking.openURL("https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header")
+                                onPress: () => {
+                                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                                    Linking.openURL("https://docs.google.com/forms/d/e/1FAIpQLSfTcqhMF0NQejn-a-6ScxI5VZU4mRPrJ-LfDlwQDHpmEDlphw/viewform?usp=header")
+                                }
                             }]
                         )
+                    }
                     }
                 >
                     <Text style={styles.text}>Hai altre domande?</Text>
@@ -87,6 +97,7 @@ const Settings = ({darkThemeEnabled, toggleTheme, navigation, setSelectedClass, 
                 </Pressable>
                 {/* Version footer */}
                 <View style={styles.footer}>
+                    <Text style={styles.text}>Orario CPT Locarno</Text>
                     <Text style={styles.text}>v: a0.1</Text>
                 </View>
             </ScrollView>
@@ -104,7 +115,7 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'stretch',
-        padding: 8,
+        paddingHorizontal: 8,
         width: '100%',
     },
     element: {

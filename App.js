@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {createStackNavigator} from '@react-navigation/stack';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,13 @@ export default function App() {
 
     const BackButton = ({navigation}) => {
         return (
-            <Pressable style={{marginLeft: 16}} onPress={() => navigation.goBack()}>
+            <Pressable
+                style={{marginLeft: 16}}
+                onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+                    navigation.goBack();
+                }}
+            >
                 <Ionicons
                     name="arrow-back"
                     size={24}
@@ -146,7 +153,10 @@ export default function App() {
                                 headerRight: () => (
                                     <Pressable
                                         style={{marginRight: 16}}
-                                        onPress={() => setSortAscending(!sortAscending)}
+                                        onPress={() => {
+                                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                                            setSortAscending(!sortAscending)
+                                        }}
                                     >
                                         <MaterialCommunityIcons
                                             name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
