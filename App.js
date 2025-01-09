@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Settings from "./src/screens/Settings";
-import {Pressable, SafeAreaView, StatusBar} from "react-native";
+import {Pressable} from "react-native";
+import {StatusBar} from "expo-status-bar";
 import GradeDetails from "./src/screens/GradeDetails";
 import TabNavigator from "./src/navigation/TabNavigator";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -8,29 +9,29 @@ import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {createStackNavigator} from '@react-navigation/stack';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import * as Haptics from 'expo-haptics';
-
+// Create stack navigator instance
 const Stack = createStackNavigator();
 
 export default function App() {
-
+    // State management for theme
     const [darkThemeEnabled, setDarkThemeEnabled] = useState(false);
-
+    // State for selected class and its maturity status
     const [selectedClass, setSelectedClass] = useState({label: "I2a", maturityIsEnabled: true});
-
+    // State for verifications list
     const [verifications, setVerifications] = useState([]);
-
+    // State for grades list
     const [grades, setGrades] = useState([]);
-
+    // State for maturity feature toggle
     const [maturityIsEnabled, setMaturityIsEnabled] = useState(false);
-
+    // State for sorting direction
     const [sortAscending, setSortAscending] = useState(true);
-
+    // Theme selection based on darkThemeEnabled state
     const theme = darkThemeEnabled ? DarkTheme : DefaultTheme;
-
+    // Theme toggle function
     const toggleTheme = () => setDarkThemeEnabled(prev => !prev);
-
+    // Maturity feature toggle function
     const toggleMaturity = () => setMaturityIsEnabled(!maturityIsEnabled);
-
+    // Back button component with haptic feedback
     const BackButton = ({navigation}) => {
         return (
             <Pressable
@@ -48,7 +49,7 @@ export default function App() {
             </Pressable>
         );
     };
-
+    // Function to add new verification
     const addVerification = (item) => {
         setVerifications(prev => [...prev, {
             id: item.id,
@@ -59,33 +60,33 @@ export default function App() {
             text: item.text || ""
         }]);
     };
-
+    // Function to delete verification by id
     const deleteVerification = (id) => {
         setVerifications(prev => prev.filter(v => v.id !== id));
     };
-
-    const addGrade = (lessonTitle, newGrade) => {
-        console.log(lessonTitle, newGrade);
+    // Function to add new grade to a subject
+    const addGrade = (subjectTitle, newGrade) => {
+        console.log(subjectTitle, newGrade);
         setGrades(prev => {
-            const existingSubject = prev.find(subject => subject.title === lessonTitle);
+            const existingSubject = prev.find(subject => subject.title === subjectTitle);
 
             if (existingSubject) {
-                return prev.map(subject => subject.title === lessonTitle ? {
+                return prev.map(subject => subject.title === subjectTitle ? {
                     ...subject,
                     grades: [...subject.grades, newGrade]
                 } : subject);
             } else {
-                return [...prev, {title: lessonTitle, grades: [newGrade]}];
+                return [...prev, {title: subjectTitle, grades: [newGrade]}];
             }
         });
     };
-
-    const deleteGrade = (lessonTitle, gradeToDelete) => {
+    // Function to delete grade from a subject
+    const deleteGrade = (subjectTitle, gradeToDelete) => {
         setGrades(prev => {
-            const existingSubject = prev.find(subject => subject.title === lessonTitle);
+            const existingSubject = prev.find(subject => subject.title === subjectTitle);
 
             if (existingSubject) {
-                return prev.map(subject => subject.title === lessonTitle ? {
+                return prev.map(subject => subject.title === subjectTitle ? {
                     ...subject,
                     grades: subject.grades.filter(grade => grade.text !== gradeToDelete.text)
                 } : subject);
@@ -97,90 +98,85 @@ export default function App() {
 
     return (
         <>
-            <StatusBar barStyle={darkThemeEnabled ? 'light-content' : 'dark-content'}/>
-            <SafeAreaView style={{
-                flex: 1,
-                backgroundColor: darkThemeEnabled ? 'black' : 'white'
-            }}>
-                <NavigationContainer theme={theme}>
-                    <Stack.Navigator id="MainStack">
-                        <Stack.Screen
-                            name="TabNavigator"
-                            options={{headerShown: false}}
-                        >
-                            {(navigation) => (
-                                <TabNavigator
-                                    verifications={verifications}
-                                    addVerification={addVerification}
-                                    deleteVerification={deleteVerification}
-                                    darkThemeEnabled={darkThemeEnabled}
-                                    toggleTheme={toggleTheme}
-                                    selectedClass={selectedClass}
-                                    setSelectedClass={setSelectedClass}
-                                    toggleMaturity={toggleMaturity}
-                                    maturityIsEnabled={maturityIsEnabled}
-                                    navigation={navigation}
-                                    grades={grades}
-                                    addGrade={addGrade}
-                                />
-                            )}
-                        </Stack.Screen>
-                        <Stack.Screen
-                            name="Settings"
-                            options={({navigation}) => ({
-                                headerTitle: "Impostazioni",
-                                headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
-                                headerLeft: () => <BackButton navigation={navigation}/>
-                            })}
-                        >
-                            {(props) => (
-                                <Settings
-                                    {...props}
-                                    toggleTheme={toggleTheme}
-                                    darkThemeEnabled={darkThemeEnabled}
-                                    selectedClass={selectedClass}
-                                    setSelectedClass={setSelectedClass}
-                                    setMaturityIsEnabled={setMaturityIsEnabled}
-                                />
-                            )}
-                        </Stack.Screen>
-                        <Stack.Screen
-                            name="GradeDetails"
-                            options={({route, navigation}) => ({
-                                headerTitle: route?.params?.lessonTitle || "Note",
-                                headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
-                                headerLeft: () => <BackButton navigation={navigation}/>,
-                                headerRight: () => (
-                                    <Pressable
-                                        style={{marginRight: 16}}
-                                        onPress={() => {
-                                            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-                                            setSortAscending(!sortAscending)
-                                        }}
-                                    >
-                                        <MaterialCommunityIcons
-                                            name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
-                                            size={24}
-                                            color={darkThemeEnabled ? 'white' : 'black'}
-                                        />
-                                    </Pressable>
-                                )
-                            })}
-                        >
-                            {props => (
-                                <GradeDetails
-                                    {...props}
-                                    darkThemeEnabled={darkThemeEnabled}
-                                    handleAddGrade={addGrade}
-                                    handleDeleteGrade={deleteGrade}
-                                    grades={grades.find(g => g.title === props.route?.params?.lessonTitle)?.grades || []}
-                                    sortAscending={sortAscending}
-                                />
-                            )}
-                        </Stack.Screen>
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </SafeAreaView>
+            <NavigationContainer theme={theme}>
+                <StatusBar style={darkThemeEnabled ? "light" : "dark"}/>
+                <Stack.Navigator id="MainStack">
+                    <Stack.Screen
+                        name="TabNavigator"
+                        options={{headerShown: false}}
+                    >
+                        {(navigation) => (
+                            <TabNavigator
+                                verifications={verifications}
+                                addVerification={addVerification}
+                                deleteVerification={deleteVerification}
+                                darkThemeEnabled={darkThemeEnabled}
+                                toggleTheme={toggleTheme}
+                                selectedClass={selectedClass}
+                                setSelectedClass={setSelectedClass}
+                                toggleMaturity={toggleMaturity}
+                                maturityIsEnabled={maturityIsEnabled}
+                                navigation={navigation}
+                                grades={grades}
+                                addGrade={addGrade}
+                            />
+                        )}
+                    </Stack.Screen>
+                    <Stack.Screen
+                        name="Settings"
+                        options={({navigation}) => ({
+                            headerTitle: "Impostazioni",
+                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
+                            headerLeft: () => <BackButton navigation={navigation}/>
+                        })}
+                    >
+                        {(props) => (
+                            <Settings
+                                {...props}
+                                toggleTheme={toggleTheme}
+                                darkThemeEnabled={darkThemeEnabled}
+                                selectedClass={selectedClass}
+                                setSelectedClass={setSelectedClass}
+                                setMaturityIsEnabled={setMaturityIsEnabled}
+                            />
+                        )}
+                    </Stack.Screen>
+                    <Stack.Screen
+                        name="GradeDetails"
+                        options={({route, navigation}) => ({
+                            headerTitle: route?.params?.subjectTitle || "Note",
+                            headerStyle: {backgroundColor: darkThemeEnabled ? 'black' : 'white'},
+                            headerLeft: () => <BackButton navigation={navigation}/>,
+                            headerRight: () => (
+                                <Pressable
+                                    style={{marginRight: 16}}
+                                    onPress={() => {
+                                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+                                        setSortAscending(!sortAscending)
+                                    }}
+                                >
+                                    <MaterialCommunityIcons
+                                        name={sortAscending ? "sort-clock-ascending" : "sort-clock-descending"}
+                                        size={24}
+                                        color={darkThemeEnabled ? 'white' : 'black'}
+                                    />
+                                </Pressable>
+                            )
+                        })}
+                    >
+                        {props => (
+                            <GradeDetails
+                                {...props}
+                                darkThemeEnabled={darkThemeEnabled}
+                                handleAddGrade={addGrade}
+                                handleDeleteGrade={deleteGrade}
+                                grades={grades.find(g => g.title === props.route?.params?.subjectTitle)?.grades || []}
+                                sortAscending={sortAscending}
+                            />
+                        )}
+                    </Stack.Screen>
+                </Stack.Navigator>
+            </NavigationContainer>
         </>
     );
 }

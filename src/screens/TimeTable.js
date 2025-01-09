@@ -95,7 +95,7 @@ export default function TimeTable({
                         gradeSheetRef={gradeSheetRef}
                         darkThemeEnabled={darkThemeEnabled}
                         onCancel={() => gradeSheetRef.current?.close()}
-                        lessonTitle={selectedEvent?.title}
+                        subjectTitle={selectedEvent?.title}
                         lessonTime={selectedEvent?.start.dateTime}
                         addGrade={addGrade}
                     />

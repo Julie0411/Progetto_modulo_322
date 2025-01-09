@@ -17,7 +17,7 @@ export default function GradeDetails({
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const {lessonTitle} = route.params;
+    const {subjectTitle} = route.params;
 
     const gradeSheetRef = useRef(null);
 
@@ -35,8 +35,8 @@ export default function GradeDetails({
         }
     }, [route.params?.showSheet]);
 
-    const handleAddNewGrade = (lessonTitle, newGrade) => {
-        handleAddGrade(lessonTitle, newGrade);
+    const handleAddNewGrade = (subjectTitle, newGrade) => {
+        handleAddGrade(subjectTitle, newGrade);
         gradeSheetRef.current?.close();
     };
 
@@ -49,7 +49,7 @@ export default function GradeDetails({
                 ]}
                 onLongPress={() => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-                    handleDeleteGrade(lessonTitle, item)
+                    handleDeleteGrade(subjectTitle, item)
                 }}
             >
                 <View style={styles.leftSection}>
@@ -78,7 +78,7 @@ export default function GradeDetails({
                         gradeSheetRef={gradeSheetRef}
                         darkThemeEnabled={darkThemeEnabled}
                         onCancel={() => gradeSheetRef.current?.dismiss()}
-                        lessonTitle={lessonTitle}
+                        subjectTitle={subjectTitle}
                         addGrade={handleAddNewGrade}
                     />
                 </View>

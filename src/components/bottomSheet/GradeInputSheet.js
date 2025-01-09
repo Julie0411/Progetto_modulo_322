@@ -3,7 +3,7 @@ import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
 
-const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, onSaveGrade}) => {
+const GradeInputSheet = ({darkThemeEnabled, onCancel, subjectTitle, lessonTime, onSaveGrade}) => {
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -33,7 +33,7 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, lessonTitle, lessonTime, o
                 text: noteText.trim(),
                 time: lessonTime,
             };
-            onSaveGrade(lessonTitle, newGrade);
+            onSaveGrade(subjectTitle, newGrade);
             setGradeValue('');
             setNoteText('');
             onCancel();

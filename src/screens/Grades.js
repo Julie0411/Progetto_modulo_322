@@ -38,7 +38,7 @@ export default function Grades({darkThemeEnabled, maturityIsEnabled, selectedCla
         const subjectGrades = grades.find(grade => grade.title === selectedLesson) || {grades: []};
 
         navigation.navigate('GradeDetails', {
-            lessonTitle: selectedLesson,
+            subjectTitle: selectedLesson,
             grades: subjectGrades.grades,
             darkThemeEnabled: darkThemeEnabled
         });
