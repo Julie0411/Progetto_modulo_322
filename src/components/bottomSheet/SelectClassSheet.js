@@ -1,12 +1,19 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {Pressable, StyleSheet, Switch, Text, View} from "react-native";
 import {BottomSheetView} from "@gorhom/bottom-sheet";
 import {DropBox} from "../DropBox";
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../../context/ThemeContext";
+import {ClassContext} from "../../context/ClassContext";
 // VerificationInputSheet component for handling verification note inputs
-const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, setSelectedClass, bottomSheetRef}) => {
+const SelectClassSheet = ({bottomSheetRef}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { setSelectedClass,maturityIsEnabled,toggleMaturity } = useContext(ClassContext);
+
 
     const [selClass, setSelClass] = useState(null);
 
@@ -18,7 +25,7 @@ const SelectClassSheet = ({darkThemeEnabled, toggleMaturity, maturityIsEnabled, 
 
     return (
         <BottomSheetView style={styles.contentContainer}>
-            <DropBox darkThemeEnabled={darkThemeEnabled} selectClass={setSelClass}/>
+            <DropBox selectClass={setSelClass}/>
             <View style={styles.toggle}>
                 <Text style={styles.toggleText}>Maturità</Text>
                 <Switch onValueChange={toggleMaturity} value={maturityIsEnabled}/>

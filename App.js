@@ -3,35 +3,28 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { ThemeProvider, ThemeContext } from './src/context/ThemeContext';
+import { ClassSettingsProvider } from './src/context/ClassContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
-import { useGrades } from './src/hooks/useGrades';
-import { useVerifications } from './src/hooks/useVerifications';
-import { useClassSettings } from './src/hooks/useClassSettings';
+import {GradeProvider} from "./src/context/GradesContext";
+import {VerificationsProvider} from "./src/context/VerificationsContext";
 
 export default function App() {
-    const { grades, addGrade, deleteGrade } = useGrades();
-    const { verifications, addVerification, deleteVerification } = useVerifications();
-    const classSettings = useClassSettings();
-
     return (
         <ThemeProvider>
-            <ThemeContext.Consumer>
-                {({ darkThemeEnabled }) => (
-                    <NavigationContainer theme={darkThemeEnabled ? DarkTheme : DefaultTheme}>
-                        <StatusBar style={darkThemeEnabled ? "light" : "dark"} />
-                        <AppNavigator
-                            grades={grades}
-                            addGrade={addGrade}
-                            deleteGrade={deleteGrade}
-                            verifications={verifications}
-                            addVerification={addVerification}
-                            deleteVerification={deleteVerification}
-                            darkThemeEnabled={darkThemeEnabled}
-                            {...classSettings}
-                        />
-                    </NavigationContainer>
-                )}
-            </ThemeContext.Consumer>
+            <ClassSettingsProvider>
+                <GradeProvider>
+                    <VerificationsProvider>
+                        <ThemeContext.Consumer>
+                            {({ darkThemeEnabled }) => (
+                                <NavigationContainer theme={darkThemeEnabled ? DarkTheme : DefaultTheme}>
+                                    <StatusBar style={darkThemeEnabled ? "light" : "dark"} />
+                                    <AppNavigator/>
+                                </NavigationContainer>
+                            )}
+                        </ThemeContext.Consumer>
+                    </VerificationsProvider>
+                </GradeProvider>
+            </ClassSettingsProvider>
         </ThemeProvider>
     );
 }

@@ -5,11 +5,18 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from '@react-navigation/native';
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
+import {GradesContext} from "../context/GradesContext";
+import {ClassContext} from "../context/ClassContext";
 
-export default function Grades({maturityIsEnabled, selectedClass, grades}) {
+export default function Grades() {
+
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { grades } = useContext(GradesContext);
+
+    const { selectedClass,maturityIsEnabled } = useContext(ClassContext);
 
     const navigation = useNavigation();
 
@@ -23,12 +30,14 @@ export default function Grades({maturityIsEnabled, selectedClass, grades}) {
         }
     }).map(event => event.title))];
 
+    // Update the lessonsWithGrades calculation
     const lessonsWithGrades = useMemo(() => {
         return lessons.map(title => ({
             title: title,
-            grades: grades.find(grade => grade.title === title)?.grades || []
+            grades: grades.filter(grade => grade.subject === title)
         }));
     }, [lessons, grades]);
+
 
     const calculateAverageGrade = (grades) => {
         if (!grades || grades.length === 0) return '--';
@@ -37,19 +46,13 @@ export default function Grades({maturityIsEnabled, selectedClass, grades}) {
     };
 
     const handleLessonSelection = (selectedLesson) => {
-        const subjectGrades = grades.find(grade => grade.title === selectedLesson) || {grades: []};
-
         navigation.navigate('GradeDetails', {
             subjectTitle: selectedLesson,
-            grades: subjectGrades.grades,
-            darkThemeEnabled: darkThemeEnabled
         });
     };
 
     const renderItem = ({item}) => {
-
-        const lessonGrades = lessonsWithGrades.find(lesson => lesson.title === item)?.grades;
-
+        const lessonGrades = grades.filter(grade => grade.subject === item);
         const average = calculateAverageGrade(lessonGrades);
 
         return (

@@ -4,17 +4,18 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import Information from "./Information";
 import { ThemeContext } from '../context/ThemeContext';
 import * as Haptics from "expo-haptics";
-import {useClassSettings} from "../hooks/useClassSettings";
+import {ClassContext} from "../context/ClassContext";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
 const Settings = ({navigation}) => {
-    const { darkThemeEnabled, toggleTheme } = useContext(ThemeContext);
-    const { setSelectedClass, setMaturityIsEnabled } = useClassSettings();
 
+    const { darkThemeEnabled, toggleTheme } = useContext(ThemeContext);
+
+    const { setSelectedClass, setMaturityIsEnabled } = useContext(ClassContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
     const handleClassSelection = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
         setSelectedClass(null);
         setMaturityIsEnabled(false);
         navigation.goBack();

@@ -1,8 +1,11 @@
 import {StyleSheet} from 'react-native';
-import React, {useMemo, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import {Dropdown} from 'react-native-element-dropdown';
+import {ThemeContext} from "../context/ThemeContext";
 
-export const DropBox = ({darkThemeEnabled, selectClass}) => {
+export const DropBox = ({selectClass}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
