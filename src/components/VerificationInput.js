@@ -1,10 +1,13 @@
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {StyleSheet} from "react-native";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function VerificationInput({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
+export default function VerificationInput({selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -22,7 +25,6 @@ export default function VerificationInput({darkThemeEnabled, selectedEvent, setS
             backgroundStyle={{backgroundColor: darkThemeEnabled ? 'black' : 'white'}}
         >
             <VerificationInputSheet
-                darkThemeEnabled={darkThemeEnabled}
                 selectedEvent={selectedEvent}
                 setSelectedEvent={setSelectedEvent}
                 onSave={onSave}

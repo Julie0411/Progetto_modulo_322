@@ -1,11 +1,17 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../../context/ThemeContext";
+import {GradesContext} from "../../context/GradesContext";
 
-const GradeInputSheet = ({darkThemeEnabled, onCancel, subjectTitle, lessonTime, onSaveGrade}) => {
+const GradeInputSheet = ({onCancel, subjectTitle, lessonTime}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { addGrade } = useContext(GradesContext);
 
     const [gradeValue, setGradeValue] = useState('');
 
@@ -29,11 +35,13 @@ const GradeInputSheet = ({darkThemeEnabled, onCancel, subjectTitle, lessonTime, 
         if (gradeValue && parseFloat(gradeValue) >= 1 && parseFloat(gradeValue) <= 6) {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
             const newGrade = {
+                subjectTitle: subjectTitle,
                 grade: parseFloat(gradeValue),
                 text: noteText.trim(),
                 time: lessonTime,
             };
-            onSaveGrade(subjectTitle, newGrade);
+            addGrade(newGrade);
+            console.log(newGrade);
             setGradeValue('');
             setNoteText('');
             onCancel();

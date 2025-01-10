@@ -8,11 +8,18 @@ import VerificationInput from "../components/VerificationInput";
 import GradeInput from "../components/GradeInput";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
+import {ClassContext} from "../context/ClassContext";
+import {VerificationsContext} from "../context/VerificationsContext";
 
-export default function TimeTable({addGrade, addVerification, selectedClass, setSelectedClass, toggleMaturity, maturityIsEnabled}) {
+export default function TimeTable() {
+
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { selectedClass } = useContext(ClassContext);
+
+    const { addVerification } = useContext(VerificationsContext);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -64,34 +71,23 @@ export default function TimeTable({addGrade, addVerification, selectedClass, set
             <BottomSheetModalProvider>
                 <View style={styles.container}>
                     <Calendar
-                        darkThemeEnabled={darkThemeEnabled}
                         onPressEvent={handleGradeInput}
                         onLongPressEvent={handleVerificationInput}
                         selectedClass={selectedClass}
                     />
                     <VerificationInput
                         bottomSheetRef={verificationSheetRef}
-                        darkThemeEnabled={darkThemeEnabled}
                         selectedEvent={selectedEvent}
                         setSelectedEvent={setSelectedEvent}
                         onSave={handleSaveText}
                         onCancel={onCancel}
                     />
-                    <SelectingClass
-                        bottomSheetRef={selectClassSheetRef}
-                        selectedClass={selectedClass}
-                        setSelectedClass={setSelectedClass}
-                        darkThemeEnabled={darkThemeEnabled}
-                        toggleMaturity={toggleMaturity}
-                        maturityIsEnabled={maturityIsEnabled}
-                    />
+                    <SelectingClass bottomSheetRef={selectClassSheetRef}/>
                     <GradeInput
                         gradeSheetRef={gradeSheetRef}
-                        darkThemeEnabled={darkThemeEnabled}
                         onCancel={() => gradeSheetRef.current?.close()}
                         subjectTitle={selectedEvent?.title}
                         lessonTime={selectedEvent?.start.dateTime}
-                        addGrade={addGrade}
                     />
                 </View>
             </BottomSheetModalProvider>

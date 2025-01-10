@@ -1,11 +1,14 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {FontAwesome} from "@expo/vector-icons";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {formatDate} from "../../utils/formatters/dateFormatter";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../../context/ThemeContext";
 // VerificationReviewSheet component that displays and allows editing of lesson details
-const VerificationReviewSheet = ({darkThemeEnabled, item, setItem}) => {
+const VerificationReviewSheet = ({item, setItem}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on dark theme setting
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     // State for managing edit mode and edited text content

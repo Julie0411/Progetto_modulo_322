@@ -1,13 +1,20 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useCallback, useContext, useMemo} from 'react';
 import {CalendarBody, CalendarContainer, CalendarHeader} from '@howljs/calendar-kit';
 import {StyleSheet, Text, View} from 'react-native';
 import {EVENTS} from "../constants/events";
 import {darkColors} from "../theme/colors/dark";
 import {lightColors} from "../theme/colors/light";
-// Main Calendar component that accepts darkThemeEnabled and onLongPressEvent as props
-const Calendar = ({darkThemeEnabled, onPressEvent, onLongPressEvent, selectedClass}) => {
+import {ThemeContext} from "../context/ThemeContext";
+import {ClassContext} from "../context/ClassContext";
+
+const Calendar = ({onPressEvent, onLongPressEvent}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Initialize styles using custom hook based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { selectedClass } = useContext(ClassContext);
+
     // Determine colors based on theme
     const colors = useMemo(() => darkThemeEnabled ? darkColors : lightColors, [darkThemeEnabled]);
     // Locale configuration for the calendar

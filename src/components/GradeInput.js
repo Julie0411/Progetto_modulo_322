@@ -1,10 +1,13 @@
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {StyleSheet} from "react-native";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 import GradeInputSheet from "./bottomSheet/GradeInputSheet";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function GradeInput({darkThemeEnabled, onCancel, subjectTitle, addGrade, gradeSheetRef, lessonTime}) {
+export default function GradeInput({onCancel, subjectTitle, gradeSheetRef, lessonTime}) {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -22,11 +25,9 @@ export default function GradeInput({darkThemeEnabled, onCancel, subjectTitle, ad
             backgroundStyle={{backgroundColor: darkThemeEnabled ? 'black' : 'white'}}
         >
             <GradeInputSheet
-                darkThemeEnabled={darkThemeEnabled}
                 onCancel={onCancel}
                 subjectTitle={subjectTitle}
                 lessonTime={lessonTime}
-                onSaveGrade={addGrade}
             />
         </BottomSheetModal>
     );

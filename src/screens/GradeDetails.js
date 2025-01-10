@@ -1,4 +1,3 @@
-import GradeInput from "../components/GradeInput";
 import React, {useContext, useEffect, useMemo, useRef} from 'react';
 import {formatDate} from "../utils/formatters/dateFormatter";
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
@@ -6,34 +5,35 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
+import {GradesContext} from "../context/GradesContext";
 
-export default function GradeDetails({route, handleAddGrade, grades, handleDeleteGrade, sortAscending}) {
+export default function GradeDetails({route}) {
+
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { grades, deleteGrade, sortAscending } = useContext(GradesContext);
 
     const {subjectTitle} = route.params;
 
     const gradeSheetRef = useRef(null);
 
     const sortedGrades = useMemo(() => {
-        return [...grades].sort((a, b) => {
+        const subjectGrades = grades.filter(grade => grade.subject === subjectTitle);
+        return [...subjectGrades].sort((a, b) => {
             const timeA = new Date(a.time).getTime();
             const timeB = new Date(b.time).getTime();
             return sortAscending ? timeA - timeB : timeB - timeA;
         });
-    }, [grades, sortAscending]);
+    }, [grades, sortAscending, subjectTitle]);
+
 
     useEffect(() => {
         if (route.params?.showSheet) {
             gradeSheetRef.current?.present();
         }
     }, [route.params?.showSheet]);
-
-    const handleAddNewGrade = (subjectTitle, newGrade) => {
-        handleAddGrade(subjectTitle, newGrade);
-        gradeSheetRef.current?.close();
-    };
 
     const renderGradeItem = ({item}) => (
         <View style={styles.gradeItem}>
@@ -44,7 +44,7 @@ export default function GradeDetails({route, handleAddGrade, grades, handleDelet
                 ]}
                 onLongPress={() => {
                     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-                    handleDeleteGrade(subjectTitle, item)
+                    deleteGrade(item.id)
                 }}
             >
                 <View style={styles.leftSection}>
@@ -67,14 +67,7 @@ export default function GradeDetails({route, handleAddGrade, grades, handleDelet
                     <FlatList
                         data={sortedGrades}
                         renderItem={renderGradeItem}
-                        keyExtractor={(_, index) => index.toString()}
-                    />
-                    <GradeInput
-                        gradeSheetRef={gradeSheetRef}
-                        darkThemeEnabled={darkThemeEnabled}
-                        onCancel={() => gradeSheetRef.current?.dismiss()}
-                        subjectTitle={subjectTitle}
-                        addGrade={handleAddNewGrade}
+                        keyExtractor={(item, index) => `${item.time}-${index}`}
                     />
                 </View>
             </BottomSheetModalProvider>
