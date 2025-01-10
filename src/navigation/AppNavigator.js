@@ -8,6 +8,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { ThemeContext } from "../context/ThemeContext";
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {GradesContext} from "../context/GradesContext";
+import Information from "../screens/Information";
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,17 @@ export const AppNavigator = () => {
                 component={Settings}
                 options={({ navigation }) => ({
                     headerTitle: "Impostazioni",
+                    headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
+                    headerLeft: () => (
+                        <BackButton navigation={navigation} darkThemeEnabled={darkThemeEnabled} />
+                    ),
+                })}
+            />
+            <Stack.Screen
+                name="Information"
+                component={Information}
+                options={({ navigation }) => ({
+                    headerTitle: "Informazioni utili",
                     headerStyle: { backgroundColor: darkThemeEnabled ? 'black' : 'white' },
                     headerLeft: () => (
                         <BackButton navigation={navigation} darkThemeEnabled={darkThemeEnabled} />
