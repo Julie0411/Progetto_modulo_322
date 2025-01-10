@@ -7,7 +7,6 @@ export const GradeProvider = ({ children }) => {
     const [sortAscending, setSortAscending] = useState(true);
 
     const addGrade = (item) => {
-        console.log('Adding grade:', item);
         setGrades(prev => {
             const newGrades = [...prev, {
                 id: Date.now(),
@@ -16,7 +15,6 @@ export const GradeProvider = ({ children }) => {
                 text: item.text,
                 time: item.time
             }];
-            console.log('New grades state:', newGrades);
             return newGrades;
         });
     };

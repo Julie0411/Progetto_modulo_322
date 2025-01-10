@@ -6,7 +6,7 @@ import { ThemeContext } from '../context/ThemeContext';
 import * as Haptics from "expo-haptics";
 import {ClassContext} from "../context/ClassContext";
 // Settings component that receives darkThemeEnabled state and toggleTheme function as props
-const Settings = () => {
+const Settings = ({navigation}) => {
 
     const { darkThemeEnabled, toggleTheme } = useContext(ThemeContext);
 

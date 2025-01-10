@@ -41,7 +41,6 @@ const GradeInputSheet = ({onCancel, subjectTitle, lessonTime}) => {
                 time: lessonTime,
             };
             addGrade(newGrade);
-            console.log(newGrade);
             setGradeValue('');
             setNoteText('');
             onCancel();

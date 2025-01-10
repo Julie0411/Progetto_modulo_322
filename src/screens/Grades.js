@@ -78,9 +78,6 @@ export default function Grades() {
             </View>
         );
     };
-    console.log('Current grades:', grades);
-    console.log('Lessons with grades:', lessonsWithGrades);
-    console.log('Filtered lessons:', lessons);
 
     return (
 
