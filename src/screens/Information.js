@@ -23,7 +23,7 @@ const Information = () => {
                 Semplice: schiaccia il bottone esporta in alto a sinistra, e poi conferma. Aprendo i file troverai i
                 dati del calendario e le note esportate.
             </Text>
-            <Text style={styles.questionText}>4. Cosa significano colori?</Text>
+            <Text style={styles.questionText}>4. Cosa significano i colori?</Text>
             <View style={styles.colorContainer}>
                 <View style={styles.colorRow}>
                     <View style={[styles.colorSquare, {backgroundColor: '#6089d6'}]}/>
