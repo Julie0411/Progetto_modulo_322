@@ -3,7 +3,7 @@ import React, {useContext} from "react";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
 
-const Information = ({setShowInformation}) => {
+const Information = () => {
     const { darkThemeEnabled } = useContext(ThemeContext);
     const styles = informationStyles(darkThemeEnabled);
 

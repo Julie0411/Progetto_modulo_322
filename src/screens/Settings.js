@@ -1,15 +1,12 @@
 import React, {useContext,useMemo, useState} from "react";
 import {Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Information from "./Information";
 import { ThemeContext } from '../context/ThemeContext';
 import * as Haptics from "expo-haptics";
 import {ClassContext} from "../context/ClassContext";
-// Settings component that receives darkThemeEnabled state and toggleTheme function as props
+
 const Settings = ({navigation}) => {
-
     const { darkThemeEnabled, toggleTheme } = useContext(ThemeContext);
-
     const { setSelectedClass, setMaturityIsEnabled } = useContext(ClassContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
@@ -24,8 +21,9 @@ const Settings = ({navigation}) => {
 
     const handleInformationPress = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        navigation.navigate('Information') // Mostra la schermata delle informazioni
+        navigation.navigate('Information', {screen: 'Information'});
     };
+
     // Stato per visualizzare la schermata delle informazioni
     const [showInformation, setShowInformation] = useState(false);
 
@@ -37,7 +35,7 @@ const Settings = ({navigation}) => {
     }
 
     if (showInformation) {
-        return <Information darkThemeEnabled={darkThemeEnabled} setShowInformation={setShowInformation}/>;
+        return <Informazioni darkThemeEnabled={darkThemeEnabled} setShowInformation={setShowInformation}/>;
     }
 
     return (

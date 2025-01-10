@@ -70,13 +70,6 @@ const TabNavigator = () => {
                         disabled={!selectedClass}
                     />
                 ),
-                headerLeft: () => (
-                    <HeaderButton
-                        icon="share-outline"
-                        onPress={() => {}}
-                        disabled={!selectedClass}
-                    />
-                ),
                 headerStyle: {
                     backgroundColor: darkThemeEnabled ? 'black' : 'white'
                 },
