@@ -1,17 +1,13 @@
-import React, {useMemo} from "react";
+import React, {useContext, useMemo} from "react";
 import {StyleSheet} from "react-native";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
 import SelectClassSheet from "../components/bottomSheet/SelectClassSheet";
+import {ThemeContext} from "../context/ThemeContext";
 
-export default function SelectingClass({
-                                           darkThemeEnabled,
-                                           setSelectedClass,
-                                           selectedClass,
-                                           bottomSheetRef,
-                                           toggleMaturity,
-                                           maturityIsEnabled
-                                       }) {
+export default function SelectingClass({bottomSheetRef}) {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
@@ -28,14 +24,7 @@ export default function SelectingClass({
             handleIndicatorStyle={styles.handleIndicatorStyle}
             backgroundStyle={{backgroundColor: darkThemeEnabled ? 'black' : 'white'}}
         >
-            <SelectClassSheet
-                selectedClass={selectedClass}
-                setSelectedClass={setSelectedClass}
-                darkThemeEnabled={darkThemeEnabled}
-                toggleMaturity={toggleMaturity}
-                maturityIsEnabled={maturityIsEnabled}
-                bottomSheetRef={bottomSheetRef}
-            />
+            <SelectClassSheet bottomSheetRef={bottomSheetRef}/>
         </BottomSheetModal>
     );
 }

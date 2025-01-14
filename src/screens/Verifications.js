@@ -8,11 +8,15 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
+import {VerificationsContext} from "../context/VerificationsContext";
 
-export default function Verifications({verifications, deleteVerification}) {
+export default function Verifications() {
+
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
+
+    const { verifications, deleteVerification } = useContext(VerificationsContext);
     // State for currently selected item
     const [item, setItem] = useState(null);
     // Reference for bottom sheet modal
@@ -89,7 +93,7 @@ export default function Verifications({verifications, deleteVerification}) {
                     index={0}
                     keyboardBehavior="interactive"
                 >
-                    <VerificationReviewSheet darkThemeEnabled={darkThemeEnabled} setItem={setItem} item={item}/>
+                    <VerificationReviewSheet setItem={setItem} item={item}/>
                 </BottomSheetModal>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>

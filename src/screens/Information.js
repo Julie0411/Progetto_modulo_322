@@ -1,9 +1,8 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import React, {useContext} from "react";
-import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
 
-const Information = ({setShowInformation}) => {
+const Information = () => {
     const { darkThemeEnabled } = useContext(ThemeContext);
     const styles = informationStyles(darkThemeEnabled);
 
@@ -24,7 +23,7 @@ const Information = ({setShowInformation}) => {
                 Semplice: schiaccia il bottone esporta in alto a sinistra, e poi conferma. Aprendo i file troverai i
                 dati del calendario e le note esportate.
             </Text>
-            <Text style={styles.questionText}>4. Cosa significano colori?</Text>
+            <Text style={styles.questionText}>4. Cosa significano i colori?</Text>
             <View style={styles.colorContainer}>
                 <View style={styles.colorRow}>
                     <View style={[styles.colorSquare, {backgroundColor: '#6089d6'}]}/>
@@ -43,12 +42,6 @@ const Information = ({setShowInformation}) => {
                     <Text style={styles.colorText}>Educazione fisica</Text>
                 </View>
             </View>
-            <Pressable style={styles.button} onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-                setShowOutput(false)
-            }}>
-                <Text style={styles.buttonText}>Torna a Impostazioni</Text>
-            </Pressable>
         </View>
     );
 };

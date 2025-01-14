@@ -7,11 +7,16 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
+import {ClassContext} from "../context/ClassContext";
 
 const Tab = createBottomTabNavigator();
 
-const TabNavigator = ({selectedClass, setSelectedClass, verifications, addGrade, addVerification, deleteVerification, toggleMaturity, maturityIsEnabled, grades, navigation}) => {
+const TabNavigator = () => {
+
     const { darkThemeEnabled } = useContext(ThemeContext);
+
+    const { selectedClass } = useContext(ClassContext);
+
     const activeColor = darkThemeEnabled ? 'white' : 'black';
     const inactiveColor = darkThemeEnabled ? '#818181' : 'gray';
 
@@ -65,53 +70,14 @@ const TabNavigator = ({selectedClass, setSelectedClass, verifications, addGrade,
                         disabled={!selectedClass}
                     />
                 ),
-                headerLeft: () => (
-                    <HeaderButton
-                        icon="share-outline"
-                        onPress={() => {}}
-                        disabled={!selectedClass}
-                    />
-                ),
                 headerStyle: {
                     backgroundColor: darkThemeEnabled ? 'black' : 'white'
                 },
             })}
         >
-            <Tab.Screen name="Orario">
-                {() => (
-                    <TimeTable
-                        darkThemeEnabled={darkThemeEnabled}
-                        addVerification={addVerification}
-                        selectedClass={selectedClass}
-                        setSelectedClass={setSelectedClass}
-                        toggleMaturity={toggleMaturity}
-                        maturityIsEnabled={maturityIsEnabled}
-                        addGrade={addGrade}
-                    />
-                )}
-            </Tab.Screen>
-
-            <Tab.Screen name="Note">
-                {() => (
-                    <Grades
-                        darkThemeEnabled={darkThemeEnabled}
-                        navigation={navigation}
-                        maturityIsEnabled={maturityIsEnabled}
-                        selectedClass={selectedClass}
-                        grades={grades}
-                    />
-                )}
-            </Tab.Screen>
-
-            <Tab.Screen name="Verifiche">
-                {() => (
-                    <Verifiche
-                        darkThemeEnabled={darkThemeEnabled}
-                        verifications={verifications}
-                        deleteVerification={deleteVerification}
-                    />
-                )}
-            </Tab.Screen>
+            <Tab.Screen name="Orario" component={TimeTable}/>
+            <Tab.Screen name="Note" component={Grades}/>
+            <Tab.Screen name="Verifiche" component={Verifiche}/>
         </Tab.Navigator>
     );
 };

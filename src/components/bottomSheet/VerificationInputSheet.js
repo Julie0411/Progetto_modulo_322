@@ -1,9 +1,12 @@
-import React, {useMemo, useState} from "react";
+import React, {useContext, useMemo, useState} from "react";
 import {Pressable, StyleSheet, Text, View} from "react-native";
 import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
+import {ThemeContext} from "../../context/ThemeContext";
 
-const VerificationInputSheet = ({darkThemeEnabled, selectedEvent, setSelectedEvent, onSave, onCancel}) => {
+const VerificationInputSheet = ({selectedEvent, setSelectedEvent, onSave, onCancel}) => {
+
+    const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 

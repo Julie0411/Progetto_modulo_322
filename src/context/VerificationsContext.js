@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import React, { createContext, useState } from 'react';
 
-export const useVerifications = () => {
+export const VerificationsContext = createContext();
+
+export const VerificationsProvider = ({ children }) => {
     const [verifications, setVerifications] = useState([]);
 
     const addVerification = (item) => {
@@ -18,5 +20,15 @@ export const useVerifications = () => {
         setVerifications(prev => prev.filter(v => v.id !== id));
     };
 
-    return { verifications, addVerification, deleteVerification };
+    return (
+        <VerificationsContext.Provider
+            value={{
+                verifications,
+                addVerification,
+                deleteVerification
+            }}
+        >
+            {children}
+        </VerificationsContext.Provider>
+    );
 };
