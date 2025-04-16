@@ -4,7 +4,5 @@
   "dev": true,
   "minify": false,
   "urlRandomness": "LNYFa_o",
-  "https": false,
-  "scheme": "exp+timetable",
-  "devClient": false
+  "https": false
 }

@@ -9,14 +9,13 @@ export const GradeProvider = ({ children }) => {
 
     const addGrade = (item) => {
         setGrades(prev => {
-            const newGrades = [...prev, {
+            return [...prev, {
                 id: Date.now(),
                 subject: item.subjectTitle,
                 grade: item.grade,
                 text: item.text,
                 time: item.time
             }];
-            return newGrades;
         });
     };
 
