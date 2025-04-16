@@ -71,6 +71,7 @@ const Calendar = ({onPressEvent, onLongPressEvent}) => {
             minRegularEventMinutes={30}         // Minimum event duration
             minTimeIntervalHeight={40}          // Minimum height for regular events
             maxTimeIntervalHeight={60}          // Maximum height for regular events
+            showWeekNumber={true}               // Set visible the number week
         >
             <CalendarHeader/>
             <CalendarBody renderEvent={renderEvent}/>
