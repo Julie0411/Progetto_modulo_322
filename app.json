@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.tarakanillius.timetable"
     },
     "android": {
+      "package": "com.tarakanillius.timetable",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
