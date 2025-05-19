@@ -54,7 +54,6 @@ export default function Grades() {
           const totalGrades = grades.length;
           const neededGrade = (3.75 * (totalGrades + 1)) - grades.reduce((a, b) => a + b, 0);
           console.log("Valutazione necessaria per arrivare a 3.75: ", neededGrade.toFixed(2));
-          return neededGrade.toFixed(2);
         }
 
     };
