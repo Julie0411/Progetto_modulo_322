@@ -25,17 +25,17 @@ export const GradeProvider = ({ children }) => {
     };
 
     return (
-        <GradesContext.Provider
-            value={{
-                grades,
-                addGrade,
-                deleteGrade,
-                sortAscending,
-                setSortAscending
-            }}
-        >
-            {children}
-        </GradesContext.Provider>
+            <GradesContext.Provider
+                value={{
+                    grades,
+                    addGrade,
+                    deleteGrade,
+                    sortAscending,
+                    setSortAscending
+                }}
+            >
+                {children}
+            </GradesContext.Provider>
     );
 
 };
