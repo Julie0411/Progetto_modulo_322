@@ -16,6 +16,13 @@ export default function Grades() {
 
     const { grades } = useContext(GradesContext);
 
+    const globalAverage = useMemo(() => {
+      if (!grades.length) return '--';
+      const sum = grades.reduce((acc, curr) => acc + curr.grade, 0);
+      return (sum / grades.length).toFixed(2);
+    }, [grades]);
+
+
     const { selectedClass,maturityIsEnabled } = useContext(ClassContext);
 
     const navigation = useNavigation();
@@ -38,11 +45,17 @@ export default function Grades() {
         }));
     }, [lessons, grades]);
 
-
     const calculateAverageGrade = (grades) => {
         if (!grades || grades.length === 0) return '--';
         const sum = grades.reduce((acc, curr) => acc + curr.grade, 0);
-        return (sum / grades.length).toFixed(1);
+        const average = (sum / grades.length).toFixed(1);
+
+        if (average < 3.75) {
+          const totalGrades = grades.length;
+          const neededGrade = (3.75 * (totalGrades + 1)) - grades.reduce((a, b) => a + b, 0);
+          console.log("Valutazione necessaria per arrivare a 3.75: ", neededGrade.toFixed(2));
+        }
+
     };
 
     const handleLessonSelection = (selectedLesson) => {
@@ -68,7 +81,7 @@ export default function Grades() {
                         <Text style={styles.itemText}>{item}</Text>
                     </View>
                     <View style={styles.centerSection}>
-                        <Text style={styles.itemText}>Nota media: {average}</Text>
+                        <Text style={styles.itemText}>Valutazione media: {average}</Text>
                     </View>
                     <View style={styles.rightSection}>
                         <Ionicons name="chevron-forward-outline" size={24}
@@ -82,8 +95,9 @@ export default function Grades() {
     return (
 
         <View style={styles.container}>
+        <Text style={styles.itemText}>Media globale: {globalAverage}</Text>
             {!lessonsWithGrades.filter(lesson => lesson.grades.length > 0).length ? (
-                <Text style={styles.textHolder}>Non c’è nessuna nota</Text>
+                <Text style={styles.textHolder}>Non c’è nessuna valutazione</Text>
             ) : (
                 <FlatList
                     data={lessonsWithGrades.filter(lesson => lesson.grades.length > 0).map(lesson => lesson.title)}
