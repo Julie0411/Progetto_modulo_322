@@ -34,7 +34,7 @@ const Settings = ({navigation}) => {
             "Esportazione completata!",
             "Puoi chiudere il pop-up",
             [{
-                text: 'chiudi',
+                text: 'Chiudi',
                 style: 'default',
                 onPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft),
             }])
