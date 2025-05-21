@@ -6,6 +6,7 @@ import { darkColors } from "../theme/colors/dark";
 import { lightColors } from "../theme/colors/light";
 import { ThemeContext } from "../context/ThemeContext";
 import { ClassContext } from "../context/ClassContext";
+import { getWeek } from 'date-fns';
 
 const Calendar = ({ onPressEvent, onLongPressEvent }) => {
     const { darkThemeEnabled } = useContext(ThemeContext);
@@ -52,13 +53,30 @@ const Calendar = ({ onPressEvent, onLongPressEvent }) => {
         return (
             <View style={{ alignItems: 'center' }}>
                 <Text style={{ fontWeight: 'bold' }}>{weekDay}</Text>
-                <Text>{dayNum}.{monthNum}</Text> {/* Giorno.Mese */}
+                <Text>{dayNum}.{monthNum}</Text>
             </View>
         );
     };
 
+    const currentWeekNumber = getWeek(new Date());
+
     return (
         <View style={{ flex: 1 }}>
+            <View style={{
+                position: 'absolute',
+                top: 10,
+                left: 10,
+                zIndex: 10,
+                backgroundColor: 'white',
+                borderRadius: 4,
+                paddingHorizontal: 8,
+                paddingVertical: 4,
+                alignItems: 'center',
+            }}>
+                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>Settimana</Text>
+                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 16 }}>{currentWeekNumber}</Text>
+            </View>
+
             <CalendarContainer
                 allowPinchToZoom={true}
                 theme={colors}
@@ -78,7 +96,7 @@ const Calendar = ({ onPressEvent, onLongPressEvent }) => {
                 minRegularEventMinutes={30}
                 minTimeIntervalHeight={40}
                 maxTimeIntervalHeight={60}
-                showWeekNumber={true}
+                showWeekNumber={false} // Disattivato per usare quello custom
             >
                 <CalendarHeader renderHeaderWeekDay={renderWeekDay} />
                 <CalendarBody renderEvent={renderEvent} />
@@ -100,8 +118,6 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     eventText: {
         color: 'white',
         fontSize: 10,
-        width: '95%'
+        width: '95%',
     }
 });
-
-

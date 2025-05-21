@@ -20,5 +20,8 @@ export const darkColors = {
     textSecondary: '#8c8c8c',
     border: 'white',
     inputBackground: '#333',
-    placeholder: '#666'
+    placeholder: '#666',
+
+    weekNumberTextColor: '#000000',
+    weekNumberBackgroundColor: '#ffffff',
 };

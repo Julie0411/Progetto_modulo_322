@@ -22,5 +22,8 @@ export const lightColors = {
     settingsText: 'black',
     textSecondary: '#8c8c8c',
     inputBackground: '#333',
-    placeholder: '#666'
+    placeholder: '#666',
+
+    weekNumberTextColor: '#000000',
+    weekNumberBackgroundColor: '#ffffff',
 };
