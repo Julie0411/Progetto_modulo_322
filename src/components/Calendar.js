@@ -1,81 +1,89 @@
-import React, {useCallback, useContext, useMemo} from 'react';
-import {CalendarBody, CalendarContainer, CalendarHeader} from '@howljs/calendar-kit';
-import {StyleSheet, Text, View} from 'react-native';
-import {EVENTS} from "../constants/events";
-import {darkColors} from "../theme/colors/dark";
-import {lightColors} from "../theme/colors/light";
-import {ThemeContext} from "../context/ThemeContext";
-import {ClassContext} from "../context/ClassContext";
+import React, { useCallback, useContext, useMemo } from 'react';
+import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
+import { StyleSheet, Text, View } from 'react-native';
+import { EVENTS } from "../constants/events";
+import { darkColors } from "../theme/colors/dark";
+import { lightColors } from "../theme/colors/light";
+import { ThemeContext } from "../context/ThemeContext";
+import { ClassContext } from "../context/ClassContext";
 
-const Calendar = ({onPressEvent, onLongPressEvent}) => {
-
+const Calendar = ({ onPressEvent, onLongPressEvent }) => {
     const { darkThemeEnabled } = useContext(ThemeContext);
-    // Initialize styles using custom hook based on theme
-    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
-
     const { selectedClass } = useContext(ClassContext);
 
-    // Determine colors based on theme
+    const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
     const colors = useMemo(() => darkThemeEnabled ? darkColors : lightColors, [darkThemeEnabled]);
-    // Locale configuration for the calendar
+
     const initialLocales = {
         it: {
-            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven'.split('_'), // Text in day header (Sun, Mon, etc.)
-            meridiem: {ante: 'am', post: 'pm'}, // Hour format (hh:mm a)
+            weekDayShort: 'Dom_Lun_Mar_Mer_Gio_Ven'.split('_'),
+            meridiem: { ante: 'am', post: 'pm' },
         },
     };
-    // Callback function to render individual calendar events
-    // Takes a PackedEvent type parameter and returns a styled View
+
     const renderEvent = useCallback((event) => (
-            <View style={styles.eventContainer}>
-                <Text style={styles.eventText}>
-                    {event.title}{"\n"}
-                    {event.classroom?.startsWith('P') ? 'Palestra' : 'Aula'} {event.classroom}{"\n"}
-                    {event.start.dateTime.slice(11, 16)} - {event.end.dateTime.slice(11, 16)}
-                </Text>
-            </View>
-        ),
-        [styles]
-    );
+        <View style={styles.eventContainer}>
+            <Text style={styles.eventText}>
+                {event.title}{"\n"}
+                {event.classroom?.startsWith('P') ? 'Palestra' : 'Aula'} {event.classroom}{"\n"}
+                {event.start.dateTime.slice(11, 16)} - {event.end.dateTime.slice(11, 16)}
+            </Text>
+        </View>
+    ), [styles]);
+
     const filteredEvents = useMemo(() => {
         if (!selectedClass?.label) return [];
         const standardClass = selectedClass.label;
         const maturityClass = `M${selectedClass.label.slice(0, -1)}`;
         return EVENTS.filter(event => {
-            // If maturity is enabled for the class
             if (selectedClass.maturityIsEnabled) {
                 return event.maturity && (event.class === standardClass || event.class === maturityClass);
             }
-            // If maturity is not enabled, show only events for the selected class
             return event.class === standardClass;
         });
     }, [selectedClass?.label, selectedClass?.maturityIsEnabled]);
 
+    const renderWeekDay = ({ day }) => {
+        const dateObj = new Date(day.date);
+        const weekDay = day.label;
+        const dayNum = dateObj.getDate();
+        const monthNum = dateObj.getMonth() + 1;
+
+        return (
+            <View style={{ alignItems: 'center' }}>
+                <Text style={{ fontWeight: 'bold' }}>{weekDay}</Text>
+                <Text>{dayNum}.{monthNum}</Text> {/* Giorno.Mese */}
+            </View>
+        );
+    };
+
     return (
-        <CalendarContainer
-            allowPinchToZoom={true}             // Enable pinch zoom functionality
-            theme={colors}                      // Apply theme colors
-            events={filteredEvents}             // Pass events data
-            scrollByDay={false}                 // Disable scroll by day
-            onPressEvent={onPressEvent}         // Handle short press on event
-            onLongPressEvent={onLongPressEvent} // Handle long press on event
-            timeInterval={25}                   // Duration of each time slot in minutes
-            start={500}                         // Start time (5:00 AM in 24h format)
-            end={990}                           // End time (10:00 AM in 24h format)
-            minDate={"2024-09-02"}              // Minimum selectable date
-            maxDate={"2025-06-16"}              // Maximum selectable date
-            numberOfDays={5}                    // Number of days to display in the calendar view
-            hideWeekDays={[6, 7]}               // Hide Saturday (6) and Sunday (7) from the calendar
-            initialLocales={initialLocales}     // Set localizations
-            locale='it'                         // Set localization as Italian
-            minRegularEventMinutes={30}         // Minimum event duration
-            minTimeIntervalHeight={40}          // Minimum height for regular events
-            maxTimeIntervalHeight={60}          // Maximum height for regular events
-            showWeekNumber={true}               // Set visible the number week
-        >
-            <CalendarHeader/>
-            <CalendarBody renderEvent={renderEvent}/>
-        </CalendarContainer>
+        <View style={{ flex: 1 }}>
+            <CalendarContainer
+                allowPinchToZoom={true}
+                theme={colors}
+                events={filteredEvents}
+                scrollByDay={false}
+                onPressEvent={onPressEvent}
+                onLongPressEvent={onLongPressEvent}
+                timeInterval={25}
+                start={500}
+                end={990}
+                minDate={"2024-09-02"}
+                maxDate={"2025-06-16"}
+                numberOfDays={5}
+                hideWeekDays={[6, 7]}
+                initialLocales={initialLocales}
+                locale='it'
+                minRegularEventMinutes={30}
+                minTimeIntervalHeight={40}
+                maxTimeIntervalHeight={60}
+                showWeekNumber={true}
+            >
+                <CalendarHeader renderHeaderWeekDay={renderWeekDay} />
+                <CalendarBody renderEvent={renderEvent} />
+            </CalendarContainer>
+        </View>
     );
 };
 
