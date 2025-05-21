@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import {StyleSheet, View} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Calendar from "../components/Calendar";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
@@ -39,6 +39,11 @@ export default function TimeTable() {
 
     const [selectedEvent, setSelectedEvent] = useState(null);
 
+    const [currentMonth, setCurrentMonth] = useState(() => {
+        const now = new Date();
+        return now.toLocaleString('it-IT', { month: 'long', year: 'numeric' });
+    });
+
     const handleGradeInput = (event) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
@@ -61,6 +66,12 @@ export default function TimeTable() {
         verificationSheetRef.current?.close();
     };
 
+    const handleDateChanged = (dateString) => {
+        const date = new Date(dateString);
+        const monthYear = date.toLocaleString('it-IT', { month: 'long', year: 'numeric' });
+        setCurrentMonth(monthYear);
+    };
+
     const onCancel = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         verificationSheetRef.current?.close();
@@ -70,10 +81,12 @@ export default function TimeTable() {
         <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
                 <View style={styles.container}>
+                    <Text style={styles.monthText}>{currentMonth}</Text>
                     <Calendar
                         onPressEvent={handleGradeInput}
                         onLongPressEvent={handleVerificationInput}
                         selectedClass={selectedClass}
+                        onDateChanged={handleDateChanged}
                     />
                     <VerificationInput
                         bottomSheetRef={verificationSheetRef}
@@ -106,6 +119,16 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     handleIndicatorStyle: {
         backgroundColor: darkThemeEnabled ? 'white' : 'black',
-        marginTop: 5
-    }
+        marginTop: 5,
+    },
+    monthText: {
+        fontSize: 16,
+        padding: 10,
+        fontWeight: '500',
+        textAlign: 'center',
+        color: darkThemeEnabled ? '#FFFFFF' : '#000000',
+        backgroundColor: darkThemeEnabled ? '#000000' : '#FFFFFF',
+        textTransform: 'capitalize',
+        letterSpacing: 0.5,
+    },
 });

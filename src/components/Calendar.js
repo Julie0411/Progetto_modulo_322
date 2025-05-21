@@ -7,7 +7,7 @@ import { lightColors } from "../theme/colors/light";
 import { ThemeContext } from "../context/ThemeContext";
 import { ClassContext } from "../context/ClassContext";
 
-const Calendar = ({ onPressEvent, onLongPressEvent }) => {
+const Calendar = ({ onPressEvent, onLongPressEvent, onDateChanged }) => {
     const { darkThemeEnabled } = useContext(ThemeContext);
     const { selectedClass } = useContext(ClassContext);
 
@@ -79,6 +79,7 @@ const Calendar = ({ onPressEvent, onLongPressEvent }) => {
                 minTimeIntervalHeight={40}
                 maxTimeIntervalHeight={60}
                 showWeekNumber={true}
+                onDateChanged={onDateChanged}
             >
                 <CalendarHeader renderHeaderWeekDay={renderWeekDay} />
                 <CalendarBody renderEvent={renderEvent} />
