@@ -31,13 +31,8 @@ const Settings = ({navigation}) => {
     const handleExportPress = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         Alert.alert(
-            'Sto esportanto il calendario',
-            "Ci vorrà un po' di tempo, attendere prego",
-            <progress value={null} />
-        )
-        Alert.alert(
-            'Esportazione completata!',
-            "Puoi chiudere la pagina",
+            "Esportazione completata!",
+            "Puoi chiudere il pop-up",
             [{
                 text: 'chiudi',
                 style: 'default',
