@@ -1,11 +1,15 @@
-import grades from "../context/GradesContext.js";
+import GradesContext from "../context/GradesContext.js";
+import {useContext} from "react";
 
 export const writeGrades = () => {
-    const file = require("download/grades.json");
+
+    const { grades } = useContext(GradesContext);
+    const file = require("/src/grades.json");
     const grade = []
     for (const grade of grades) {
-        grade.add({"subject":grade.subject,"grade":grade.grade});
+         grade.add({"subject":grades.subject,"grade":grades.grade});
         console.log(grade);
     }
-    file.write(grades);
+    console.log(grade)
+    file.write(grade);
 }
