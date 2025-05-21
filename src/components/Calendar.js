@@ -8,7 +8,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { ClassContext } from "../context/ClassContext";
 import { getWeek } from 'date-fns';
 
-const Calendar = ({ onPressEvent, onLongPressEvent }) => {
+const Calendar = ({ onPressEvent, onLongPressEvent, onDateChanged }) => {
     const { darkThemeEnabled } = useContext(ThemeContext);
     const { selectedClass } = useContext(ClassContext);
 
@@ -96,7 +96,7 @@ const Calendar = ({ onPressEvent, onLongPressEvent }) => {
                 minRegularEventMinutes={30}
                 minTimeIntervalHeight={40}
                 maxTimeIntervalHeight={60}
-                showWeekNumber={false} // Disattivato per usare quello custom
+                showWeekNumber={false}
             >
                 <CalendarHeader renderHeaderWeekDay={renderWeekDay} />
                 <CalendarBody renderEvent={renderEvent} />

@@ -30,8 +30,14 @@ const Settings = ({navigation}) => {
     // Stato per esportare il calendario
     const handleExportPress = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        //TODO put some logic here
-        console.log("Exporting calendar")
+        Alert.alert(
+            "Esportazione completata!",
+            "Puoi chiudere il pop-up",
+            [{
+                text: 'Chiudi',
+                style: 'default',
+                onPress: () => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft),
+            }])
     }
 
     if (showInformation) {

@@ -11,7 +11,7 @@ export default function SelectingClass({bottomSheetRef}) {
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const selectSnapPoints = useMemo(() => ["40%"], []);
+    const selectSnapPoints = useMemo(() => ["35%"], []);
 
     return (
         <BottomSheetModal
