@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useMemo } from 'react';
-import { CalendarBody, CalendarContainer, CalendarHeader } from '@howljs/calendar-kit';
+import { CalendarBody, CalendarContainer } from '@howljs/calendar-kit';
 import { StyleSheet, Text, View } from 'react-native';
 import { EVENTS } from "../constants/events";
 import { darkColors } from "../theme/colors/dark";
@@ -43,20 +43,6 @@ const Calendar = ({ onPressEvent, onLongPressEvent, onDateChanged }) => {
         });
     }, [selectedClass?.label, selectedClass?.maturityIsEnabled]);
 
-    const renderWeekDay = ({ day }) => {
-        const dateObj = new Date(day.date);
-        const weekDay = day.label;
-        const dayNum = dateObj.getDate();
-        const monthNum = dateObj.getMonth() + 1;
-
-        return (
-            <View style={{ alignItems: 'center' }}>
-                <Text style={{ fontWeight: 'bold' }}>{weekDay}</Text>
-                <Text>{dayNum}.{monthNum}</Text> {/* Giorno.Mese */}
-            </View>
-        );
-    };
-
     return (
         <View style={{ flex: 1 }}>
             <CalendarContainer
@@ -81,7 +67,6 @@ const Calendar = ({ onPressEvent, onLongPressEvent, onDateChanged }) => {
                 showWeekNumber={true}
                 onDateChanged={onDateChanged}
             >
-                <CalendarHeader renderHeaderWeekDay={renderWeekDay} />
                 <CalendarBody renderEvent={renderEvent} />
             </CalendarContainer>
         </View>
