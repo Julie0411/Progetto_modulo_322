@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import Grades from "../screens/Grades";
 import TimeTable from "../screens/TimeTable";
-import Verifiche from "../screens/Verifications";
+import Verifiche from "../screens/Evaluations";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Pressable, StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';

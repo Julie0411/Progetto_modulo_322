@@ -6,7 +6,7 @@ import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../../context/ThemeContext";
 // VerificationReviewSheet component that displays and allows editing of lesson details
-const VerificationReviewSheet = ({item, setItem}) => {
+const EvaluationReviewSheet = ({item, setItem}) => {
 
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on dark theme setting
@@ -95,7 +95,7 @@ const VerificationReviewSheet = ({item, setItem}) => {
     );
 };
 
-export default React.memo(VerificationReviewSheet);
+export default React.memo(EvaluationReviewSheet);
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     contentContainer: {

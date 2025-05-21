@@ -2,21 +2,21 @@ import React, {useContext, useMemo} from "react";
 import {StyleSheet} from "react-native";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import CustomBackdrop from "./bottomSheet/CustomBackdrop";
-import VerificationInputSheet from "./bottomSheet/VerificationInputSheet";
+import EvaluationInputSheet from "./bottomSheet/EvaluationInputSheet";
 import {ThemeContext} from "../context/ThemeContext";
 
-export default function VerificationInput({selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
+export default function EvaluationInput({selectedEvent, setSelectedEvent, onSave, onCancel, bottomSheetRef}) {
 
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const verificationSnapPoints = useMemo(() => ["35%"], []);
+    const evaluationSnapPoints = useMemo(() => ["35%"], []);
 
     return (
         <BottomSheetModal
             ref={bottomSheetRef}
-            snapPoints={verificationSnapPoints}
+            snapPoints={evaluationSnapPoints}
             enablePanDownToClose={true}
             keyboardBehavior="interactive"
             handleStyle={styles.handleStyle}
@@ -24,7 +24,7 @@ export default function VerificationInput({selectedEvent, setSelectedEvent, onSa
             handleIndicatorStyle={styles.handleIndicatorStyle}
             backgroundStyle={{backgroundColor: darkThemeEnabled ? 'black' : 'white'}}
         >
-            <VerificationInputSheet
+            <EvaluationInputSheet
                 selectedEvent={selectedEvent}
                 setSelectedEvent={setSelectedEvent}
                 onSave={onSave}

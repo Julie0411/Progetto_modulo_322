@@ -4,12 +4,12 @@ import Calendar from "../components/Calendar";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SelectingClass from "../components/SelectingClass";
-import VerificationInput from "../components/VerificationInput";
+import EvaluationInput from "../components/EvaluationInput";
 import GradeInput from "../components/GradeInput";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
 import {ClassContext} from "../context/ClassContext";
-import {VerificationsContext} from "../context/VerificationsContext";
+import {EvaluationsContext} from "../context/EvaluationsContext";
 
 export default function TimeTable() {
 
@@ -19,7 +19,7 @@ export default function TimeTable() {
 
     const { selectedClass } = useContext(ClassContext);
 
-    const { addVerification } = useContext(VerificationsContext);
+    const { addEvaluation } = useContext(EvaluationsContext);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -31,7 +31,7 @@ export default function TimeTable() {
         return () => clearTimeout(timer);
     }, [selectedClass]);
 
-    const verificationSheetRef = useRef(null);
+    const evaluationSheetRef = useRef(null);
 
     const gradeSheetRef = useRef(null);
 
@@ -51,19 +51,19 @@ export default function TimeTable() {
         gradeSheetRef.current?.present();
     };
 
-    const handleVerificationInput = (event) => {
+    const handleEvaluationInput = (event) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (!selectedClass) return;
         setSelectedEvent(event);
-        verificationSheetRef.current?.present();
+        evaluationSheetRef.current?.present();
     };
 
     const handleSaveText = (text) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
         if (selectedEvent) {
-            addVerification({...selectedEvent, text});
+            addEvaluation({...selectedEvent, text});
         }
-        verificationSheetRef.current?.close();
+        evaluationSheetRef.current?.close();
     };
 
     const handleDateChanged = (dateString) => {
@@ -74,7 +74,7 @@ export default function TimeTable() {
 
     const onCancel = () => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        verificationSheetRef.current?.close();
+        evaluationSheetRef.current?.close();
     };
 
     return (
@@ -84,12 +84,12 @@ export default function TimeTable() {
                     <Text style={styles.monthText}>{currentMonth}</Text>
                     <Calendar
                         onPressEvent={handleGradeInput}
-                        onLongPressEvent={handleVerificationInput}
+                        onLongPressEvent={handleEvaluationInput}
                         selectedClass={selectedClass}
                         onDateChanged={handleDateChanged}
                     />
-                    <VerificationInput
-                        bottomSheetRef={verificationSheetRef}
+                    <EvaluationInput
+                        bottomSheetRef={evaluationSheetRef}
                         selectedEvent={selectedEvent}
                         setSelectedEvent={setSelectedEvent}
                         onSave={handleSaveText}

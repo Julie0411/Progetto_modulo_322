@@ -51,11 +51,12 @@ export default function Grades() {
         const average = (sum / grades.length).toFixed(1);
 
         if (average < 3.75) {
-          const totalGrades = grades.length;
-          const neededGrade = (3.75 * (totalGrades + 1)) - grades.reduce((a, b) => a + b, 0);
-          console.log("Valutazione necessaria per arrivare a 3.75: ", neededGrade.toFixed(2));
+            const totalGrades = grades.length;
+            const neededGrade = (3.75 * (totalGrades + 1)) - grades.reduce((a, b) => a + b, 0);
+            console.log("Valutazione necessaria per arrivare a 3.75: ", neededGrade.toFixed(2));
         }
 
+        return average;
     };
 
     const handleLessonSelection = (selectedLesson) => {
@@ -95,7 +96,7 @@ export default function Grades() {
     return (
 
         <View style={styles.container}>
-        <Text style={styles.itemText}>Media globale: {globalAverage}</Text>
+        <Text style={styles.headerText}>Media globale: {globalAverage}</Text>
             {!lessonsWithGrades.filter(lesson => lesson.grades.length > 0).length ? (
                 <Text style={styles.textHolder}>Non c’è nessuna valutazione</Text>
             ) : (
@@ -132,6 +133,16 @@ const createStyles = (darkThemeEnabled) => StyleSheet.create({
     },
     itemText: {
         color: darkThemeEnabled ? 'white' : 'black',
+    },
+    headerText: {
+        fontSize: 16,
+        paddingTop: 20,
+        fontWeight: '500',
+        textAlign: 'center',
+        color: darkThemeEnabled ? '#FFFFFF' : '#000000',
+        backgroundColor: darkThemeEnabled ? '#000000' : '#FFFFFF',
+        textTransform: 'capitalize',
+        letterSpacing: 0.5,
     },
     pressable: {
         flexDirection: 'row',

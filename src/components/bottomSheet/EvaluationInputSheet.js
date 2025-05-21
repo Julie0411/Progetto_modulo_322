@@ -4,7 +4,7 @@ import {BottomSheetTextInput, BottomSheetView} from "@gorhom/bottom-sheet";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../../context/ThemeContext";
 
-const VerificationInputSheet = ({selectedEvent, setSelectedEvent, onSave, onCancel}) => {
+const EvaluationInputSheet = ({selectedEvent, setSelectedEvent, onSave, onCancel}) => {
 
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Memoized styles based on theme
@@ -51,7 +51,7 @@ const VerificationInputSheet = ({selectedEvent, setSelectedEvent, onSave, onCanc
     );
 };
 
-export default React.memo(VerificationInputSheet);
+export default React.memo(EvaluationInputSheet);
 
 const createStyles = (darkThemeEnabled) => StyleSheet.create({
     container: {

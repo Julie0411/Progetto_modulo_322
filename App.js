@@ -6,14 +6,14 @@ import { ThemeProvider, ThemeContext } from './src/context/ThemeContext';
 import { ClassSettingsProvider } from './src/context/ClassContext';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { GradeProvider } from "./src/context/GradesContext";
-import { VerificationsProvider } from "./src/context/VerificationsContext";
+import { EvaluationsProvider } from "./src/context/EvaluationsContext";
 
 export default function App() {
     return (
         <ThemeProvider>
             <ClassSettingsProvider>
                 <GradeProvider>
-                    <VerificationsProvider>
+                    <EvaluationsProvider>
                         <ThemeContext.Consumer>
                             {({ darkThemeEnabled }) => (
                                 <NavigationContainer theme={darkThemeEnabled ? DarkTheme : DefaultTheme}>
@@ -22,7 +22,7 @@ export default function App() {
                                 </NavigationContainer>
                             )}
                         </ThemeContext.Consumer>
-                    </VerificationsProvider>
+                    </EvaluationsProvider>
                 </GradeProvider>
             </ClassSettingsProvider>
         </ThemeProvider>

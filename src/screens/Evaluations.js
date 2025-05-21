@@ -2,21 +2,21 @@ import React, {useCallback, useContext, useMemo, useRef, useState} from "react";
 import {Dimensions, FlatList, Pressable, StyleSheet, Text, View} from "react-native";
 import CustomBackdrop from "../components/bottomSheet/CustomBackdrop";
 import CustomFooter from "../components/bottomSheet/CustomFooter";
-import VerificationReviewSheet from "../components/bottomSheet/VerificationReviewSheet";
+import EvaluationReviewSheet from "../components/bottomSheet/EvaluationReviewSheet";
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {formatDate} from "../utils/formatters/dateFormatter";
 import * as Haptics from "expo-haptics";
 import {ThemeContext} from "../context/ThemeContext";
-import {VerificationsContext} from "../context/VerificationsContext";
+import {EvaluationsContext} from "../context/EvaluationsContext";
 
-export default function Verifications() {
+export default function Evaluations() {
 
     const { darkThemeEnabled } = useContext(ThemeContext);
     // Create memoized styles based on theme
     const styles = useMemo(() => createStyles(darkThemeEnabled), [darkThemeEnabled]);
 
-    const { verifications, deleteVerification } = useContext(VerificationsContext);
+    const { evaluations, deleteEvaluation } = useContext(EvaluationsContext);
     // State for currently selected item
     const [item, setItem] = useState(null);
     // Reference for bottom sheet modal
@@ -35,11 +35,11 @@ export default function Verifications() {
         setItem(selectedItem);
         handlePresentModalPress();
     }, [handlePresentModalPress]);
-    // Handler for long press - deletes the verification
+    // Handler for long press - deletes the evaluation
     const handleLongPress = useCallback((selectedItem) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)
-        deleteVerification(selectedItem.id);
-    }, [deleteVerification]);
+        deleteEvaluation(selectedItem.id);
+    }, [deleteEvaluation]);
     // Memoized render function for FlatList items
     const renderItem = useCallback(({item}) => (
         <View style={styles.container}>
@@ -65,11 +65,11 @@ export default function Verifications() {
                 {/* Main content container */}
                 <View style={styles.background}>
                     {/* List of verifications with performance optimizations */}
-                    {verifications.length === 0 ? (
+                    {evaluations.length === 0 ? (
                         <Text style={styles.textHolder}>Non c’è nessuna verifica</Text>
                     ) : (
                         <FlatList
-                            data={verifications}
+                            data={evaluations}
                             renderItem={renderItem}
                             keyExtractor={keyExtractor}
                             showsVerticalScrollIndicator={false}
@@ -93,7 +93,7 @@ export default function Verifications() {
                     index={0}
                     keyboardBehavior="interactive"
                 >
-                    <VerificationReviewSheet setItem={setItem} item={item}/>
+                    <EvaluationReviewSheet setItem={setItem} item={item}/>
                 </BottomSheetModal>
             </BottomSheetModalProvider>
         </GestureHandlerRootView>
